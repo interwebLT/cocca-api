@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: coccaadmin
+  password: coccaadmin
+
+development:
+  <<: *default
+  database: cocca_development
+
+test: &test
+  <<: *default
+  database: cocca_test
+
+production:
+  <<: *default
+  database: cocca
+  username: <%= ENV['COCCAAPI_DATABASE_USERNAME'] %>
+  password: <%= ENV['COCCAAPI_DATABASE_PASSWORD'] %>

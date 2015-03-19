@@ -1,0 +1,48 @@
+require 'test_helper'
+
+describe ContactQuery do
+  before do
+    create_contact audit_time: audit_time
+  end
+
+  let(:since) { '2015-03-06 14:00'.in_time_zone }
+  let(:up_to) { '2015-03-06 14:30'.in_time_zone }
+
+  describe :run do
+    subject { ContactQuery.run since: since, up_to: up_to, audit_operation: 'I' }
+
+    context :when_record_created_within_period do
+      let(:audit_time) { up_to }
+
+      specify { subject.first['partner'].must_equal 'alpha' }
+      specify { subject.first['handle'].must_equal 'handle' }
+      specify { subject.first['name'].must_equal 'Contact Name' }
+      specify { subject.first['organization'].must_equal 'Contact Organization' }
+      specify { subject.first['street'].must_equal 'Contact Street' }
+      specify { subject.first['city'].must_equal 'Contact City' }
+      specify { subject.first['state'].must_equal 'Contact State' }
+      specify { subject.first['postal_code'].must_equal '1234' }
+      specify { subject.first['country_code'].must_equal 'PH' }
+      specify { subject.first['phone'].must_equal '+63.21234567' }
+      specify { subject.first['email'].must_equal 'test@contact.ph' }
+    end
+
+    context :when_record_created_before_period do
+      let(:audit_time) { since - 1.day }
+
+      specify { subject.must_be_empty }
+    end
+
+    context :when_record_created_after_period do
+      let(:audit_time) { since + 1.day }
+
+      specify { subject.must_be_empty }
+    end
+
+    context :when_record_created_at_the_end_of_last_period do
+      let(:audit_time) { since }
+
+      specify { subject.must_be_empty }
+    end
+  end
+end
