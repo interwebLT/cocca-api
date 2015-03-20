@@ -14,4 +14,11 @@ class DeleteDomainHost
       self.new row
     end
   end
+
+  def as_json options = nil
+    {
+      domain: self.domain,
+      host:   self.host
+    }
+  end
 end

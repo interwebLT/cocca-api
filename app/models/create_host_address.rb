@@ -14,4 +14,12 @@ class CreateHostAddress
       SyncCreateHostAddressJob.perform_later record.as_json
     end
   end
+
+  def as_json options = nil
+    {
+      host:     self.host,
+      address:  self.address,
+      type:     self.type
+    }
+  end
 end
