@@ -23,7 +23,7 @@ describe CreateContact do
     specify { subject.first.state.must_equal 'Contact State' }
     specify { subject.first.postal_code.must_equal '1234' }
     specify { subject.first.country_code.must_equal 'PH' }
-    specify { subject.first.phone.must_equal '+63.21234567' }
+    specify { subject.first.voice.must_equal '+63.21234567' }
     specify { subject.first.email.must_equal 'test@contact.ph' }
   end
 
@@ -56,7 +56,7 @@ describe CreateContact do
       state: 'Contact State',
       postal_code: '1234',
       country_code: 'PH',
-      phone: '+63.21234567',
+      voice: '+63.21234567',
       email: 'test@contact.ph'
     }
   end
