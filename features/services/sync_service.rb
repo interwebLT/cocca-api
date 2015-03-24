@@ -185,6 +185,7 @@ def create_contact_request
     postal_code: '1234',
     country_code: 'PH',
     voice: '+63.21234567',
+    fax: '+63.21234567',
     email: 'test@contact.ph'
   }
 end
@@ -221,6 +222,7 @@ def update_contact_request
     postal_code: '1234',
     country_code: 'PH',
     voice: '+63.21234567',
+    fax: '+63.21234567',
     email: 'test@contact.ph'
   }
 end

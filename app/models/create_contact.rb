@@ -3,7 +3,7 @@ class CreateContact
 
   attr_accessor :partner, :handle, :name, :organization,
                 :street, :street2, :street3, :city, :state, :postal_code, :country_code,
-                :voice, :email
+                :voice, :fax, :email
 
   def self.all since:, up_to:
     ContactQuery.run(since: since, up_to: up_to).collect { |row| self.new row }
@@ -29,6 +29,7 @@ class CreateContact
       postal_code: self.postal_code,
       country_code: self.country_code,
       voice: self.voice,
+      fax: self.fax,
       email: self.email
     }
   end
