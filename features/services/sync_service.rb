@@ -184,7 +184,7 @@ def create_contact_request
     state: 'Contact State',
     postal_code: '1234',
     country_code: 'PH',
-    phone: '+63.21234567',
+    voice: '+63.21234567',
     email: 'test@contact.ph'
   }
 end
@@ -220,7 +220,7 @@ def update_contact_request
     state: 'Contact State',
     postal_code: '1234',
     country_code: 'PH',
-    phone: '+63.21234567',
+    voice: '+63.21234567',
     email: 'test@contact.ph'
   }
 end
