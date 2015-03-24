@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324025313) do
+ActiveRecord::Schema.define(version: 20150324070402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20150324025313) do
     t.string   "intpostalstreet3",  limit: 255
     t.string   "locpostalstreet2",  limit: 255
     t.string   "locpostalstreet3",  limit: 255
+    t.string   "voicex",            limit: 64
+    t.string   "faxx",              limit: 64
   end
 
   create_table "audit_domain", force: :cascade do |t|

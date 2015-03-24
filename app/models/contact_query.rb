@@ -21,7 +21,9 @@ class ContactQuery
                            contact[:locpostalpc].as('postal_code'),
                            contact[:locpostalcc].as('country_code'),
                            contact[:voice].as('voice'),
+                           contact[:voicex].as('voice_ext'),
                            contact[:fax].as('fax'),
+                           contact[:faxx].as('fax_ext'),
                            contact[:email].as('email'))
       .join(contact).on(master[:audit_transaction].eq(contact[:audit_transaction]))
       .where(contact[:audit_operation].eq(audit_operation))
