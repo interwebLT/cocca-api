@@ -46,6 +46,8 @@ describe UpdateContact do
       name: 'Contact Name',
       organization: 'Contact Organization',
       street: 'Contact Street',
+      street2: 'Contact Street 2',
+      street3: 'Contact Street 3',
       city: 'Contact City',
       state: 'Contact State',
       postal_code: '1234',

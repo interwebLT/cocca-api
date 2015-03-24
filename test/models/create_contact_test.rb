@@ -17,6 +17,8 @@ describe CreateContact do
     specify { subject.first.name.must_equal 'Contact Name' }
     specify { subject.first.organization.must_equal 'Contact Organization' }
     specify { subject.first.street.must_equal 'Contact Street' }
+    specify { subject.first.street2.must_equal 'Contact Street 2' }
+    specify { subject.first.street3.must_equal 'Contact Street 3' }
     specify { subject.first.city.must_equal 'Contact City' }
     specify { subject.first.state.must_equal 'Contact State' }
     specify { subject.first.postal_code.must_equal '1234' }
@@ -48,6 +50,8 @@ describe CreateContact do
       name: 'Contact Name',
       organization: 'Contact Organization',
       street: 'Contact Street',
+      street2: 'Contact Street 2',
+      street3: 'Contact Street 3',
       city: 'Contact City',
       state: 'Contact State',
       postal_code: '1234',

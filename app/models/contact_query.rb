@@ -14,6 +14,8 @@ class ContactQuery
                            contact[:locpostalname].as('name'),
                            contact[:locpostalorg].as('organization'),
                            contact[:locpostalstreet1].as('street'),
+                           contact[:locpostalstreet2].as('street2'),
+                           contact[:locpostalstreet3].as('street3'),
                            contact[:locpostalcity].as('city'),
                            contact[:locpostalsp].as('state'),
                            contact[:locpostalpc].as('postal_code'),

@@ -2,7 +2,8 @@ class CreateContact
   include ActiveModel::Model
 
   attr_accessor :partner, :handle, :name, :organization,
-                :street, :city, :state, :postal_code, :country_code, :phone, :email
+                :street, :street2, :street3, :city, :state, :postal_code, :country_code,
+                :phone, :email
 
   def self.all since:, up_to:
     ContactQuery.run(since: since, up_to: up_to).collect { |row| self.new row }
@@ -21,6 +22,8 @@ class CreateContact
       name: self.name,
       organization: self.organization,
       street: self.street,
+      street2: self.street2,
+      street3: self.street3,
       city: self.city,
       state: self.state,
       postal_code: self.postal_code,
