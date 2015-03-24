@@ -10,6 +10,8 @@ FactoryGirl.define do
     locpostalname 'Contact Name'
     locpostalorg 'Contact Organization'
     locpostalstreet1 'Contact Street'
+    locpostalstreet2 'Contact Street 2'
+    locpostalstreet3 'Contact Street 3'
     locpostalcity 'Contact City'
     locpostalsp 'Contact State'
     locpostalpc '1234'
