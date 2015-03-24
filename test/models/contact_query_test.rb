@@ -26,7 +26,9 @@ describe ContactQuery do
       specify { subject.first['postal_code'].must_equal '1234' }
       specify { subject.first['country_code'].must_equal 'PH' }
       specify { subject.first['voice'].must_equal '+63.21234567' }
+      specify { subject.first['voice_ext'].must_equal '1234' }
       specify { subject.first['fax'].must_equal '+63.21234567' }
+      specify { subject.first['fax_ext'].must_equal '1235' }
       specify { subject.first['email'].must_equal 'test@contact.ph' }
     end
 

@@ -17,7 +17,9 @@ FactoryGirl.define do
     locpostalpc '1234'
     locpostalcc 'PH'
     voice '+63.21234567'
+    voicex '1234'
     fax '+63.21234567'
+    faxx '1235'
     email 'test@contact.ph'
   end
 end
