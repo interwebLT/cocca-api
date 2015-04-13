@@ -148,6 +148,7 @@ def register_domain_request
       {
         type: 'domain_create',
         domain: 'domains.ph',
+        authcode: 'ABC123',
         period: 1,
         registrant_handle: 'registrant',
         registered_at: '2015-03-07T09:00:00Z'

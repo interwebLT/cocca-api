@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324070402) do
+ActiveRecord::Schema.define(version: 20150410124222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20150324070402) do
     t.string   "st_cl_renewprohibited",    limit: 1024
     t.string   "st_cl_transferprohibited", limit: 1024
     t.string   "st_cl_updateprohibited",   limit: 1024
+    t.string   "authinfopw",               limit: 64
   end
 
   create_table "audit_domain_contact", force: :cascade do |t|

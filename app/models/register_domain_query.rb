@@ -14,6 +14,7 @@ class RegisterDomainQuery
     query = master.project(master[:audit_user].as('partner'),
                            ledger[:currency].as('currency_code'),
                            domain[:name].as('domain'),
+                           domain[:authinfopw].as('authcode'),
                            domain_event[:term_length].as('period'),
                            domain[:registrant].as('registrant_handle'),
                            domain[:createdate].as('registered_at'))

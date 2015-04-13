@@ -15,6 +15,7 @@ describe RegisterDomain do
     specify { subject.first.partner.must_equal 'alpha' }
     specify { subject.first.currency_code.must_equal 'USD' }
     specify { subject.first.domain.must_equal 'domains.ph' }
+    specify { subject.first.authcode.must_equal 'ABC123' }
     specify { subject.first.period.must_equal '1' }
     specify { subject.first.registrant_handle.must_equal 'registrant' }
     specify { subject.first.registered_at.must_equal '2015-03-07 17:00'.in_time_zone }
@@ -44,6 +45,7 @@ describe RegisterDomain do
         {
           type: 'domain_create',
           domain: 'domains.ph',
+          authcode: 'ABC123',
           period: 1,
           registrant_handle: 'registrant',
           registered_at: '2015-03-07T09:00:00Z'

@@ -10,6 +10,7 @@ FactoryGirl.define do
     createdate '2015-02-17 3:00 PM'.to_time
     zone 'ph'
     registrant 'registrant'
+    authinfopw 'ABC123'
   end
 
   factory :audit_domain_event, class: Audit::DomainEvent do
