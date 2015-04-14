@@ -5,6 +5,7 @@ Feature: Sync Changes
 
   Background:
     Given registry accepts sync requests
+    And   some partners are excluded from sync
 
   Scenario: Sync domains registered
     Given I registered a domain

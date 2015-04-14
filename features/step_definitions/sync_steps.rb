@@ -2,7 +2,13 @@ Given /^registry accepts sync requests$/ do
   registry_accepts_sync_requests
 end
 
+Given /^some partners are excluded from sync$/ do
+  exclude_partners
+end
+
 Given /^I registered a domain$/ do
+  create_domain partner: EXCLUDED_PARTNER
+
   create_domain
 end
 
