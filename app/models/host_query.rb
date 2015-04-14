@@ -6,16 +6,18 @@ class HostQuery
   private
 
   def self.query since:, up_to:
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     host    = Arel::Table.new(:audit_host)
     master  = Arel::Table.new(:audit_master)
 
     query = host.project(master[:audit_user].as('partner'),
                          host[:name].as('name'))
       .join(master).on(host[:audit_transaction].eq(master[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(host[:audit_operation].eq('I'))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
 
     Audit::Host.connection.select_all query.to_sql
   end

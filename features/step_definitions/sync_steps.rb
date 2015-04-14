@@ -19,6 +19,8 @@ Given /^I created a contact$/ do
 end
 
 Given /^I created a host entry$/ do
+  create_host partner: EXCLUDED_PARTNER
+
   create_host
 end
 
