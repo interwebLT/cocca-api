@@ -6,6 +6,8 @@ class DomainHostQuery
   private
 
   def self.query since:, up_to:, audit_operation:
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     master      = Arel::Table.new(:audit_master)
     domain_host = Arel::Table.new(:audit_domain_host)
 
@@ -13,10 +15,10 @@ class DomainHostQuery
                                 domain_host[:domain_name].as('domain'),
                                 domain_host[:host_name].as('host'))
       .join(master).on(domain_host[:audit_transaction].eq(master[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(domain_host[:audit_operation].eq(audit_operation))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
 
     Audit::DomainHost.connection.select_all query.to_sql
   end
