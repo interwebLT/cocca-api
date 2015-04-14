@@ -49,6 +49,8 @@ Given /^I removed a domain host entry from an existing domain$/ do
 end
 
 Given /^I updated an existing contact$/ do
+  update_contact partner: EXCLUDED_PARTNER
+
   update_contact
 end
 
