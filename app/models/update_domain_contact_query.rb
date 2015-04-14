@@ -6,6 +6,8 @@ class UpdateDomainContactQuery
   private
 
   def self.query since:, up_to:
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     master          = Arel::Table.new(:audit_master)
     domain_contact  = Arel::Table.new(:audit_domain_contact)
 
@@ -14,9 +16,9 @@ class UpdateDomainContactQuery
                            domain_contact[:type].as('type'),
                            domain_contact[:audit_operation].as('audit_operation'))
       .join(domain_contact).on(master[:audit_transaction].eq(domain_contact[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
       .order(domain_contact[:audit_operation])
 
     Audit::Domain.connection.select_all query.to_sql

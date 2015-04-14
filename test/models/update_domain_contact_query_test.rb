@@ -3,6 +3,9 @@ require 'test_helper'
 describe UpdateDomainContactQuery do
   before do
     update_domain_contact audit_time: audit_time
+
+    update_domain_contact audit_time: audit_time, partner: EXCLUDED_PARTNER
+    create :excluded_partner
   end
 
   let(:since) { '2015-03-06 14:00'.in_time_zone }

@@ -31,6 +31,8 @@ class RenewDomain
   private
 
   def self.query since:, up_to:
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     master       = Arel::Table.new(:audit_master)
     ledger       = Arel::Table.new(:audit_ledger)
     domain       = Arel::Table.new(:audit_domain)
@@ -44,12 +46,12 @@ class RenewDomain
       .join(ledger).on(master[:audit_transaction].eq(ledger[:audit_transaction]))
       .join(domain).on(master[:audit_transaction].eq(domain[:audit_transaction]))
       .join(domain_event).on(master[:audit_transaction].eq(domain_event[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(domain_event[:event].eq('RENEWAL'))
       .where(domain[:audit_operation].eq('U'))
       .where(domain_event[:audit_operation].eq('I'))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
 
     Audit::Master.connection.select_all query.to_sql
   end

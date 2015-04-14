@@ -68,12 +68,12 @@ def update_domain audit_time: Time.now, partner: PARTNER
           event: 'MODIFICATION'
 end
 
-def update_domain_contact audit_time: Time.now
-  create :audit_domain_contact, audit_transaction: audit_master(audit_time)
+def update_domain_contact audit_time: Time.now, partner: PARTNER
+  create :audit_domain_contact, audit_transaction: audit_master(audit_time, partner: partner)
 end
 
-def renew_domain audit_time: '2015-03-13 07:49 AM'.in_time_zone
-  audit_transaction = audit_master audit_time
+def renew_domain audit_time: '2015-03-13 07:49 AM', partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
 
   create  :audit_ledger,
           audit_transaction: audit_transaction,

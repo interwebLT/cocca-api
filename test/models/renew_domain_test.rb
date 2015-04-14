@@ -3,6 +3,9 @@ require 'test_helper'
 describe RenewDomain do
   before do
     renew_domain audit_time: up_to
+
+    renew_domain audit_time: up_to, partner: EXCLUDED_PARTNER
+    create :excluded_partner
   end
 
   let(:since) { '2015-03-06 13:30'.in_time_zone }
@@ -49,5 +52,4 @@ describe RenewDomain do
       ]
     }
   end
-
 end
