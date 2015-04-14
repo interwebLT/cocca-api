@@ -55,6 +55,8 @@ Given /^I updated an existing contact$/ do
 end
 
 Given /^I updated an existing domain$/ do
+  update_domain partner: EXCLUDED_PARTNER
+
   update_domain
 end
 

@@ -56,8 +56,8 @@ def create_domain audit_time: Time.now, partner: PARTNER
           expiry_date: '2017-03-07 17:00'.in_time_zone
 end
 
-def update_domain audit_time: Time.now
-  audit_transaction = audit_master audit_time
+def update_domain audit_time: Time.now, partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
 
   create :audit_domain, audit_transaction: audit_transaction, audit_operation: 'U'
 

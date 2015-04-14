@@ -22,6 +22,8 @@ class UpdateDomainQuery
   private
 
   def self.query since:, up_to:
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     master = Arel::Table.new(:audit_master)
     domain = Arel::Table.new(:audit_domain)
 
@@ -33,10 +35,10 @@ class UpdateDomainQuery
                            domain[:st_cl_transferprohibited].as('client_transfer_status'),
                            domain[:st_cl_updateprohibited].as('client_update_status'))
       .join(master).on(domain[:audit_transaction].eq(master[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(domain[:audit_operation].eq('U'))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
 
     Audit::Domain.connection.select_all query.to_sql
   end
