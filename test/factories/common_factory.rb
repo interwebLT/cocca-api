@@ -25,8 +25,10 @@ FactoryGirl.define do
   end
 end
 
-def audit_master audit_time
-  master = create :audit_master, audit_time: audit_time
+def audit_master audit_time, partner: 'alpha'
+  master = create :audit_master,  audit_time: audit_time,
+                                  audit_user: partner,
+                                  audit_login: partner
 
   master.audit_transaction
 end
