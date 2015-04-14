@@ -33,10 +33,11 @@ FactoryGirl.define do
   end
 end
 
-def create_contact audit_time: Time.now
-  create :audit_contact, audit_transaction: audit_master(audit_time)
+def create_contact audit_time: Time.now, partner: PARTNER
+  create :audit_contact, audit_transaction: audit_master(audit_time, partner: partner)
 end
 
-def update_contact audit_time: Time.now
-  create :audit_contact, audit_transaction: audit_master(audit_time), audit_operation: 'U'
+def update_contact audit_time: Time.now, partner: PARTNER
+  create :audit_contact,  audit_transaction: audit_master(audit_time, partner: partner),
+                          audit_operation: 'U'
 end

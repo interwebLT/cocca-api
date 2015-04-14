@@ -37,8 +37,8 @@ FactoryGirl.define do
   end
 end
 
-def create_domain audit_time: Time.now
-  audit_transaction = audit_master audit_time
+def create_domain audit_time: Time.now, partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
   audit_operation = 'I'
 
   create  :audit_ledger,
@@ -56,8 +56,8 @@ def create_domain audit_time: Time.now
           expiry_date: '2017-03-07 17:00'.in_time_zone
 end
 
-def update_domain audit_time: Time.now
-  audit_transaction = audit_master audit_time
+def update_domain audit_time: Time.now, partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
 
   create :audit_domain, audit_transaction: audit_transaction, audit_operation: 'U'
 
@@ -68,12 +68,12 @@ def update_domain audit_time: Time.now
           event: 'MODIFICATION'
 end
 
-def update_domain_contact audit_time: Time.now
-  create :audit_domain_contact, audit_transaction: audit_master(audit_time)
+def update_domain_contact audit_time: Time.now, partner: PARTNER
+  create :audit_domain_contact, audit_transaction: audit_master(audit_time, partner: partner)
 end
 
-def renew_domain audit_time: '2015-03-13 07:49 AM'.in_time_zone
-  audit_transaction = audit_master audit_time
+def renew_domain audit_time: '2015-03-13 07:49 AM', partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
 
   create  :audit_ledger,
           audit_transaction: audit_transaction,

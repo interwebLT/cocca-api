@@ -3,6 +3,9 @@ require 'test_helper'
 describe ContactQuery do
   before do
     create_contact audit_time: audit_time
+
+    create_contact audit_time: audit_time, partner: EXCLUDED_PARTNER
+    create :excluded_partner
   end
 
   let(:since) { '2015-03-06 14:00'.in_time_zone }

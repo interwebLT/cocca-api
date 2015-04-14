@@ -7,6 +7,9 @@ require 'webmock/minitest'
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 
+  ::PARTNER = 'alpha'
+  ::EXCLUDED_PARTNER = 'excluded'
+
   class << self
     alias :context :describe
   end

@@ -1,10 +1,10 @@
 require 'test_helper'
 
-describe UpdateDomainQuery do
+describe RenewDomainQuery do
   before do
-    update_domain audit_time: audit_time
+    renew_domain audit_time: audit_time
 
-    update_domain audit_time: audit_time, partner: EXCLUDED_PARTNER
+    renew_domain audit_time: audit_time, partner: EXCLUDED_PARTNER
     create :excluded_partner
   end
 
@@ -12,19 +12,17 @@ describe UpdateDomainQuery do
   let(:up_to) { '2015-03-06 14:30'.in_time_zone }
 
   describe :run do
-    subject { UpdateDomainQuery.run since: since, up_to: up_to  }
+    subject { RenewDomainQuery.run since: since, up_to: up_to  }
 
     context :when_record_created_within_period do
       let(:audit_time) { up_to }
 
       specify { subject.count.must_equal 1 }
+      specify { subject.first['partner'].must_equal 'alpha' }
+      specify { subject.first['currency_code'].must_equal 'USD' }
       specify { subject.first['domain'].must_equal 'domains.ph' }
-      specify { subject.first['registrant'].must_equal 'registrant' }
-      specify { subject.first['client_hold'].must_equal false }
-      specify { subject.first['client_delete_prohibited'].must_equal false }
-      specify { subject.first['client_renew_prohibited'].must_equal false }
-      specify { subject.first['client_transfer_prohibited'].must_equal false }
-      specify { subject.first['client_update_prohibited'].must_equal false }
+      specify { subject.first['period'].must_equal '3' }
+      specify { subject.first['renewed_at'].wont_be_nil }
     end
 
     context :when_record_created_before_period do

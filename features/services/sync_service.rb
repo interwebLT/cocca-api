@@ -7,6 +7,9 @@ DOMAIN_PATH         = /#{Rails.configuration.x.registry_url}\/domains\/.*/
 DOMAIN_HOST_PATH    = /#{Rails.configuration.x.registry_url}\/domains\/.*\/hosts/
 CONTACT_PATH        = /#{Rails.configuration.x.registry_url}\/contacts\/.*/
 
+EXCLUDED_PARTNER = 'excluded'
+PARTNER = 'alpha'
+
 def registry_accepts_sync_requests
   registry_response with: 201, on: AUTHORIZATIONS_PATH, body: { token: 'ABCDEF' }
 
@@ -23,6 +26,11 @@ def registry_accepts_sync_requests
   registry_response with: 200, on: DOMAIN_PATH, request: :delete
 
   registry_response with: 200, on: CONTACT_PATH, request: :patch
+end
+
+def exclude_partners
+  create :excluded_partner
+  create :excluded_partner, name: 'other_excluded'
 end
 
 def registry_response on:, with:, request: :post, body: nil
@@ -137,7 +145,10 @@ def assert_request method, path, request = nil
 
   params[:body] = request if request
 
-  assert_requested method, Rails.configuration.x.registry_url + path, params
+  url = Rails.configuration.x.registry_url + path
+
+  assert_requested method, url, times: 1
+  assert_requested method, url, params
 end
 
 def register_domain_request

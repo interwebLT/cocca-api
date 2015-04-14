@@ -2,47 +2,73 @@ Given /^registry accepts sync requests$/ do
   registry_accepts_sync_requests
 end
 
+Given /^some partners are excluded from sync$/ do
+  exclude_partners
+end
+
 Given /^I registered a domain$/ do
+  create_domain partner: EXCLUDED_PARTNER
+
   create_domain
 end
 
 Given /^I created a contact$/ do
+  create_contact partner: EXCLUDED_PARTNER
+
   create_contact
 end
 
 Given /^I created a host entry$/ do
+  create_host partner: EXCLUDED_PARTNER
+
   create_host
 end
 
 Given /^I added a host address to an existing host$/ do
+  create_host_address partner: EXCLUDED_PARTNER
+
   create_host_address
 end
 
 Given /^I removed a host address from an existing host$/ do
+  remove_host_address partner: EXCLUDED_PARTNER
+
   remove_host_address
 end
 
 Given /^I added a domain host entry to an existing domain$/ do
+  create_domain_host partner: EXCLUDED_PARTNER
+
   create_domain_host
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
+  remove_domain_host partner: EXCLUDED_PARTNER
+
   remove_domain_host
 end
 
 Given /^I updated an existing contact$/ do
+  update_contact partner: EXCLUDED_PARTNER
+
   update_contact
 end
 
 Given /^I updated an existing domain$/ do
+  update_domain partner: EXCLUDED_PARTNER
+
   update_domain
 end
 
 Given /^I updated a contact of an existing domain$/ do
+  update_domain_contact partner: EXCLUDED_PARTNER
+
   update_domain_contact
 end
 
 Given /^I renewed a domain$/ do
+  renew_domain partner: EXCLUDED_PARTNER
+
   renew_domain
 end
 

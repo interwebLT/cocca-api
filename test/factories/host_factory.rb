@@ -10,6 +10,6 @@ FactoryGirl.define do
   end
 end
 
-def create_host audit_time: Time.now
-  create :audit_host, audit_transaction: audit_master(audit_time)
+def create_host audit_time: Time.now, partner: PARTNER
+  create :audit_host, audit_transaction: audit_master(audit_time, partner: partner)
 end
