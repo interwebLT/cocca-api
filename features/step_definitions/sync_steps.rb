@@ -13,6 +13,8 @@ Given /^I registered a domain$/ do
 end
 
 Given /^I created a contact$/ do
+  create_contact partner: EXCLUDED_PARTNER
+
   create_contact
 end
 

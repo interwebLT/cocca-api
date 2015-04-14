@@ -6,6 +6,8 @@ class ContactQuery
   private
 
   def self.query(since:, up_to:, audit_operation:)
+    excluded_partners = Arel::Table.new(:excluded_partners)
+
     master = Arel::Table.new(:audit_master)
     contact = Arel::Table.new(:audit_contact)
 
@@ -35,10 +37,10 @@ class ContactQuery
                            contact[:faxx].as('fax_ext'),
                            contact[:email].as('email'))
       .join(contact).on(master[:audit_transaction].eq(contact[:audit_transaction]))
+      .where(master[:audit_user].not_in(excluded_partners.project(excluded_partners[:name])))
       .where(contact[:audit_operation].eq(audit_operation))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
-      .where(master[:audit_user].not_eq('dummy'))
 
     Audit::Master.connection.select_all query.to_sql
   end
