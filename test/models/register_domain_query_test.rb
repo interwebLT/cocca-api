@@ -3,8 +3,8 @@ require 'test_helper'
 describe RegisterDomainQuery do
   before do
     create_domain audit_time: audit_time
-    create_domain audit_time: audit_time, partner: EXCLUDED_PARTNER
 
+    create_domain audit_time: audit_time, partner: EXCLUDED_PARTNER
     create :excluded_partner
   end
 
