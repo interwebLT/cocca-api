@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410124222) do
+ActiveRecord::Schema.define(version: 20150414064745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,12 @@ ActiveRecord::Schema.define(version: 20150410124222) do
     t.string   "audit_login",       limit: 16,  null: false
     t.datetime "audit_time",                    null: false
     t.string   "audit_ip",          limit: 255, null: false
+  end
+
+  create_table "excluded_partners", force: :cascade do |t|
+    t.string   "name",       limit: 64, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "sync_logs", force: :cascade do |t|
