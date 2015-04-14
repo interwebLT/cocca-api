@@ -37,8 +37,8 @@ FactoryGirl.define do
   end
 end
 
-def create_domain audit_time: Time.now
-  audit_transaction = audit_master audit_time
+def create_domain audit_time: Time.now, partner: PARTNER
+  audit_transaction = audit_master audit_time, partner: partner
   audit_operation = 'I'
 
   create  :audit_ledger,
