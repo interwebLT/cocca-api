@@ -43,6 +43,8 @@ Given /^I added a domain host entry to an existing domain$/ do
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
+  remove_domain_host partner: EXCLUDED_PARTNER
+
   remove_domain_host
 end
 
