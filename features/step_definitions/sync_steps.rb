@@ -25,6 +25,8 @@ Given /^I created a host entry$/ do
 end
 
 Given /^I added a host address to an existing host$/ do
+  create_host_address partner: EXCLUDED_PARTNER
+
   create_host_address
 end
 
