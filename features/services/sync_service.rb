@@ -264,6 +264,7 @@ end
 def update_domain_request
   {
     registrant_handle: 'registrant',
+    authcode: 'ABC123',
     client_hold: false,
     client_delete_prohibited: false,
     client_renew_prohibited: false,
