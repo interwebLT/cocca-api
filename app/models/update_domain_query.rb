@@ -29,6 +29,7 @@ class UpdateDomainQuery
 
     query = domain.project(domain[:name].as('domain'),
                            domain[:registrant].as('registrant'),
+                           domain[:authinfopw].as('authcode'),
                            domain[:st_cl_deleteprohibited].as('client_delete_status'),
                            domain[:st_cl_hold].as('client_hold_status'),
                            domain[:st_cl_renewprohibited].as('client_renew_status'),

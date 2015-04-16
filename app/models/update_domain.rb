@@ -1,7 +1,7 @@
 class UpdateDomain
   include ActiveModel::Model
 
-  attr_accessor :domain, :registrant,
+  attr_accessor :domain, :registrant, :authcode,
                 :client_hold, :client_delete_prohibited, :client_renew_prohibited,
                 :client_transfer_prohibited, :client_update_prohibited
 
@@ -19,6 +19,7 @@ class UpdateDomain
     {
       domain: self.domain,
       registrant_handle: self.registrant,
+      authcode: self.authcode,
       client_hold: self.client_hold,
       client_delete_prohibited: self.client_delete_prohibited,
       client_renew_prohibited: self.client_renew_prohibited,

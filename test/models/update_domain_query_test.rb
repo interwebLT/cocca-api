@@ -20,6 +20,7 @@ describe UpdateDomainQuery do
       specify { subject.count.must_equal 1 }
       specify { subject.first['domain'].must_equal 'domains.ph' }
       specify { subject.first['registrant'].must_equal 'registrant' }
+      specify { subject.first['authcode'].must_equal 'ABC123' }
       specify { subject.first['client_hold'].must_equal false }
       specify { subject.first['client_delete_prohibited'].must_equal false }
       specify { subject.first['client_renew_prohibited'].must_equal false }
