@@ -9,7 +9,7 @@ class Audit::Domain < ActiveRecord::Base
     result = {}
 
     records.each do |record|
-      key = record.contact_id
+      key = { handle: record.contact_id, type: record.type }
 
       if result.has_key? key
         result.delete key

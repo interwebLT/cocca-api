@@ -36,5 +36,16 @@ describe Audit::Domain do
 
       specify { subject.domain_contacts.count.must_equal 1 }
     end
+
+    context :when_different_types do
+      before do
+        create_domain_contact audit_transaction: subject.audit_transaction
+
+        remove_domain_contact audit_transaction: subject.audit_transaction,
+                              type: Audit::DomainContact::BILLING_TYPE
+      end
+
+      specify { subject.domain_contacts.count.must_equal 2 }
+    end
   end
 end
