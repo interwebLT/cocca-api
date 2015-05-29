@@ -7,7 +7,7 @@ class Audit::Master < ActiveRecord::Base
   def self.latest_time current_time: Time.now
     latest_record = order(audit_time: :desc).first
 
-    latest_record ? latest_record.audit_time : current_time
+    (latest_record ? latest_record.audit_time : current_time) + 1.second
   end
 
   def self.transactions since:, up_to:

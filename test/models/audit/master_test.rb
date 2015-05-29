@@ -42,4 +42,15 @@ describe Audit::Master do
 
     specify { subject.domains.count.must_equal 1 }
   end
+
+  describe :latest_time do
+    subject { Audit::Master.latest_time }
+
+    before do
+      create :audit_master, audit_time: '2015-05-29 3:00 PM'.in_time_zone
+      create :audit_master, audit_time: '2015-05-29 3:30 PM'.in_time_zone
+    end
+
+    specify { subject.must_equal '2015-05-29 3:30:01 PM'.in_time_zone }
+  end
 end
