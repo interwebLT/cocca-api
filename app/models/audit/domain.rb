@@ -4,6 +4,20 @@ class Audit::Domain < ActiveRecord::Base
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
   def domain_contacts
-    Audit::DomainContact.where(audit_transaction: self.audit_transaction)
+    records = Audit::DomainContact.where(audit_transaction: self.audit_transaction)
+
+    result = {}
+
+    records.each do |record|
+      key = record.contact_id
+
+      if result.has_key? key
+        result.delete key
+      else
+        result[key] = record
+      end
+    end
+
+    result.values
   end
 end

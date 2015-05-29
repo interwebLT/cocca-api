@@ -11,3 +11,7 @@ end
 def create_domain_contact audit_transaction:
   create :domain_contact, audit_transaction: audit_transaction
 end
+
+def remove_domain_contact audit_transaction:
+  create :domain_contact, audit_transaction: audit_transaction, audit_operation: 'D'
+end

@@ -10,10 +10,21 @@ describe Audit::Domain do
   describe :domain_contacts do
     subject { create_domain }
 
-    before do
-      create_domain_contact audit_transaction: subject.audit_transaction
+    context :when_contact_exists do
+      before do
+        create_domain_contact audit_transaction: subject.audit_transaction
+      end
+
+      specify { subject.domain_contacts.count.must_equal 1 }
     end
 
-    specify { subject.domain_contacts.count.must_equal 1 }
+    context :when_contact_created_then_removed do
+      before do
+        create_domain_contact audit_transaction: subject.audit_transaction
+        remove_domain_contact audit_transaction: subject.audit_transaction
+      end
+
+      specify { subject.domain_contacts.empty?.must_equal true }
+    end
   end
 end
