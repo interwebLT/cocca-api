@@ -32,4 +32,14 @@ describe Audit::Master do
       specify { subject.must_be_empty }
     end
   end
+
+  describe :associations do
+    subject { create :audit_master }
+
+    before do
+      create_domain audit_transaction: subject.audit_transaction
+    end
+
+    specify { subject.domains.count.must_equal 1 }
+  end
 end
