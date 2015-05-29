@@ -7,4 +7,8 @@ class Audit::Master < ActiveRecord::Base
 
     latest_record ? latest_record.audit_time : current_time
   end
+
+  def self.transactions since:, up_to:
+    self.where(audit_time: since...up_to).where.not(audit_user: ExcludedPartner.all.map(&:name))
+  end
 end
