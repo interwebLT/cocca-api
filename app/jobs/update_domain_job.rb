@@ -18,6 +18,10 @@ class UpdateDomainJob < ActiveJob::Base
       client_update_prohibited:   record[:client_update_prohibited]
     }
 
+    [:admin_handle, :billing_handle, :tech_handle].each do |handle|
+      json_request[handle] = record[handle] if record[handle]
+    end
+
     execute :patch, path: path, body: json_request
   end
 end

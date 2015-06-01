@@ -65,7 +65,8 @@ end
 Given /^I updated a contact of an existing domain$/ do
   update_domain_contact partner: EXCLUDED_PARTNER
 
-  update_domain_contact
+  domain = update_domain
+  create :admin_domain_contact, audit_transaction: domain.audit_transaction
 end
 
 Given /^I renewed a domain$/ do

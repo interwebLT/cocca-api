@@ -31,8 +31,6 @@ module Sync
       end
     end
 
-    UpdateDomainContact.sync  since: since, up_to: up_to
-
     RenewDomain.sync          since: since, up_to: up_to
   end
 end

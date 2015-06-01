@@ -7,4 +7,16 @@ class Audit::DomainContact < ActiveRecord::Base
 
   attr_accessor :_type_disabled
   self.inheritance_column = :_type_disabled
+
+  def admin_contact?
+    self.type == ADMIN_TYPE
+  end
+
+  def billing_contact?
+    self.type == BILLING_TYPE
+  end
+
+  def tech_contact?
+    self.type == TECH_TYPE
+  end
 end

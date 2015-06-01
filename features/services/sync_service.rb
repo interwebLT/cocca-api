@@ -275,6 +275,13 @@ end
 
 def update_domain_contact_request
   {
-    admin_handle: 'domain_admin'
+    registrant_handle: 'registrant',
+    authcode: 'ABC123',
+    client_hold: false,
+    client_delete_prohibited: false,
+    client_renew_prohibited: false,
+    client_transfer_prohibited: false,
+    client_update_prohibited: false,
+    admin_handle: 'handle'
   }
 end

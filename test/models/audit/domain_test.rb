@@ -71,6 +71,10 @@ describe Audit::Domain do
 
       create :remove_domain_host, audit_transaction:  subject.audit_transaction,
                                   host_name:          'ns6.domains.ph'
+
+      create :admin_domain_contact,   audit_transaction: subject.audit_transaction
+      create :billing_domain_contact, audit_transaction: subject.audit_transaction
+      create :tech_domain_contact,    audit_transaction: subject.audit_transaction
     end
 
     let(:expected_json) {
@@ -86,6 +90,9 @@ describe Audit::Domain do
         client_renew_prohibited:    false,
         client_transfer_prohibited: false,
         client_update_prohibited:   false,
+        admin_handle:               'handle',
+        billing_handle:             'handle',
+        tech_handle:                'handle',
         domain_hosts: [
           {
             audit_operation:  AuditOperation::DELETE_OPERATION,
