@@ -27,12 +27,17 @@ class Audit::Domain < ActiveRecord::Base
 
   def as_json options = nil
     {
-      partner:            self.master.audit_user,
-      domain:             self.name,
-      authcode:           self.authinfopw,
-      period:             (self.domain_event.term_length if self.domain_event),
-      registrant_handle:  self.registrant,
-      registered_at:      self.createdate.utc.iso8601
+      partner:                    self.master.audit_user,
+      domain:                     self.name,
+      authcode:                   self.authinfopw,
+      period:                     (self.domain_event.term_length if self.domain_event),
+      registrant_handle:          self.registrant,
+      registered_at:              self.createdate.utc.iso8601,
+      client_hold:                !self.st_cl_hold.blank?,
+      client_delete_prohibited:   !self.st_cl_deleteprohibited.blank?,
+      client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,
+      client_transfer_prohibited: !self.st_cl_transferprohibited.blank?,
+      client_update_prohibited:   !self.st_cl_updateprohibited.blank?
     }
   end
 end

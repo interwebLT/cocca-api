@@ -55,12 +55,17 @@ describe Audit::Domain do
 
     let(:expected_json) {
       {
-        partner:            'alpha',
-        domain:             'domains.ph',
-        authcode:           'ABC123',
-        period:             1,
-        registrant_handle:  'registrant',
-        registered_at:      '2015-03-07T17:00:00Z'
+        partner:                    'alpha',
+        domain:                     'domains.ph',
+        authcode:                   'ABC123',
+        period:                     1,
+        registrant_handle:          'registrant',
+        registered_at:              '2015-03-07T17:00:00Z',
+        client_hold:                false,
+        client_delete_prohibited:   false,
+        client_renew_prohibited:    false,
+        client_transfer_prohibited: false,
+        client_update_prohibited:   false,
       }
     }
 

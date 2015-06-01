@@ -5,10 +5,12 @@ module Sync
 
     SyncLog.create since: since, until: up_to
 
+    records = Audit::Master.transactions since: since, up_to: up_to
+
     CreateContact.sync        since: since, up_to: up_to
     UpdateContact.sync        since: since, up_to: up_to
 
-    Audit::Master.transactions(since: since, up_to: up_to).each do |master|
+    records.each do |master|
       master.domains.each do |domain|
         RegisterDomainJob.perform_later(domain.as_json) if domain.audit_operation == 'I'
       end
@@ -18,7 +20,12 @@ module Sync
     DeleteHostAddress.sync    since: since, up_to: up_to
     CreateHostAddress.sync    since: since, up_to: up_to
 
-    UpdateDomain.sync         since: since, up_to: up_to
+    records.each do |master|
+      master.domains.each do |domain|
+        UpdateDomainJob.perform_later(domain.as_json) if domain.audit_operation == 'U'
+      end
+    end
+
     UpdateDomainContact.sync  since: since, up_to: up_to
 
     DeleteDomainHost.sync     since: since, up_to: up_to
