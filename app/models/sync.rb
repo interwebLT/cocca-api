@@ -12,7 +12,7 @@ module Sync
 
     records.each do |master|
       master.domains.each do |domain|
-        RegisterDomainJob.perform_later(domain.as_json) if domain.audit_operation == 'I'
+        RegisterDomainJob.perform_later(domain.as_json) if domain.register_domain?
       end
     end
 
@@ -22,7 +22,7 @@ module Sync
 
     records.each do |master|
       master.domains.each do |domain|
-        UpdateDomainJob.perform_later(domain.as_json) if domain.audit_operation == 'U'
+        UpdateDomainJob.perform_later(domain.as_json) if domain.update_domain?
       end
     end
 
