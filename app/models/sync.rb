@@ -23,6 +23,11 @@ module Sync
     records.each do |master|
       master.domains.each do |domain|
         UpdateDomainJob.perform_later(domain.as_json) if domain.update_domain?
+
+        domain.domain_hosts.each do |domain_host|
+          CreateDomainHostJob.perform_later(domain_host.as_json) if domain_host.insert_operation?
+          DeleteDomainHostJob.perform_later(domain_host.as_json) if domain_host.delete_operation?
+        end
       end
     end
 

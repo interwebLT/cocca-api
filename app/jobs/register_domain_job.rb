@@ -22,18 +22,5 @@ class RegisterDomainJob < ActiveJob::Base
     }
 
     execute :post, path: "#{URL}/orders", body: json_request
-
-    record[:domain_hosts].each do |domain_host|
-      case domain_host[:audit_operation]
-      when AuditOperation::INSERT_OPERATION
-        json_request = {
-          name: domain_host[:host]
-        }
-
-        execute :post, path: "#{URL}/domains/#{record[:domain]}/hosts", body: json_request
-      when AuditOperation::DELETE_OPERATION
-        execute :delete, path: "#{URL}/domains/#{record[:domain]}/hosts/#{domain_host[:host]}"
-      end
-    end
   end
 end
