@@ -5,6 +5,7 @@ describe Audit::Domain do
     subject { create_domain }
 
     specify { subject.master.wont_be_nil }
+    specify { subject.domain_event.wont_be_nil }
   end
 
   describe :domain_contacts do

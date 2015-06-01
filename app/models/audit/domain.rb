@@ -21,6 +21,10 @@ class Audit::Domain < ActiveRecord::Base
     result.values
   end
 
+  def domain_event
+    Audit::DomainEvent.find_by audit_transaction: self.audit_transaction, domain_name: self.name
+  end
+
   def as_json options = nil
     {
       partner:            self.master.audit_user,
