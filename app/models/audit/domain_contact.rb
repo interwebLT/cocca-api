@@ -1,4 +1,6 @@
 class Audit::DomainContact < ActiveRecord::Base
+  include AuditOperation
+
   self.table_name = :audit_domain_contact
 
   ADMIN_TYPE    = 'admin'
