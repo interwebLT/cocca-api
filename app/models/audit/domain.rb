@@ -24,8 +24,9 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def domain_hosts
-    records = Audit::DomainHost.where audit_transaction:  self.audit_transaction,
-                                      domain_name:        self.name
+    params = { audit_transaction: self.audit_transaction, domain_name: self.name }
+
+    records = Audit::DomainHost.where(params).order(:audit_operation)
 
     result = {}
 

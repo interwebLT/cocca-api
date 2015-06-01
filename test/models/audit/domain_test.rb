@@ -76,12 +76,12 @@ describe Audit::Domain do
         client_update_prohibited:   false,
         domain_hosts: [
           {
-            audit_operation:  AuditOperation::INSERT_OPERATION,
-            host:             'ns5.domains.ph'
-          },
-          {
             audit_operation:  AuditOperation::DELETE_OPERATION,
             host:             'ns6.domains.ph'
+          },
+          {
+            audit_operation:  AuditOperation::INSERT_OPERATION,
+            host:             'ns5.domains.ph'
           }
         ]
       }
