@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :audit_domain_host, class: Audit::DomainHost do
+  factory :audit_domain_host, class: Audit::DomainHost, aliases: [:create_domain_host] do
     audit_transaction
     audit_operation 'I'
     domain_name     'domains.ph'

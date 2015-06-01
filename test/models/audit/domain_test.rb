@@ -89,4 +89,47 @@ describe Audit::Domain do
     specify { register_domain.renew_domain?.must_equal false }
     specify { update_domain.renew_domain?.must_equal false }
   end
+
+  describe :domain_hosts do
+    subject { create_domain }
+
+    context :when_host_exists do
+      before do
+        create :create_domain_host, audit_transaction: subject.audit_transaction
+      end
+
+      specify { subject.domain_hosts.count.must_equal 1 }
+    end
+
+    context :when_host_created_then_removed do
+      before do
+        create :create_domain_host, audit_transaction: subject.audit_transaction
+        create :remove_domain_host, audit_transaction: subject.audit_transaction
+      end
+
+      specify { subject.domain_hosts.empty?.must_equal true }
+    end
+
+    context :when_contact_created_then_removed_then_created_again do
+      before do
+        create :create_domain_host, audit_transaction: subject.audit_transaction
+        create :remove_domain_host, audit_transaction: subject.audit_transaction
+        create :create_domain_host, audit_transaction: subject.audit_transaction
+      end
+
+      specify { subject.domain_hosts.count.must_equal 1 }
+    end
+
+    context :when_different_domains do
+      before do
+        create :create_domain_host, audit_transaction:  subject.audit_transaction,
+                                    domain_name:        'domains.ph'
+
+        create :remove_domain_host, audit_transaction:  subject.audit_transaction,
+                                    domain_name:        'domains.com.ph'
+      end
+
+      specify { subject.domain_hosts.count.must_equal 2 }
+    end
+  end
 end
