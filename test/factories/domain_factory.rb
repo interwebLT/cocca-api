@@ -63,12 +63,6 @@ def update_domain audit_time: Time.now, partner: PARTNER
   audit_transaction = audit_master audit_time, partner: partner
 
   create :audit_domain, audit_transaction: audit_transaction, audit_operation: 'U'
-
-  create  :audit_domain_event,
-          audit_transaction: audit_transaction,
-          audit_operation: 'I',
-          expiry_date: '2017-03-07 17:00'.in_time_zone,
-          event: 'MODIFICATION'
 end
 
 def update_domain_contact audit_time: Time.now, partner: PARTNER
@@ -82,16 +76,22 @@ def renew_domain audit_time: '2015-03-13 07:49 AM', partner: PARTNER
           audit_transaction: audit_transaction,
           audit_operation: 'I'
 
-  create  :audit_domain,
-          audit_transaction: audit_transaction,
-          audit_operation: 'U',
-          createdate: '2015-03-13 07:35 AM'.in_time_zone
+  domain = create :audit_domain,
+                  audit_transaction: audit_transaction,
+                  audit_operation: 'U',
+                  createdate: '2015-03-13 07:35 AM'.in_time_zone
 
   create  :audit_domain_event,
           audit_transaction: audit_transaction,
           audit_operation: 'I',
           event: 'RENEWAL',
           term_length: 3,
-          expiry_date: '2019-03-13 07:35 AM'.in_time_zone
+          expiry_date: '2019-03-13 07:35 AM'.in_time_zone,
+          domain_name: domain.name
 
+  domain
+end
+
+def register_domain audit_transaction: nil
+    create_domain audit_transaction: audit_transaction
 end

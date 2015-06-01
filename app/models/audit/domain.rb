@@ -1,4 +1,6 @@
 class Audit::Domain < ActiveRecord::Base
+  include AuditOperation
+
   self.table_name = :audit_domain
 
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
@@ -23,6 +25,18 @@ class Audit::Domain < ActiveRecord::Base
 
   def domain_event
     Audit::DomainEvent.find_by audit_transaction: self.audit_transaction, domain_name: self.name
+  end
+
+  def register_domain?
+    self.insert_operation?
+  end
+
+  def update_domain?
+    self.update_operation? and self.domain_event.nil?
+  end
+
+  def renew_domain?
+    self.update_operation? and !self.domain_event.nil? and (self.domain_event.event == 'RENEWAL')
   end
 
   def as_json options = nil

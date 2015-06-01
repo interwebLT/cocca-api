@@ -71,4 +71,22 @@ describe Audit::Domain do
 
     specify { subject.as_json.must_equal expected_json }
   end
+
+  describe :register_domain? do
+    specify { register_domain.register_domain?.must_equal true }
+    specify { update_domain.register_domain?.must_equal false }
+    specify { renew_domain.register_domain?.must_equal false }
+  end
+
+  describe :update_domain? do
+    specify { update_domain.update_domain?.must_equal true }
+    specify { register_domain.update_domain?.must_equal false }
+    specify { renew_domain.update_domain?.must_equal false }
+  end
+
+  describe :renew_domain? do
+    specify { renew_domain.renew_domain?.must_equal true }
+    specify { register_domain.renew_domain?.must_equal false }
+    specify { update_domain.renew_domain?.must_equal false }
+  end
 end
