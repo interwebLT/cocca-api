@@ -45,15 +45,18 @@ def create_domain audit_transaction: nil, audit_time: Time.now, partner: PARTNER
           audit_transaction: audit_transaction,
           audit_operation: audit_operation
 
+  domain = create :audit_domain,
+                  audit_transaction: audit_transaction,
+                  audit_operation: audit_operation,
+                  createdate: '2015-03-07 17:00'.in_time_zone
+
   create  :audit_domain_event,
           audit_transaction: audit_transaction,
           audit_operation: audit_operation,
-          expiry_date: '2017-03-07 17:00'.in_time_zone
+          expiry_date: '2017-03-07 17:00'.in_time_zone,
+          domain_name:  domain.name
 
-  create  :audit_domain,
-          audit_transaction: audit_transaction,
-          audit_operation: audit_operation,
-          createdate: '2015-03-07 17:00'.in_time_zone
+  domain
 end
 
 def update_domain audit_time: Time.now, partner: PARTNER
