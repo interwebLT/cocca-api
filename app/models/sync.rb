@@ -28,9 +28,6 @@ module Sync
 
     UpdateDomainContact.sync  since: since, up_to: up_to
 
-    DeleteDomainHost.sync     since: since, up_to: up_to
-    CreateDomainHost.sync     since: since, up_to: up_to
-
     RenewDomain.sync          since: since, up_to: up_to
   end
 end

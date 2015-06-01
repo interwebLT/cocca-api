@@ -53,6 +53,14 @@ describe Audit::Domain do
   describe :as_json do
     subject { create_domain }
 
+    before do
+      create :create_domain_host, audit_transaction:  subject.audit_transaction,
+                                  host_name:          'ns5.domains.ph'
+
+      create :remove_domain_host, audit_transaction:  subject.audit_transaction,
+                                  host_name:          'ns6.domains.ph'
+    end
+
     let(:expected_json) {
       {
         partner:                    'alpha',
@@ -66,6 +74,16 @@ describe Audit::Domain do
         client_renew_prohibited:    false,
         client_transfer_prohibited: false,
         client_update_prohibited:   false,
+        domain_hosts: [
+          {
+            audit_operation:  AuditOperation::INSERT_OPERATION,
+            host:             'ns5.domains.ph'
+          },
+          {
+            audit_operation:  AuditOperation::DELETE_OPERATION,
+            host:             'ns6.domains.ph'
+          }
+        ]
       }
     }
 

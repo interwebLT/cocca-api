@@ -58,7 +58,7 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def as_json options = nil
-    {
+    result = {
       partner:                    self.master.audit_user,
       domain:                     self.name,
       authcode:                   self.authinfopw,
@@ -69,7 +69,17 @@ class Audit::Domain < ActiveRecord::Base
       client_delete_prohibited:   !self.st_cl_deleteprohibited.blank?,
       client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,
       client_transfer_prohibited: !self.st_cl_transferprohibited.blank?,
-      client_update_prohibited:   !self.st_cl_updateprohibited.blank?
+      client_update_prohibited:   !self.st_cl_updateprohibited.blank?,
+      domain_hosts:               []
     }
+
+    self.domain_hosts.each do |domain_host|
+      result[:domain_hosts] << {
+        audit_operation:  domain_host.audit_operation,
+        host:             domain_host.host_name
+      }
+    end
+
+    result
   end
 end
