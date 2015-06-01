@@ -48,4 +48,21 @@ describe Audit::Domain do
       specify { subject.domain_contacts.count.must_equal 2 }
     end
   end
+
+  describe :as_json do
+    subject { create_domain }
+
+    let(:expected_json) {
+      {
+        partner:            'alpha',
+        domain:             'domains.ph',
+        authcode:           'ABC123',
+        period:             1,
+        registrant_handle:  'registrant',
+        registered_at:      '2015-03-07T17:00:00Z'
+      }
+    }
+
+    specify { subject.as_json.must_equal expected_json }
+  end
 end
