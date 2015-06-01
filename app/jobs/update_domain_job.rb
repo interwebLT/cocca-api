@@ -19,7 +19,7 @@ class UpdateDomainJob < ActiveJob::Base
     }
 
     [:admin_handle, :billing_handle, :tech_handle].each do |handle|
-      json_request[handle] = record[handle] if record[handle]
+      json_request[handle] = record[handle] if record.has_key? handle
     end
 
     execute :patch, path: path, body: json_request
