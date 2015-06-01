@@ -78,9 +78,11 @@ class Audit::Domain < ActiveRecord::Base
     }
 
     self.domain_contacts.each do |domain_contact|
-      (result[:admin_handle]    = domain_contact.contact_id) if domain_contact.admin_contact?
-      (result[:billing_handle]  = domain_contact.contact_id) if domain_contact.billing_contact?
-      (result[:tech_handle]     = domain_contact.contact_id) if domain_contact.tech_contact?
+      handle = domain_contact.insert_operation? ? domain_contact.contact_id : nil
+
+      (result[:admin_handle]    = handle) if domain_contact.admin_contact?
+      (result[:billing_handle]  = handle) if domain_contact.billing_contact?
+      (result[:tech_handle]     = handle) if domain_contact.tech_contact?
     end
 
     self.domain_hosts.each do |domain_host|
