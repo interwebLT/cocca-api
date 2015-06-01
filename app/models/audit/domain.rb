@@ -24,12 +24,13 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def domain_hosts
-    records = Audit::DomainHost.where(audit_transaction: self.audit_transaction)
+    records = Audit::DomainHost.where audit_transaction:  self.audit_transaction,
+                                      domain_name:        self.name
 
     result = {}
 
     records.each do |record|
-      key = { domain: record.domain_name, host: record.host_name }
+      key = record.host_name
 
       if result.has_key? key
         result.delete key

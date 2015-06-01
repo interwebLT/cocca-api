@@ -147,7 +147,7 @@ describe Audit::Domain do
                                     domain_name:        'domains.com.ph'
       end
 
-      specify { subject.domain_hosts.count.must_equal 2 }
+      specify { subject.domain_hosts.count.must_equal 1 }
     end
   end
 end
