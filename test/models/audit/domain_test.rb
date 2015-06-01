@@ -48,6 +48,18 @@ describe Audit::Domain do
 
       specify { subject.domain_contacts.count.must_equal 2 }
     end
+
+    context :when_different_domains do
+      before do
+        create :domain_contact, audit_transaction: subject.audit_transaction,
+                                domain_name: 'domains.ph'
+
+        create :domain_contact, audit_transaction: subject.audit_transaction,
+                                domain_name: 'domains.com.ph'
+      end
+
+      specify { subject.domain_contacts.count.must_equal 1 }
+    end
   end
 
   describe :as_json do

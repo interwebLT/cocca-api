@@ -6,7 +6,9 @@ class Audit::Domain < ActiveRecord::Base
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
   def domain_contacts
-    records = Audit::DomainContact.where(audit_transaction: self.audit_transaction)
+    params = { audit_transaction: self.audit_transaction, domain_name: self.name }
+
+    records = Audit::DomainContact.where(params).order(:audit_operation)
 
     result = {}
 
