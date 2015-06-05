@@ -39,13 +39,15 @@ end
 Given /^I added a domain host entry to an existing domain$/ do
   create_domain_host partner: EXCLUDED_PARTNER
 
-  create_domain_host
+  domain = create_domain
+  create :create_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
   remove_domain_host partner: EXCLUDED_PARTNER
 
-  remove_domain_host
+  domain = create_domain
+  create :remove_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I updated an existing contact$/ do
@@ -63,7 +65,8 @@ end
 Given /^I updated a contact of an existing domain$/ do
   update_domain_contact partner: EXCLUDED_PARTNER
 
-  update_domain_contact
+  domain = update_domain
+  create :admin_domain_contact, audit_transaction: domain.audit_transaction
 end
 
 Given /^I renewed a domain$/ do
