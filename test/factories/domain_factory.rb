@@ -11,6 +11,11 @@ FactoryGirl.define do
     zone 'ph'
     registrant 'registrant'
     authinfopw 'ABC123'
+
+    factory :transfer_domain_request, class: Audit::Domain do
+      audit_operation 'U'
+      st_pendingtransfer  'Requested'
+    end
   end
 
   factory :audit_domain_event, class: Audit::DomainEvent do
@@ -94,4 +99,8 @@ end
 
 def register_domain audit_transaction: nil
     create_domain audit_transaction: audit_transaction
+end
+
+def transfer_domain_request
+  create :transfer_domain_request, audit_transaction: audit_master(Time.now)
 end

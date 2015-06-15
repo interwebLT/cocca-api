@@ -112,6 +112,10 @@ def assert_exception_thrown
   @exception_thrown.must_equal true
 end
 
+def assert_no_request_sent
+  assert_not_requested :patch, DOMAIN_PATH
+end
+
 private
 
 def run_sync

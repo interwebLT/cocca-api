@@ -75,6 +75,10 @@ Given /^I renewed a domain$/ do
   renew_domain
 end
 
+Given /^I requested to transfer a domain$/ do
+  transfer_domain_request
+end
+
 When /^latest changes are synced$/ do
   sync_latest_changes
 end
@@ -131,4 +135,6 @@ Then /^domain must now be renewed$/ do
   assert_renew_domain_synced
 end
 
-
+Then /^no request must be sent$/ do
+  assert_no_request_sent
+end
