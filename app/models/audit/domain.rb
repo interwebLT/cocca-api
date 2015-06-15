@@ -54,11 +54,18 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def update_domain?
-    self.update_operation? and self.domain_event.nil?
+    self.update_operation? and self.domain_event.nil? and self.st_pendingtransfer.nil?
   end
 
   def renew_domain?
-    self.update_operation? and !self.domain_event.nil? and (self.domain_event.event == 'RENEWAL')
+    self.update_operation? \
+    and !self.domain_event.nil? \
+    and (self.domain_event.event == 'RENEWAL') \
+    and self.st_pendingtransfer.nil?
+  end
+
+  def transfer_domain?
+    self.update_operation? and self.st_pendingtransfer.present?
   end
 
   def as_json options = nil
