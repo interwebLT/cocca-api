@@ -67,4 +67,8 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be renewed
 
-
+  @wip
+  Scenario: Sync domain transfer requests
+    Given I requested to transfer a domain
+    When  latest changes are synced
+    Then  no request must be sent
