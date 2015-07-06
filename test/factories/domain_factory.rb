@@ -104,3 +104,27 @@ end
 def transfer_domain_request
   create :transfer_domain_request, audit_transaction: audit_master(Time.now)
 end
+
+def register_domain_with_period_in_months
+  audit_transaction = audit_master Time.now
+  audit_operation   = 'I'
+
+  create  :audit_ledger,
+          audit_transaction: audit_transaction,
+          audit_operation: audit_operation
+
+  domain = create :audit_domain,
+                  audit_transaction: audit_transaction,
+                  audit_operation: audit_operation,
+                  createdate: '2015-03-07 17:00'.in_time_zone
+
+  create  :audit_domain_event,
+          audit_transaction: audit_transaction,
+          audit_operation: audit_operation,
+          expiry_date: '2017-03-07 17:00'.in_time_zone,
+          domain_name:  domain.name,
+          term_length:  12,
+          term_units: 'MONTH'
+
+  domain
+end
