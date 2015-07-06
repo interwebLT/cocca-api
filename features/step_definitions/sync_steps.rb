@@ -79,6 +79,14 @@ Given /^I requested to transfer a domain$/ do
   transfer_domain_request
 end
 
+Given /^I registered a domain with period in months$/ do
+  register_domain_with_period_in_months
+end
+
+Given /^I renewed a domain with period in months$/ do
+  renew_domain_with_period_in_months
+end
+
 When /^latest changes are synced$/ do
   sync_latest_changes
 end

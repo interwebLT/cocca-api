@@ -12,6 +12,11 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be registered
 
+  Scenario: Sync domains registered with period in months
+    Given I registered a domain with period in months
+    When  latest changes are synced
+    Then  domain must now be registered
+
   Scenario: Sync error
     Given I registered a domain
     When  syncing of latest changes results in an error
@@ -64,6 +69,11 @@ Feature: Sync Changes
 
   Scenario: Sync domains renewed
     Given I renewed a domain
+    When  latest changes are synced
+    Then  domain must now be renewed
+
+  Scenario: Sync domains renewed with period in months
+    Given I renewed a domain with period in months
     When  latest changes are synced
     Then  domain must now be renewed
 

@@ -181,7 +181,7 @@ def renew_domain_request
         type: 'domain_renew',
         domain: 'domains.ph',
         period: 3,
-        renewed_at: '2015-03-12T23:49:00Z'
+        renewed_at: '2015-03-13T07:49:00Z'
       }
     ]
   }
