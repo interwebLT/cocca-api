@@ -12,6 +12,12 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be registered
 
+  @wip
+  Scenario: Sync domains registered with period in months
+    Given I registered a domain with period in months
+    When  latest changes are synced
+    Then  domain must now be registered
+
   Scenario: Sync error
     Given I registered a domain
     When  syncing of latest changes results in an error
