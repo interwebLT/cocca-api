@@ -72,6 +72,12 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be renewed
 
+  @wip
+  Scenario: Sync domains renewed with period in months
+    Given I renewed a domain with period in months
+    When  latest changes are synced
+    Then  domain must now be renewed
+
   Scenario: Sync domain transfer requests
     Given I requested to transfer a domain
     When  latest changes are synced

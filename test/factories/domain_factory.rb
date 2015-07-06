@@ -128,3 +128,27 @@ def register_domain_with_period_in_months
 
   domain
 end
+
+def renew_domain_with_period_in_months
+  audit_transaction = audit_master Time.now
+
+  create  :audit_ledger,
+          audit_transaction: audit_transaction,
+          audit_operation: 'I'
+
+  domain = create :audit_domain,
+                  audit_transaction: audit_transaction,
+                  audit_operation: 'U',
+                  createdate: '2015-07-06 11:30 AM'.in_time_zone
+
+  create  :audit_domain_event,
+          audit_transaction: audit_transaction,
+          audit_operation: 'I',
+          event: 'RENEWAL',
+          term_length: 36,
+          term_units: 'MONTH',
+          expiry_date: '2018-07-06 11:00 AM'.in_time_zone,
+          domain_name: domain.name
+
+  domain
+end
