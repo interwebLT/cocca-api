@@ -85,6 +85,7 @@ describe Audit::Domain do
         period:                     1,
         registrant_handle:          'registrant',
         registered_at:              '2015-03-07T17:00:00Z',
+        renewed_at:                 nil,
         client_hold:                false,
         client_delete_prohibited:   false,
         client_renew_prohibited:    false,

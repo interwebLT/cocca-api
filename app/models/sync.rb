@@ -13,6 +13,7 @@ module Sync
     records.each do |master|
       master.domains.each do |domain|
         RegisterDomainJob.perform_later(domain.as_json) if domain.register_domain?
+        RenewDomainJob.perform_later(domain.as_json)    if domain.renew_domain?
       end
     end
 
@@ -30,7 +31,5 @@ module Sync
         end
       end
     end
-
-    RenewDomain.sync          since: since, up_to: up_to
   end
 end

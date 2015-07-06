@@ -76,6 +76,7 @@ class Audit::Domain < ActiveRecord::Base
       period:                     (self.domain_event.period if self.domain_event),
       registrant_handle:          self.registrant,
       registered_at:              self.createdate.utc.iso8601,
+      renewed_at:                 (self.master.audit_time.utc.iso8601 if self.renew_domain?),
       client_hold:                !self.st_cl_hold.blank?,
       client_delete_prohibited:   !self.st_cl_deleteprohibited.blank?,
       client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,

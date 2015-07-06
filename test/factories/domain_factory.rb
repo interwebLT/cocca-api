@@ -130,7 +130,7 @@ def register_domain_with_period_in_months
 end
 
 def renew_domain_with_period_in_months
-  audit_transaction = audit_master Time.now
+  audit_transaction = audit_master '2015-03-13 7:49 AM'.in_time_zone
 
   create  :audit_ledger,
           audit_transaction: audit_transaction,

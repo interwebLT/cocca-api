@@ -72,7 +72,6 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be renewed
 
-  @wip
   Scenario: Sync domains renewed with period in months
     Given I renewed a domain with period in months
     When  latest changes are synced
