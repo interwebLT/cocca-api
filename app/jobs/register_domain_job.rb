@@ -16,8 +16,7 @@ class RegisterDomainJob < ActiveJob::Base
           domain:             record[:domain],
           authcode:           record[:authcode],
           period:             record[:period],
-          registrant_handle:  record[:registrant_handle],
-          registered_at:      record[:registered_at]
+          registrant_handle:  record[:registrant_handle]
         }
       ]
     }

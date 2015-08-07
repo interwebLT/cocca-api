@@ -12,10 +12,9 @@ class RenewDomainJob < ActiveJob::Base
       ordered_at:     record[:renewed_at],
       order_details:  [
         {
-          type:      'domain_renew',
-          domain:     record[:domain],
-          period:     record[:period],
-          renewed_at: record[:renewed_at]
+          type:  'domain_renew',
+          domain: record[:domain],
+          period: record[:period]
         }
       ]
     }
