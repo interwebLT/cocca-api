@@ -9,6 +9,7 @@ class RenewDomainJob < ActiveJob::Base
     json_request = {
       partner:        record[:partner],
       currency_code:  'USD',
+      ordered_at:     record[:renewed_at],
       order_details:  [
         {
           type:      'domain_renew',
