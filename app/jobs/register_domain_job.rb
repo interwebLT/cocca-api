@@ -9,14 +9,14 @@ class RegisterDomainJob < ActiveJob::Base
     json_request = {
       partner:        record[:partner],
       currency_code:  'USD',
+      ordered_at:      record[:registered_at],
       order_details:  [
         {
           type:               'domain_create',
           domain:             record[:domain],
           authcode:           record[:authcode],
           period:             record[:period],
-          registrant_handle:  record[:registrant_handle],
-          registered_at:      record[:registered_at]
+          registrant_handle:  record[:registrant_handle]
         }
       ]
     }
