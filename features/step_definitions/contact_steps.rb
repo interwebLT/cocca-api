@@ -26,8 +26,10 @@ When  /^I create a new contact with required fields only$/ do
   params = {
     handle: 'contact123',
     name: 'Name',
+    street: 'Street',
     city: 'City',
     country_code: 'PH',
+    voice:  '+63.1234567',
     email:  'contact@test.ph'
   }
 
@@ -43,7 +45,7 @@ Then  /^contact must be created$/ do
     handle: 'contact123',
     name: 'Name',
     organization: nil,
-    street: nil,
+    street: 'Street',
     street2:  nil,
     street3:  nil,
     city: 'City',
@@ -59,7 +61,7 @@ Then  /^contact must be created$/ do
     local_state:  nil,
     local_postal_code:  nil,
     local_country_code: nil,
-    voice:  nil,
+    voice:  '+63.1234567',
     voice_ext:  nil,
     fax:  nil,
     fax_ext:  nil,
