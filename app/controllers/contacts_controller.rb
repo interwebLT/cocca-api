@@ -11,14 +11,14 @@ class ContactsController < ApplicationController
         name: params[:name],
         org:  nil,
         addr: {
-          street: nil,
+          street: params[:street],
           city: params[:city],
           sp: nil,
           pc: nil,
           cc: params[:country_code]
         }
       },
-      voice:  nil,
+      voice:  params[:voice],
       fax:  nil,
       email:  params[:email],
       auth_info:  { pw: params[:authcode] }
