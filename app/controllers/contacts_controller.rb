@@ -1,6 +1,34 @@
 class ContactsController < ApplicationController
   def create
+    host  = '123.456.789.001'
+    username  = 'username'
+    password  = 'password'
+
+    client = EPP::Client.new username, password, host
+
+    command_params = {
+      postal_info: {
+        name: params[:name],
+        org:  nil,
+        addr: {
+          street: nil,
+          city: params[:city],
+          sp: nil,
+          pc: nil,
+          cc: params[:country_code]
+        }
+      },
+      voice:  nil,
+      fax:  nil,
+      email:  params[:email],
+      auth_info:  { pw: params[:authcode] }
+    }
+
+    command = EPP::Contact::Create.new params[:handle], command_params
+    command_response = EPP::Contact::CreateResponse.new client.create(command)
+
     result = {
+      handle: command_response.id,
       name: params[:name],
       organization: nil,
       street: nil,
