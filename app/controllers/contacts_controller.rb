@@ -28,7 +28,7 @@ class ContactsController < ApplicationController
     command_response = EPP::Contact::CreateResponse.new client.create(command)
 
     result = {
-      handle: command_response.id,
+      handle: params[:handle],
       name: params[:name],
       organization: nil,
       street: nil,
