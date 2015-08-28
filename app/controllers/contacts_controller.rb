@@ -1,8 +1,8 @@
 class ContactsController < ApplicationController
   def create
-    host  = '123.456.789.001'
-    username  = 'username'
-    password  = 'password'
+    host  = Rails.configuration.x.epp_host
+    username  = Rails.configuration.x.epp_username
+    password  = Rails.configuration.x.epp_password
 
     client = EPP::Client.new username, password, host
 
