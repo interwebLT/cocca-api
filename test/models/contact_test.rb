@@ -33,12 +33,10 @@ describe Contact do
                               [EPP::Contact::Create]
     end
 
-    specify {
+    specify do
       EPP::Client.stub :new, client do
-        @result = subject.save
+        subject.save.must_equal true
       end
-
-      @result.must_equal true
-    }
+    end
   end
 end
