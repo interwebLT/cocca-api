@@ -18,6 +18,7 @@ describe Contact do
     }
 
     specify { subject.valid?.must_equal true }
+    specify { Contact.new.valid?.must_equal false }
     specify { subject.handle = nil; subject.valid?.must_equal false }
     specify { subject.name= nil;    subject.valid?.must_equal false }
     specify { subject.street = nil; subject.valid?.must_equal false }
