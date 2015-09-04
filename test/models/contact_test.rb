@@ -2,19 +2,15 @@ require 'test_helper'
 
 describe Contact do
   describe :valid? do
-    subject { Contact.new params }
-
-    let(:params) {
-      {
-        handle: 'contact123',
-        name: 'Contact',
-        street: 'Street',
-        city: 'City',
-        country_code: 'PH',
-        voice:  '+63.1234567',
-        email:  'contact@test.ph',
-        authcode: 'ABC123'
-      }
+    subject {
+      Contact.new handle: 'contact123',
+                  name: 'Contact',
+                  street: 'Street',
+                  city: 'City',
+                  country_code: 'PH',
+                  voice:  '+63.1234567',
+                  email:  'contact@test.ph',
+                  authcode: 'ABC123'
     }
 
     specify { subject.valid?.must_equal true }
