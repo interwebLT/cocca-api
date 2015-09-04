@@ -12,4 +12,8 @@ class Contact
   validates :voice,   presence: true
   validates :email,   presence: true
   validates :authcode,  presence: true
+
+  def save
+    true
+  end
 end
