@@ -29,9 +29,8 @@ describe Contact do
     let(:client) { Minitest::Mock.new }
 
     before do
-      xml = File.read('test/assets/contact/create_response.xml').strip
-
-      client.expect :create, EPP::Response.new(xml), [EPP::Contact::Create]
+      client.expect :create,  EPP::Response.new('contact/create_response'.xml),
+                              [EPP::Contact::Create]
     end
 
     specify {

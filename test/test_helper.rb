@@ -35,4 +35,8 @@ class ActiveSupport::TestCase
   end
 end
 
-
+class String
+  def xml
+    File.read("test/assets/#{self}.xml").strip
+  end
+end
