@@ -20,6 +20,35 @@ class Contact
     true
   end
 
+  def as_json options = nil
+    {
+      handle: self.handle,
+      name: self.name,
+      organization: nil,
+      street: self.street,
+      street2:  nil,
+      street3:  nil,
+      city: self.city,
+      state:  nil,
+      postal_code:  nil,
+      country_code: self.country_code,
+      local_name: nil,
+      local_organization: nil,
+      local_street: nil,
+      local_street2:  nil,
+      local_street3:  nil,
+      local_city: nil,
+      local_state:  nil,
+      local_postal_code:  nil,
+      local_country_code: nil,
+      voice:  self.voice,
+      voice_ext:  nil,
+      fax:  nil,
+      fax_ext:  nil,
+      email:  self.email
+    }
+  end
+
   private
 
   def client
