@@ -6,8 +6,8 @@ When  /^I create a new contact with required fields only$/ do
   end
 end
 
-When  /^I create a new contact with missing handle$/ do
-  post contacts_path, 'contact/create_request'.json.delete(:handle)
+When  /^I create a new contact with missing (.*?)$/ do |field|
+  post contacts_path, 'contact/create_request'.json.delete(field.to_sym)
 end
 
 When  /^I create a new contact with an existing handle$/ do
