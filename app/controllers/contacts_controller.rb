@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
     if contact.save
       render json: contact
     else
-      head :bad_request
+      head :unprocessable_entity
     end
   end
 
