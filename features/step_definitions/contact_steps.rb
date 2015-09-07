@@ -17,7 +17,3 @@ end
 Then  /^contact must be created$/ do
   json_response.must_equal 'contact/create_response'.json
 end
-
-Then  /^error must be validation failed$/ do
-  last_response.status.must_equal 400
-end
