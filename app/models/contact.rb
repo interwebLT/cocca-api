@@ -14,6 +14,8 @@ class Contact
   validates :authcode,  presence: true
 
   def save
+    return false unless valid?
+
     command = EPP::Contact::Create.new self.handle, create_params
     command_response = EPP::Contact::CreateResponse.new client.create(command)
 

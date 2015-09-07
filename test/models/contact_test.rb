@@ -28,14 +28,22 @@ describe Contact do
   describe :save do
     let(:client) { Minitest::Mock.new }
 
-    before do
-      client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
+    context :when_required_fields_present do
+      before do
+        client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
+      end
+
+      specify do
+        EPP::Client.stub :new, client do
+          subject.save.must_equal true
+        end
+      end
     end
 
-    specify do
-      EPP::Client.stub :new, client do
-        subject.save.must_equal true
-      end
+    context :when_required_fields_missing do
+      subject { Contact.new }
+
+      specify { subject.save.must_equal false }
     end
   end
 
