@@ -15,8 +15,6 @@ When  /^I create a new contact with missing handle$/ do
 end
 
 Then  /^contact must be created$/ do
-  json_response = JSON.parse last_response.body, symbolize_names: true
-
   json_response.must_equal 'contact/create_response'.json
 end
 
