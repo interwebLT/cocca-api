@@ -57,7 +57,7 @@ Then  /^contact must be created$/ do
     local_street: nil,
     local_street2:  nil,
     local_street3:  nil,
-    local_city: 'City',
+    local_city: nil,
     local_state:  nil,
     local_postal_code:  nil,
     local_country_code: nil,
