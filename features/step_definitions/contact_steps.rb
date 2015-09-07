@@ -1,5 +1,4 @@
 When  /^I create a new contact with required fields only$/ do
-  client = Minitest::Mock.new
   client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
 
   params = {
@@ -19,7 +18,6 @@ When  /^I create a new contact with required fields only$/ do
 end
 
 When  /^I create a new contact with missing handle$/ do
-  client = Minitest::Mock.new
   client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
 
   params = {
