@@ -14,12 +14,7 @@ class Contact
   validates :authcode,  presence: true
 
   def save
-    return false unless valid?
-
-    command = EPP::Contact::Create.new self.handle, create_params
-    command_response = EPP::Contact::CreateResponse.new client.create(command)
-
-    true
+    valid? && client.create(create_command).success?
   end
 
   def as_json options = nil
@@ -59,6 +54,10 @@ class Contact
     password  = Rails.configuration.x.epp_password
 
     EPP::Client.new username, password, host
+  end
+
+  def create_command
+    EPP::Contact::Create.new self.handle, create_params
   end
 
   def create_params

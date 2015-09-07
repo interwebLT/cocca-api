@@ -7,3 +7,7 @@ Feature: Create Contact
   Scenario: Missing required fields
     When  I create a new contact with missing handle
     Then  error must be validation failed
+
+  Scenario: Handle already exists
+    When  I create a new contact with an existing handle
+    Then  error must be validation failed

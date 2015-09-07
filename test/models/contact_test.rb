@@ -45,6 +45,18 @@ describe Contact do
 
       specify { subject.save.must_equal false }
     end
+
+    context :when_create_command_fails do
+      before do
+        client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
+      end
+
+      specify do
+        EPP::Client.stub :new, client do
+          subject.save.must_equal false
+        end
+      end
+    end
   end
 
   describe :as_json do
