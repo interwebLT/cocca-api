@@ -9,7 +9,27 @@ When  /^I create a new contact with required fields only$/ do
     city: 'City',
     country_code: 'PH',
     voice:  '+63.1234567',
-    email:  'contact@test.ph'
+    email:  'contact@test.ph',
+    authcode: 'ABC123'
+  }
+
+  EPP::Client.stub :new, client do
+    post contacts_path, params
+  end
+end
+
+When  /^I create a new contact with missing handle$/ do
+  client = Minitest::Mock.new
+  client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
+
+  params = {
+    name: 'Name',
+    street: 'Street',
+    city: 'City',
+    country_code: 'PH',
+    voice:  '+63.1234567',
+    email:  'contact@test.ph',
+    authcode: 'ABC123'
   }
 
   EPP::Client.stub :new, client do
@@ -48,4 +68,8 @@ Then  /^contact must be created$/ do
   }
 
   json_response.must_equal expected_response
+end
+
+Then  /^error must be validation failed$/ do
+  last_response.status.must_equal 400
 end
