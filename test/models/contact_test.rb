@@ -29,8 +29,7 @@ describe Contact do
     let(:client) { Minitest::Mock.new }
 
     before do
-      client.expect :create,  EPP::Response.new('contact/create_response'.xml),
-                              [EPP::Contact::Create]
+      client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
     end
 
     specify do

@@ -1,6 +1,6 @@
 When  /^I create a new contact with required fields only$/ do
   client = Minitest::Mock.new
-  client.expect :create, EPP::Response.new('contact/create_response'.xml), [EPP::Contact::Create]
+  client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
 
   params = {
     handle: 'contact123',
