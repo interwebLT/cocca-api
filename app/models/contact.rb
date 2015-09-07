@@ -1,7 +1,4 @@
-class Contact
-  include ActiveModel::Model
-  include ActiveModel::Validations
-
+class Contact < EPP::Model
   attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode
 
   validates :handle,  presence: true
@@ -47,14 +44,6 @@ class Contact
   end
 
   private
-
-  def client
-    host  = Rails.configuration.x.epp_host
-    username  = Rails.configuration.x.epp_username
-    password  = Rails.configuration.x.epp_password
-
-    EPP::Client.new username, password, host
-  end
 
   def create_command
     EPP::Contact::Create.new self.handle, create_params
