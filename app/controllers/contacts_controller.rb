@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   def create
     contact = Contact.new contact_params
 
-    if contact.valid? and contact.save
+    if contact.save
       render json: contact
     else
       head :bad_request
