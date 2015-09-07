@@ -1,37 +1,16 @@
 When  /^I create a new contact with required fields only$/ do
   client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
 
-  params = {
-    handle: 'contact123',
-    name: 'Name',
-    street: 'Street',
-    city: 'City',
-    country_code: 'PH',
-    voice:  '+63.1234567',
-    email:  'contact@test.ph',
-    authcode: 'ABC123'
-  }
-
   EPP::Client.stub :new, client do
-    post contacts_path, params
+    post contacts_path, 'contact/create_request'.json
   end
 end
 
 When  /^I create a new contact with missing handle$/ do
   client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
 
-  params = {
-    name: 'Name',
-    street: 'Street',
-    city: 'City',
-    country_code: 'PH',
-    voice:  '+63.1234567',
-    email:  'contact@test.ph',
-    authcode: 'ABC123'
-  }
-
   EPP::Client.stub :new, client do
-    post contacts_path, params
+    post contacts_path, 'contact/create_request'.json.delete(:handle)
   end
 end
 
