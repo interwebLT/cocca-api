@@ -1,5 +1,9 @@
 class Contact < EPP::Model
-  attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode
+  attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode,
+                :organization, :street2, :street3, :state, :postal_code,
+                :local_name, :local_organization, :local_street, :local_street2, :local_street3,
+                :local_city, :local_state, :local_postal_code, :local_country_code,
+                :voice_ext, :fax, :fax_ext
 
   validates :handle,  presence: true
   validates :name,    presence: true
@@ -18,27 +22,27 @@ class Contact < EPP::Model
     {
       handle: self.handle,
       name: self.name,
-      organization: nil,
+      organization: self.organization,
       street: self.street,
-      street2:  nil,
-      street3:  nil,
+      street2:  self.street2,
+      street3:  self.street3,
       city: self.city,
-      state:  nil,
-      postal_code:  nil,
+      state:  self.state,
+      postal_code:  self.postal_code,
       country_code: self.country_code,
-      local_name: nil,
-      local_organization: nil,
-      local_street: nil,
-      local_street2:  nil,
-      local_street3:  nil,
-      local_city: nil,
-      local_state:  nil,
-      local_postal_code:  nil,
-      local_country_code: nil,
+      local_name: self.local_name,
+      local_organization: self.local_organization,
+      local_street: self.local_street,
+      local_street2:  self.local_street2,
+      local_street3:  self.local_street3,
+      local_city: self.local_city,
+      local_state:  self.local_state,
+      local_postal_code:  self.local_postal_code,
+      local_country_code: self.local_country_code,
       voice:  self.voice,
-      voice_ext:  nil,
-      fax:  nil,
-      fax_ext:  nil,
+      voice_ext:  self.voice_ext,
+      fax:  self.fax,
+      fax_ext:  self.fax_ext,
       email:  self.email
     }
   end

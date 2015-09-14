@@ -4,6 +4,10 @@ Feature: Create Contact
     When  I create a new contact with required fields only
     Then  contact must be created
 
+  Scenario: Create contact with complete fields
+    When  I create a new contact with complete fields provided
+    Then  complete contact must be created
+
   Scenario Outline: Missing required fields
     When  I create a new contact with missing <field>
     Then  error must be validation failed
