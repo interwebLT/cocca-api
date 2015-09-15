@@ -7,7 +7,14 @@ class Order < EPP::Model
   end
 
   def create_command
-    EPP::Domain::Create.new self.order_details[0]['domain'], create_params
+    type = self.order_details[0]['type']
+    if type == 'domain_create'
+      EPP::Domain::Create.new self.order_details[0]['domain'], create_params
+    elsif type == 'domain_renew'
+      exp_date = '2017-01-01T00:00:00Z'
+      period = self.order_details[0]['period']
+      EPP::Domain::Renew.new self.order_details[0]['domain'], exp_date, "#{period}y"
+    end
   end
 
   def as_json options=nil
@@ -22,7 +29,7 @@ class Order < EPP::Model
         "currency_code": self.currency_code,
         "order_details": [
           {
-            "type": "domain_create",
+            "type": self.order_details[0]['type'],
             "price": 70.00,
             "domain": self.order_details[0]['domain'],
             "object": nil,

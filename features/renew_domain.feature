@@ -1,9 +1,8 @@
 Feature: Renew Domain
 
-  @wip
   Scenario: Renew domain
     When  I renew a domain that exists
-    Then  domain must be registered
+    Then  domain must be renewed
 
   @wip
   Scenario: Renew domain that is still available
