@@ -115,7 +115,7 @@ GEM
       minitest (~> 5.0)
       rails (~> 4.1)
     mono_logger (1.1.0)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multi_test (0.1.2)
     multi_xml (0.5.5)
     net-scp (1.2.1)
