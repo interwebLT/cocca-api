@@ -7,5 +7,5 @@ When(/^I register a domain that is still available$/) do
 end
 
 Then(/^domain must be registered$/) do
-  pending # express the regexp above with the code you wish you had
+  json_response.must_equal 'domain/create_response'.json
 end

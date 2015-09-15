@@ -8,4 +8,10 @@ class OrdersController < ApplicationController
       head :unprocessable_entity
     end
   end
+
+  def order_params
+    params.permit :currency_code, :ordered_at, :order_details => [
+      :type, :domain, :authcode, :period, :registrant_handle
+      ]
+  end
 end
