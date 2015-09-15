@@ -1,6 +1,5 @@
 Feature: Register Domain
 
-  @wip
   Scenario: Register new domain
     When  I register a domain that is still available
     Then  domain must be registered
