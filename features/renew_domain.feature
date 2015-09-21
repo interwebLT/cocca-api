@@ -8,7 +8,6 @@ Feature: Renew Domain
     When  I renew a domain that is still available
     Then  error must be validation failed
 
-  @wip
   Scenario Outline: Renew domain with invalid parameters
     When  I renew a domain with <invalid parameter>
     Then  error must be validation failed
