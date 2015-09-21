@@ -4,7 +4,6 @@ Feature: Renew Domain
     When  I renew a domain that exists
     Then  domain must be renewed
 
-  @wip
   Scenario: Renew domain that is still available
     When  I renew a domain that is still available
     Then  error must be validation failed
