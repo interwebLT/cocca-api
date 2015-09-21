@@ -15,13 +15,16 @@ class Order < EPP::Model
   end
 
   def save
+    unless valid?
+      return false
+    end
+    result = true
     commands = create_commands
     commands.each do |command|
-      unless valid? && client.create(command).success?
-        return false
-      end
+      result = result && client.create(command).success?
     end
-    return true
+
+    return result
   end
 
   def validate_details

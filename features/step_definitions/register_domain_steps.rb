@@ -15,6 +15,21 @@ When(/^I register multiple domains that are still available$/) do
   end
 end
 
+When(/^I place an order that fails at an external step$/) do
+  client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
+  client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
+
+  EPP::Client.stub :new, client do
+    post orders_path, 'domain/create_multiple_domains_request'.json
+  end
+end
+
+When(/^I register multiple domains with one validation error$/) do
+  request = 'domain/create_multiple_domains_one_error'.json
+  post orders_path, request
+end
+
 Then(/^domains must be registered$/) do
   client.verify
   json_response.must_equal 'domain/create_multiple_domains_response'.json

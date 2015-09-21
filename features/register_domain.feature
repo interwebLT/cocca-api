@@ -8,6 +8,14 @@ Feature: Register Domain
     When I register multiple domains that are still available
     Then  domains must be registered
 
+  Scenario: Register multiple domains, one of which has a validation error
+    When I register multiple domains with one validation error
+    Then  error must be validation failed
+
+  Scenario: Register multiple domains, one of which fails for an unknown reason
+    When I place an order that fails at an external step
+    Then  error must be validation failed
+
   Scenario Outline: Register domain with invalid parameters
     When  I register a domain with <invalid parameter>
     Then  error must be validation failed
