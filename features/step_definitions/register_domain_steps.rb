@@ -36,7 +36,11 @@ When(/^I register a domain with no authcode$/) do
 end
 
 When(/^I register a domain with existing domain name$/) do
-  pending # express the regexp above with the code you wish you had
+  client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
+
+  EPP::Client.stub :new, client do
+    post orders_path, 'domain/create_request'.json
+  end
 end
 
 When(/^I register a domain with period more than (\d+) years$/) do |period|
@@ -46,5 +50,9 @@ When(/^I register a domain with period more than (\d+) years$/) do |period|
 end
 
 When(/^I register a domain with non\-existing registrant handle$/) do
-  pending # express the regexp above with the code you wish you had
+  client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
+
+  EPP::Client.stub :new, client do
+    post orders_path, 'domain/create_request'.json
+  end
 end
