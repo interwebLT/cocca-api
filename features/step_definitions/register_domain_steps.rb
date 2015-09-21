@@ -39,27 +39,18 @@ Then(/^domain must be registered$/) do
   json_response.must_equal 'domain/create_response'.json
 end
 
-When(/^I register a domain with no domain name$/) do
-  request = 'domain/create_request'.json
-  request[:order_details][0][:domain] = ''
-  post orders_path, request
-end
+When(/^I register a domain using (.*)$/) do |type|
+  table = {
+    "no domain name" => "no_domain",
+    "no period" => "no_period",
+    "period more than 10 years" => "large_period",
+    "no registrant handle" => "no_registrant",
+    "no authcode" => "no_authcode"
+  }
 
-When(/^I register a domain with no period$/) do
-  request = 'domain/create_request'.json
-  request[:order_details][0][:domain] = 'domainph'
-  post orders_path, request
-end
+  suffix = table[type]
 
-When(/^I register a domain with no registrant handle$/) do
-  request = 'domain/create_request'.json
-  request[:order_details][0][:registrant_handle] = ''
-  post orders_path, request
-end
-
-When(/^I register a domain with no authcode$/) do
-  request = 'domain/create_request'.json
-  request[:order_details][0][:authcode] = ''
+  request = "domain/create_request_#{suffix}".json
   post orders_path, request
 end
 
@@ -69,12 +60,6 @@ When(/^I register a domain with existing domain name$/) do
   EPP::Client.stub :new, client do
     post orders_path, 'domain/create_request'.json
   end
-end
-
-When(/^I register a domain with period more than (\d+) years$/) do |period|
-  request = 'domain/create_request'.json
-  request[:order_details][0][:period] = (period.to_i+1).to_s
-  post orders_path, request
 end
 
 When(/^I register a domain with non\-existing registrant handle$/) do

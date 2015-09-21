@@ -17,18 +17,22 @@ Feature: Register Domain
     Then  error must be validation failed
 
   Scenario Outline: Register domain with invalid parameters
-    When  I register a domain with <invalid parameter>
+    When  I register a domain using <invalid parameter>
     Then  error must be validation failed
 
-    Examples: Missing required fields
+    Examples: Validation errors
       | invalid parameter     |
       | no domain name        |
       | no period             |
       | no registrant handle  |
       | no authcode           |
+      | period more than 10 years       |
 
-    Examples: Invalid data
+  Scenario Outline: Register domain with invalid data
+    When  I register a domain with <invalid parameter>
+    Then  error must be validation failed
+
+    Examples: External errors
       | invalid parameter               |
       | existing domain name            |
-      | period more than 10 years       |
       | non-existing registrant handle  |
