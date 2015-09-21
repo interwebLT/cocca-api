@@ -59,15 +59,15 @@ class Order < EPP::Model
     end
 
     {
-        "id": 1,
-        "partner": "partner",
-        "order_number": 1,
-        "total_price": 70.00,
-        "fee": 0.00,
-        "ordered_at": self.ordered_at,
-        "status": "pending",
-        "currency_code": self.currency_code,
-        "order_details": details
+        id: 1,
+        partner: "partner",
+        order_number: 1,
+        total_price: 70.00,
+        fee: 0.00,
+        ordered_at: self.ordered_at,
+        status: "pending",
+        currency_code: self.currency_code,
+        order_details: details
     }
   end
 
