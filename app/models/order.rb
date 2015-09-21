@@ -36,7 +36,7 @@ class Order < EPP::Model
       EPP::Domain::Create.new self.order_details[0].domain, create_params
     elsif type == 'domain_renew'
       exp_date = '2017-01-01T00:00:00Z'
-      period = self.order_details[0]['period']
+      period = self.order_details[0].period
       EPP::Domain::Renew.new self.order_details[0].domain, exp_date, "#{period}y"
     end
   end
