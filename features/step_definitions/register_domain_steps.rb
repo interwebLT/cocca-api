@@ -6,10 +6,23 @@ When(/^I register a domain that is still available$/) do
   end
 end
 
+When(/^I register multiple domains that are still available$/) do
+  client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
+
+  EPP::Client.stub :new, client do
+    post orders_path, 'domain/create_multiple_domains_request'.json
+  end
+end
+
+Then(/^domains must be registered$/) do
+  client.verify
+  json_response.must_equal 'domain/create_multiple_domains_response'.json
+end
+
 Then(/^domain must be registered$/) do
   json_response.must_equal 'domain/create_response'.json
 end
-
 
 When(/^I register a domain with no domain name$/) do
   request = 'domain/create_request'.json

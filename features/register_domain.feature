@@ -4,6 +4,10 @@ Feature: Register Domain
     When  I register a domain that is still available
     Then  domain must be registered
 
+  Scenario: Register multiple domains, all of which are available
+    When I register multiple domains that are still available
+    Then  domains must be registered
+
   Scenario Outline: Register domain with invalid parameters
     When  I register a domain with <invalid parameter>
     Then  error must be validation failed

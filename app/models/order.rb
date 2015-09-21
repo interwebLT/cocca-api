@@ -15,7 +15,13 @@ class Order < EPP::Model
   end
 
   def save
-    valid? && client.create(create_command).success?
+    commands = create_commands
+    commands.each do |command|
+      unless valid? && client.create(command).success?
+        return false
+      end
+    end
+    return true
   end
 
   def validate_details
@@ -30,18 +36,28 @@ class Order < EPP::Model
     self.order_details << (OrderDetail.new detail)
   end
 
-  def create_command
+  def create_commands
+    commands = []
     type = self.order_details.first.type
     if type == 'domain_create'
-      EPP::Domain::Create.new self.order_details.first.domain, create_params
+      self.order_details.each do |detail|
+        commands << ( EPP::Domain::Create.new detail.domain, create_params )
+      end
     elsif type == 'domain_renew'
       exp_date = '2017-01-01T00:00:00Z'
       period = self.order_details.first.period
-      EPP::Domain::Renew.new self.order_details.first.domain, exp_date, "#{period}y"
+      commands << (EPP::Domain::Renew.new self.order_details.first.domain, exp_date, "#{period}y")
     end
+
+    commands
   end
 
   def as_json options=nil
+    details = []
+    self.order_details.each do |detail|
+      details << detail.as_json
+    end
+
     {
         "id": 1,
         "partner": "partner",
@@ -51,17 +67,7 @@ class Order < EPP::Model
         "ordered_at": self.ordered_at,
         "status": "pending",
         "currency_code": self.currency_code,
-        "order_details": [
-          {
-            "type": self.order_details.first.type,
-            "price": 70.00,
-            "domain": self.order_details.first.domain,
-            "object": nil,
-            "authcode": self.order_details.first.authcode,
-            "period": self.order_details.first.period.to_i,
-            "registrant_handle": self.order_details.first.registrant_handle
-          }
-        ]
+        "order_details": details
     }
   end
 
