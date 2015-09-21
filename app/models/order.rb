@@ -31,13 +31,13 @@ class Order < EPP::Model
   end
 
   def create_command
-    type = self.order_details[0].type
+    type = self.order_details.first.type
     if type == 'domain_create'
-      EPP::Domain::Create.new self.order_details[0].domain, create_params
+      EPP::Domain::Create.new self.order_details.first.domain, create_params
     elsif type == 'domain_renew'
       exp_date = '2017-01-01T00:00:00Z'
-      period = self.order_details[0].period
-      EPP::Domain::Renew.new self.order_details[0].domain, exp_date, "#{period}y"
+      period = self.order_details.first.period
+      EPP::Domain::Renew.new self.order_details.first.domain, exp_date, "#{period}y"
     end
   end
 
@@ -53,20 +53,20 @@ class Order < EPP::Model
         "currency_code": self.currency_code,
         "order_details": [
           {
-            "type": self.order_details[0].type,
+            "type": self.order_details.first.type,
             "price": 70.00,
-            "domain": self.order_details[0].domain,
+            "domain": self.order_details.first.domain,
             "object": nil,
-            "authcode": self.order_details[0].authcode,
-            "period": self.order_details[0].period.to_i,
-            "registrant_handle": self.order_details[0].registrant_handle
+            "authcode": self.order_details.first.authcode,
+            "period": self.order_details.first.period.to_i,
+            "registrant_handle": self.order_details.first.registrant_handle
           }
         ]
     }
   end
 
   def create_params
-    detail = order_details[0]
+    detail = order_details.first
     {
       period: "#{detail.period}y", registrant: detail.registrant_handle,
       auth_info: { pw: detail.authcode },
