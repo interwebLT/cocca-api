@@ -4,7 +4,6 @@ Feature: Register Domain
     When  I register a domain that is still available
     Then  domain must be registered
 
-  @wip
   Scenario Outline: Register domain with invalid parameters
     When  I register a domain with <invalid parameter>
     Then  error must be validation failed
