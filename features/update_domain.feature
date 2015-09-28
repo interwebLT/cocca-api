@@ -1,4 +1,5 @@
 Feature: Update Domain
+  @wip
   Scenario Outline: Successfully update domain contact handles
     When  I update <contact handle> of my domain
     Then  <contact handle> of my domain must be updated
