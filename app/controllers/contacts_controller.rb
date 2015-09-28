@@ -9,6 +9,17 @@ class ContactsController < ApplicationController
     end
   end
 
+  def update
+    contact = Contact.new contact_params
+
+    if contact.update
+      render json: contact
+    else
+      p contact.errors.messages
+      head :unprocessable_entity
+    end
+  end
+
   private
 
   def contact_params

@@ -26,6 +26,18 @@ When  /^I create a new contact with an existing handle$/ do
   end
 end
 
+When(/^I update a contact$/) do
+  client.expect :update, 'contact/create_response'.epp, [EPP::Contact::Update]
+
+  EPP::Client.stub :new, client do
+    patch '/contacts/1', 'contact/update_contact_request'.json
+  end
+end
+
+Then(/^contact must be updated on EPP$/) do
+  json_response.must_equal 'contact/update_response'.json
+end
+
 Then  /^contact must be created$/ do
   json_response.must_equal 'contact/create_response'.json
 end

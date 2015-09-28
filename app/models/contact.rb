@@ -18,6 +18,10 @@ class Contact < EPP::Model
     valid? && client.create(create_command).success?
   end
 
+  def update
+    valid? && client.update(update_command).success?
+  end
+
   def as_json options = nil
     {
       handle: self.handle,
@@ -53,6 +57,10 @@ class Contact < EPP::Model
     EPP::Contact::Create.new self.handle, create_params
   end
 
+  def update_command
+    EPP::Contact::Update.new self.handle, update_params
+  end
+
   def create_params
     {
       postal_info: {
@@ -70,6 +78,12 @@ class Contact < EPP::Model
       fax:  nil,
       email:  self.email,
       auth_info:  { pw: self.authcode }
+    }
+  end
+
+  def update_params
+    {
+      chg: create_params
     }
   end
 end

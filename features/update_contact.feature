@@ -1,8 +1,7 @@
 Feature: Update Contact
-  @wip
   Scenario: Successfully update a contact
     When  I update a contact
-    Then  contact must be updated
+    Then  contact must be updated on EPP
 
   @wip
   Scenario Outline: Bad request
