@@ -79,7 +79,11 @@ class Order < EPP::Model
     {
       period: "#{detail.period}y", registrant: detail.registrant_handle,
       auth_info: { pw: detail.authcode },
-      contacts: { },
+      contacts: { 
+        admin: "",
+        tech: "",
+        billing: ""
+        },
       nameservers: [
       ]
     }
