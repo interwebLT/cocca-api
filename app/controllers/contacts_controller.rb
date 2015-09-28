@@ -15,7 +15,6 @@ class ContactsController < ApplicationController
     if contact.update
       render json: contact
     else
-      p contact.errors.messages
       head :unprocessable_entity
     end
   end
