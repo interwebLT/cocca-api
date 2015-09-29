@@ -34,3 +34,22 @@ Then(/^ipv6 host address must be created$/) do
   client.verify
   json_response.must_equal 'host/add_ipv6_response'.json
 end
+
+When(/^I add a host address entry using (.*)$/) do
+  table = {
+    "blank address" => "blank_address",
+    "missing address" => "missing_address",
+    "blank type" => "blank_type",
+    "missing type" => "missing_type",
+    "invalid type" => "invalid_type"
+  }
+
+  suffix = table[type]
+
+  request = "host/add_ipv4_#{suffix}".json
+  post host_addresses_path('domain.ph'), request
+end
+
+When(/^I add a host address entry with existing address$/) do
+  pending # express the regexp above with the code you wish you had
+end
