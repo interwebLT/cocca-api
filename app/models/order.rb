@@ -9,6 +9,9 @@ class Order < EPP::Model
     super
 
     self.order_details = []
+    unless params[:order_details]
+      return
+    end
     params[:order_details].each do |detail|
       self.order_details << OrderDetail.new(detail)
     end
@@ -28,6 +31,9 @@ class Order < EPP::Model
   end
 
   def validate_details
+    if self.order_details.size == 0
+      errors.add(:base, :missing_order_details)
+    end
     self.order_details.each do |detail|
       unless detail.valid?
         errors.add(:base, :invalid_order_detail)

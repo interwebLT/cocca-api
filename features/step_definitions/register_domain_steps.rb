@@ -45,7 +45,8 @@ When(/^I register a domain using (.*)$/) do |type|
     "no period" => "no_period",
     "period more than 10 years" => "large_period",
     "no registrant handle" => "no_registrant",
-    "no authcode" => "no_authcode"
+    "no authcode" => "no_authcode",
+    "missing order details" => 'missing_order_details'
   }
 
   suffix = table[type]

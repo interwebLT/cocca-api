@@ -22,6 +22,7 @@ Feature: Register Domain
 
     Examples: Validation errors
       | invalid parameter     |
+      | missing order details |
       | no domain name        |
       | no period             |
       | no registrant handle  |
