@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:create, :update]
   resources :orders, only: [:create, :update]
-  resources :hosts, only: [:create] do 
-    resources :addresses, only: [:create]
+  resources :hosts, only: [:create], id: /.*/ do 
+    resources :addresses, controller: :host_addresses, only: [:create]
   end
 end

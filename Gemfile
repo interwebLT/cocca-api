@@ -29,6 +29,7 @@ group :test do
   gem 'database_cleaner', '1.3.0'
   gem 'webmock'
   gem 'factory_girl_rails'
+  gem 'timecop'
 end
 
 group :development do
