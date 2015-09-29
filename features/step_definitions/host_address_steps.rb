@@ -52,6 +52,18 @@ When(/^I add a host address entry using (.*)$/) do | type |
   post host_addresses_path('domain.ph'), request
 end
 
-When(/^I add a host address entry with existing address$/) do
-  pending # express the regexp above with the code you wish you had
+When(/^I add a host address entry which is already present$/) do
+  client.expect :update, 'host/epp_failure'.epp, [EPP::Host::Update]
+
+  EPP::Client.stub :new, client do
+    post host_addresses_path('domain.ph'), 'host/add_ipv4_request'.json
+  end
+end
+
+When(/^I add a host address entry for non\-existing host$/) do
+  client.expect :update, 'host/epp_failure'.epp, [EPP::Host::Update]
+
+  EPP::Client.stub :new, client do
+    post host_addresses_path('domain.ph'), 'host/add_ipv4_request'.json
+  end
 end

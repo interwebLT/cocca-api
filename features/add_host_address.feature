@@ -19,17 +19,18 @@ Feature: Add Host Address
       | blank type        | 
       | invalid type      | 
 
-  @wip
   Scenario: Host address already in the host
     When  I add a host address entry which is already present
     Then  error must be validation failed
 
-  @wip
   Scenario: Host does not exist
     When  I add a host address entry for non-existing host
     Then  error must be validation failed
 
-  @wip
+  # This feature should be implemented on the EPP side; a test here doesn't make
+  # sense but I'm leaving the feature description in for the sake of making the 
+  # requirement clear.
+  @wip 
   Scenario: Same host address used in different hosts
     When  I add a host address entry which is also used by another host
     Then  host address must be created
