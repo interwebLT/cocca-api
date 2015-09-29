@@ -1,13 +1,18 @@
 class Host < EPP::Model
   attr_accessor :name, :crDate
 
+  validates_presence_of :name
+
   def save
-    unless valid?
+    unless valid? 
       return false
     end
     result = client.create(create_command)
+    unless result.success?
+      return false
+    end
     self.crDate = result.data.find('//host:crDate').first.content   
-    return result.success?
+    return true
   end
 
   def create_command
