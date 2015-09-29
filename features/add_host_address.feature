@@ -7,9 +7,8 @@ Feature: Add Host Address
     When  I add an ipv6 host address entry to an existing host
     Then  ipv6 host address must be created
 
-  @wip
   Scenario Outline: Invalid parameters
-    When  I add a host address entry with <invalid parameter>
+    When  I add a host address entry using <invalid parameter>
     Then  error must be validation failed
 
     Examples:
@@ -19,7 +18,11 @@ Feature: Add Host Address
       | missing type      | 
       | blank type        | 
       | invalid type      | 
-      | existing address  | 
+
+  @wip
+  Scenario: Host address already in the host
+    When  I add a host address entry which is already present
+    Then  error must be validation failed
 
   @wip
   Scenario: Host does not exist

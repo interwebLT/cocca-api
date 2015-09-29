@@ -16,6 +16,9 @@ class Host < EPP::Model
   end
 
   def add_address params
+    if params[:type].blank? || params[:address].blank?
+      return false
+    end
     if params[:type] == 'v4' && add_ipv4( params[:address] )
       return host_address_json params
     elsif params[:type] == 'v6' && add_ipv6( params[:address] )

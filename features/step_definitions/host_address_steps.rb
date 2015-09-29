@@ -37,7 +37,7 @@ Then(/^ipv6 host address must be created$/) do
   json_response.must_equal 'host/add_ipv6_response'.json
 end
 
-When(/^I add a host address entry using (.*)$/) do
+When(/^I add a host address entry using (.*)$/) do | type |
   table = {
     "blank address" => "blank_address",
     "missing address" => "missing_address",
