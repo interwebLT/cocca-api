@@ -1,12 +1,11 @@
 Feature: Add Host Address 
   Scenario: Successfully add ipv4 host address entry
     When  I add an ipv4 host address entry to an existing host
-    Then  host address must be created
+    Then  ipv4 host address must be created
 
-  @wip
   Scenario: Successfully add ipv6 host address entry
     When  I add an ipv6 host address entry to an existing host
-    Then  host address must be created
+    Then  ipv6 host address must be created
 
   @wip
   Scenario Outline: Invalid parameters

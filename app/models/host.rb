@@ -18,6 +18,8 @@ class Host < EPP::Model
   def add_address params
     if params[:type] == 'v4' && add_ipv4( params[:address] )
       return host_address_json params
+    elsif params[:type] == 'v6' && add_ipv6( params[:address] )
+      return host_address_json params
     else 
       return false
     end
@@ -39,7 +41,27 @@ class Host < EPP::Model
   end
 
   def add_ipv4_command ipv4
-    EPP::Host::Update.new self.name, { ipv4: ipv4 }
+    EPP::Host::Update.new self.name, { 
+        add: { 
+          addr: {
+            ipv4: ipv4
+          } 
+        }
+      }
+  end
+
+  def add_ipv6 ipv6
+    valid? && client.update(add_ipv6_command ipv6).success?
+  end
+
+  def add_ipv6_command ipv6
+    EPP::Host::Update.new self.name, { 
+        add: { 
+          addr: {
+            ipv6: ipv6
+          } 
+        }
+      }
   end
 
   def create_command
