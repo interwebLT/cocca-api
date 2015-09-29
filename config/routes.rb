@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:create, :update]
   resources :orders, only: [:create, :update]
+  resources :hosts, only: [:create]
 end
