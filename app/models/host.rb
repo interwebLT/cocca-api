@@ -43,7 +43,11 @@ class Host < EPP::Model
   end
 
   def add_ipv4 ipv4
-    valid? && client.update(add_ipv4_command ipv4).success?
+    result = client.update(add_ipv4_command ipv4)
+
+    save_trid result
+
+    valid? && result.success?
   end
 
   def add_ipv4_command ipv4
@@ -57,7 +61,11 @@ class Host < EPP::Model
   end
 
   def add_ipv6 ipv6
-    valid? && client.update(add_ipv6_command ipv6).success?
+    result = client.update(add_ipv6_command ipv6)
+
+    save_trid result
+
+    valid? && result.success?
   end
 
   def add_ipv6_command ipv6

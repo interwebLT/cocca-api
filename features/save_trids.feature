@@ -18,3 +18,11 @@ Feature: Save transaction ids
   Scenario: Successfully update a contact
     When  I update a contact
     Then  transaction ID must be saved
+
+  Scenario: Successfully add ipv4 host address entry
+    When  I add an ipv4 host address entry to an existing host
+    Then  transaction ID must be saved
+
+  Scenario: Successfully add ipv6 host address entry
+    When  I add an ipv6 host address entry to an existing host
+    Then  transaction ID must be saved
