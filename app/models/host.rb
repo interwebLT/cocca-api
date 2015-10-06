@@ -13,11 +13,7 @@ class Host < EPP::Model
     end
     self.crDate = result.data.find('//host:crDate').first.content   
 
-    trid = TrId.new
-    trid.transaction_date = Time.now 
-    trid.tr_id = result.instance_variable_get('@xml').find('/e:epp/e:response/e:trID/e:svTRID').first.content
-
-    trid.save
+    save_trid result
 
     return true
   end

@@ -31,11 +31,7 @@ class Order < EPP::Model
       result = result && response.success?
 
       if response.success?
-        trid = TrId.new
-        trid.transaction_date = Time.now 
-        trid.tr_id = response.instance_variable_get('@xml').find('/e:epp/e:response/e:trID/e:svTRID').first.content
-
-        trid.save
+        save_trid response
       end
     end
 
