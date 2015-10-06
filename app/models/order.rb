@@ -21,10 +21,22 @@ class Order < EPP::Model
     unless valid?
       return false
     end
+
     result = true
+    response = nil
     commands = create_commands
+
     commands.each do |command|
-      result = result && client.create(command).success?
+      response = client.create(command)
+      result = result && response.success?
+
+      if response.success?
+        trid = TrId.new
+        trid.transaction_date = response.data.find('//domain:crDate').first.content
+        trid.tr_id = response.instance_variable_get('@xml').find('/e:epp/e:response/e:trID/e:svTRID').first.content
+
+        trid.save
+      end
     end
 
     return result
