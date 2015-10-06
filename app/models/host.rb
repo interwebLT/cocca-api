@@ -8,12 +8,12 @@ class Host < EPP::Model
       return false
     end
     result = client.create(create_command)
+    save_trid result
+
     unless result.success?
       return false
     end
     self.crDate = result.data.find('//host:crDate').first.content   
-
-    save_trid result
 
     return true
   end

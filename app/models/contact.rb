@@ -16,9 +16,6 @@ class Contact < EPP::Model
 
   def save
     response = client.create(create_command)
-    unless valid? && response.success?
-      return false
-    end
 
     save_trid response
 
@@ -27,9 +24,6 @@ class Contact < EPP::Model
 
   def update
     response = client.update(update_command)
-    unless valid? && response.success?
-      return false
-    end
 
     save_trid response
 

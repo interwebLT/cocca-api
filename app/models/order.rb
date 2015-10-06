@@ -23,16 +23,13 @@ class Order < EPP::Model
     end
 
     result = true
-    response = nil
     commands = create_commands
 
     commands.each do |command|
       response = client.create(command)
       result = result && response.success?
 
-      if response.success?
-        save_trid response
-      end
+      save_trid response
     end
 
     return result
