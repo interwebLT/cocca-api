@@ -10,3 +10,11 @@ Feature: Save transaction ids
   Scenario: Sucessfully create host entry
     When  I create a host entry
     Then  transaction ID must be saved
+
+  Scenario: Create contact with complete fields
+    When  I create a new contact with complete fields provided
+    Then  transaction ID must be saved
+
+  Scenario: Successfully update a contact
+    When  I update a contact
+    Then  transaction ID must be saved

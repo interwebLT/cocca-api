@@ -15,11 +15,25 @@ class Contact < EPP::Model
   validates :authcode,  presence: true
 
   def save
-    valid? && client.create(create_command).success?
+    response = client.create(create_command)
+    unless valid? && response.success?
+      return false
+    end
+
+    save_trid response
+
+    valid? && response.success?
   end
 
   def update
-    valid? && client.update(update_command).success?
+    response = client.update(update_command)
+    unless valid? && response.success?
+      return false
+    end
+
+    save_trid response
+
+    valid? && response.success?
   end
 
   def as_json options = nil
