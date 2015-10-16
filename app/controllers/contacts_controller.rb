@@ -1,6 +1,7 @@
 class ContactsController < ApplicationController
   def create
     contact = Contact.new contact_params
+    contact.authcode = 'placeholder-authcode'
 
     if contact.save
       render json: contact
