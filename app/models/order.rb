@@ -13,7 +13,9 @@ class Order < EPP::Model
       return
     end
     params[:order_details].each do |detail|
-      self.order_details << OrderDetail.new(detail)
+      order_detail = OrderDetail.new(detail)
+      order_detail.authcode = 'placeholder-authcode'
+      self.order_details << order_detail
     end
   end
 
