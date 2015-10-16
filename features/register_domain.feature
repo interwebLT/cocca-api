@@ -26,7 +26,7 @@ Feature: Register Domain
       | no domain name        |
       | no period             |
       | no registrant handle  |
-      | no authcode           |
+      # | no authcode           |
       | period more than 10 years       |
 
   Scenario Outline: Register domain with invalid data

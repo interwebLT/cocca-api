@@ -14,7 +14,7 @@ class Order < EPP::Model
     end
     params[:order_details].each do |detail|
       order_detail = OrderDetail.new(detail)
-      order_detail.authcode = 'placeholder-authcode'
+      order_detail.authcode = 'AUTHCODE'
       self.order_details << order_detail
     end
   end
@@ -49,7 +49,9 @@ class Order < EPP::Model
   end
 
   def order_detail= detail
-    self.order_details << (OrderDetail.new detail)
+    od = OrderDetail.new detail
+    od.authcode = 'AUTHCODE'
+    self.order_details << (od)
   end
 
   def create_commands
