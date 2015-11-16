@@ -12,6 +12,14 @@ Feature: Update Domain
       | the billing handle    |
       | the tech handle       |
 
+  Scenario: Successfully update domain authcode
+    When  I update the authcode of my domain
+    Then  authcode must be updated
+
+  Scenario: Failure to update domain authcode
+    When  I update the authcode of a domain that does not exist
+    Then  error must be not found
+
   @wip
   Scenario: Domain does not exist
     When  I update a domain that does not exist

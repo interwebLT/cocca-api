@@ -6,6 +6,26 @@ When(/^I update all contact handles of my domain$/) do
   end
 end
 
+When(/^I update the authcode of my domain$/) do
+  client.expect :update, 'domain/update_authcode_response'.epp, [EPP::Domain::Update]
+
+  EPP::Client.stub :new, client do
+    patch '/domains/test.ph', 'domain/update_authcode'.json
+  end
+end
+
+When(/^I update the authcode of a domain that does not exist$/) do
+  client.expect :update, 'domain/update_authcode_response_failed'.epp, [EPP::Domain::Update]
+
+  EPP::Client.stub :new, client do
+    patch '/domains/test.ph', 'domain/update_authcode'.json
+  end
+end
+
+Then(/^authcode must be updated$/) do
+  last_response.status.must_equal 200
+end
+
 Then(/^all contact handles of my domain must be updated$/) do
   pending # express the regexp above with the code you wish you had
 end
