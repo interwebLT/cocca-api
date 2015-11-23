@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123113012) do
+ActiveRecord::Schema.define(version: 20151006035909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "audit_contact", id: false, force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,    null: false
+    t.integer  "audit_transaction",              null: false
     t.string   "audit_operation",   limit: 1,    null: false
     t.string   "roid",              limit: 89,   null: false
     t.string   "id",                limit: 16,   null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_domain", force: :cascade do |t|
-    t.integer  "audit_transaction",        limit: 8,    null: false
+    t.integer  "audit_transaction",                     null: false
     t.string   "audit_operation",          limit: 1,    null: false
     t.string   "roid",                     limit: 89,   null: false
     t.string   "name",                     limit: 255,  null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_domain_contact", force: :cascade do |t|
-    t.integer "audit_transaction", limit: 8,   null: false
+    t.integer "audit_transaction",             null: false
     t.string  "audit_operation",   limit: 1,   null: false
     t.string  "domain_name",       limit: 255, null: false
     t.string  "contact_id",        limit: 255, null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_domain_event", force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,   null: false
+    t.integer  "audit_transaction",             null: false
     t.string   "audit_operation",   limit: 1,   null: false
     t.string   "domain_roid",       limit: 89
     t.string   "domain_name",       limit: 255
@@ -92,14 +92,14 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_domain_host", force: :cascade do |t|
-    t.integer "audit_transaction", limit: 8,   null: false
+    t.integer "audit_transaction",             null: false
     t.string  "audit_operation",   limit: 1,   null: false
     t.string  "domain_name",       limit: 255, null: false
     t.string  "host_name",         limit: 255, null: false
   end
 
   create_table "audit_host", force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,   null: false
+    t.integer  "audit_transaction",             null: false
     t.string   "audit_operation",   limit: 1,   null: false
     t.string   "roid",              limit: 89,  null: false
     t.string   "name",              limit: 255, null: false
@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_host_address", force: :cascade do |t|
-    t.integer "audit_transaction", limit: 8,   null: false
+    t.integer "audit_transaction",             null: false
     t.string  "audit_operation",   limit: 1,   null: false
     t.string  "host_name",         limit: 255, null: false
     t.string  "ip",                limit: 2,   null: false
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_ledger", force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,  null: false
+    t.integer  "audit_transaction",            null: false
     t.string   "audit_operation",   limit: 1,  null: false
     t.string   "client_roid",       limit: 89, null: false
     t.text     "description",                  null: false
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20151123113012) do
   end
 
   create_table "audit_master", id: false, force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,   null: false
+    t.integer  "audit_transaction",             null: false
     t.string   "audit_user",        limit: 16
     t.string   "audit_login",       limit: 16,  null: false
     t.datetime "audit_time",                    null: false
