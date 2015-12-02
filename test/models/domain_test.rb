@@ -3,6 +3,18 @@ require 'test_helper'
 describe Domain do
   let(:client) { Minitest::Mock.new }
 
+  describe :valid? do
+    subject { Domain.new params }
+
+    let(:params) {
+      {
+        name: 'domain.ph'
+      }
+    }
+
+    specify { subject.valid?.must_equal true }
+  end
+
   describe :update_authcode do
     subject { Domain.new name: domain }
 
