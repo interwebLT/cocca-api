@@ -13,6 +13,7 @@ describe Domain do
     }
 
     specify { subject.valid?.must_equal true }
+    specify { subject.name = nil; subject.valid?.must_equal false }
   end
 
   describe :update_authcode do
