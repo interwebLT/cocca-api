@@ -14,6 +14,7 @@ module Sync
       master.domains.each do |domain|
         RegisterDomainJob.perform_later(domain.as_json) if domain.register_domain?
         RenewDomainJob.perform_later(domain.as_json)    if domain.renew_domain?
+        TransferDomainJob.perform_later(domain.as_json) if domain.transfer_domain?
       end
     end
 
