@@ -1,4 +1,8 @@
 Feature: Update Domain
+
+  Background:
+    Given I am authenticated as partner
+
   @wip
   Scenario Outline: Successfully update domain contact handles
     When  I update <contact handle> of my domain
