@@ -4,6 +4,7 @@ describe Contact do
   subject {
     Contact.new handle: 'contact123',
                 name: 'Contact',
+                partner: partner.name,
                 street: 'Street',
                 city: 'City',
                 country_code: 'PH',
@@ -11,6 +12,8 @@ describe Contact do
                 email:  'contact@test.ph',
                 authcode: 'ABC123'
   }
+
+  let(:partner) { create :partner }
 
   describe :valid? do
     specify { subject.valid?.must_equal true }

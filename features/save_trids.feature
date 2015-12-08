@@ -1,4 +1,7 @@
-Feature: Save transaction ids 
+Feature: Save transaction ids
+  Background:
+    Given I am authenticated as partner
+
   Scenario: Register new domain
     When  I register a domain that is still available
     Then  transaction ID must be saved
@@ -7,11 +10,11 @@ Feature: Save transaction ids
     When  I renew a domain that exists
     Then  transaction ID must be saved
 
-  Scenario: Saves id even if register domain fails 
+  Scenario: Saves id even if register domain fails
     When  I register a domain with existing domain name
     Then  transaction ID must be saved
 
-  Scenario: Saves id even if renew domain fails 
+  Scenario: Saves id even if renew domain fails
     When  I renew a domain that is still available
     Then  transaction ID must be saved
 

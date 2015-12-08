@@ -1,4 +1,7 @@
 Feature: Create Host as Administrator
+  Background:
+    Given I am authenticated as partner
+
   Scenario: Sucessfully create host entry
     When  I create a host entry
     Then  host entry must be created

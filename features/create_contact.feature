@@ -1,4 +1,6 @@
 Feature: Create Contact
+  Background:
+    Given I am authenticated as partner
 
   Scenario: Create contact with required fields only
     When  I create a new contact with required fields only

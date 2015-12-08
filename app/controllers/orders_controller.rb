@@ -1,4 +1,4 @@
-class OrdersController < ApplicationController
+class OrdersController < SecureController
   def create
     order = Order.new order_params
 
@@ -19,9 +19,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  private
+
   def order_params
-    params.permit :currency_code, :ordered_at, :order_details => [
+    allowed_params = params.permit :currency_code, :ordered_at, order_details: [
       :type, :domain, :authcode, :period, :registrant_handle
-      ]
+    ]
+    allowed_params[:partner] = current_partner
+
+    allowed_params
   end
 end

@@ -1,4 +1,6 @@
 Feature: Renew Domain
+  Background:
+    Given I am authenticated as partner
 
   Scenario: Renew domain
     When  I renew a domain that exists

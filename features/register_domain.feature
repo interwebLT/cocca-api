@@ -1,4 +1,6 @@
 Feature: Register Domain
+  Background:
+    Given I am authenticated as partner
 
   Scenario: Register new domain
     When  I register a domain that is still available

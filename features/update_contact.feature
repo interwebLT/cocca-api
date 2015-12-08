@@ -1,4 +1,7 @@
 Feature: Update Contact
+  Background:
+    Given I am authenticated as partner
+
   Scenario: Successfully update a contact
     When  I update a contact
     Then  contact must be updated on EPP

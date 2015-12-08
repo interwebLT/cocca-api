@@ -1,4 +1,4 @@
-class HostsController < ApplicationController
+class HostsController < SecureController
   def create
     host = Host.new host_params
 
@@ -11,6 +11,9 @@ class HostsController < ApplicationController
 
   private
   def host_params
-    params.permit :name
+    allowed_params = params.permit :name
+    allowed_params[:partner] = current_partner
+
+    allowed_params
   end
 end
