@@ -1,5 +1,8 @@
 Given /^I am authenticated as partner$/ do
-  create :partner
+  partner = create :partner
+
+  header  'Authorization',
+          ActionController::HttpAuthentication::Token.encode_credentials(partner.name)
 end
 
 Then  /^error must be validation failed$/ do
