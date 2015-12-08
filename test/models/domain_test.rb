@@ -3,24 +3,24 @@ require 'test_helper'
 describe Domain do
   let(:client) { Minitest::Mock.new }
 
+  let(:params) {
+    {
+      name: 'domain.ph',
+      registrant_handle: 'contact'
+    }
+  }
+
   describe :valid? do
     subject { Domain.new params }
 
-    let(:params) {
-      {
-        name: 'domain.ph'
-      }
-    }
-
     specify { subject.valid?.must_equal true }
     specify { subject.name = nil; subject.valid?.must_equal false }
+    specify { subject.registrant_handle = nil; subject.valid?.must_equal false }
   end
 
   describe :update_authcode do
-    subject { Domain.new name: domain }
+    subject { Domain.new params }
 
-    let(:domain) { 'domain.ph' }
-    let(:registrant) { 'contact' }
     let(:authcode) { 'ABC123' }
 
     before do
@@ -29,7 +29,7 @@ describe Domain do
 
     specify do
       EPP::Client.stub :new, client do
-        subject.update_authcode(registrant, authcode).must_equal true
+        subject.update_authcode(authcode).must_equal true
       end
     end
   end

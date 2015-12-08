@@ -1,10 +1,11 @@
 class Domain < EPP::Model
-  attr_accessor :name
+  attr_accessor :name, :registrant_handle
 
   validates :name,  presence: true
+  validates :registrant_handle, presence: true
 
-  def update_authcode registrant, authcode
-    result = client.update(update_authcode_command(registrant, authcode))
+  def update_authcode authcode
+    result = client.update(update_authcode_command(self.registrant_handle, authcode))
 
     save_trid result
 
