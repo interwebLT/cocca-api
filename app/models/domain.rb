@@ -1,5 +1,5 @@
 class Domain < EPP::Model
-  attr_accessor :name, :registrant_handle
+  attr_accessor :name, :registrant_handle, :authcode
 
   validates :name,  presence: true
   validates :registrant_handle, presence: true
