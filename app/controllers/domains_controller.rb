@@ -1,4 +1,4 @@
-class DomainsController < ApplicationController
+class DomainsController < SecureController
   def update
     domain = Domain.new domain_params
 
@@ -14,6 +14,7 @@ class DomainsController < ApplicationController
   def domain_params
     allowed_params = params.permit :id, :registrant_handle, :authcode
     allowed_params[:name] = allowed_params.delete(:id)
+    allowed_params[:partner] = current_partner
 
     allowed_params
   end
