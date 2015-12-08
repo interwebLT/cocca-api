@@ -5,6 +5,8 @@ module EPP
 
     attr_accessor :partner
 
+    validates :partner, presence: true
+
     def client
       partner = Partner.find_by name: self.partner
 

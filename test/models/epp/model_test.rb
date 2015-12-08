@@ -3,15 +3,21 @@ require 'test_helper'
 describe EPP::Model do
   subject { EPP::Model.new params }
 
+  let(:params) {
+    {
+      partner: partner.name
+    }
+  }
+
   let(:partner) { create :partner }
+
+  describe :valid? do
+    specify { subject.valid?.must_equal true }
+    specify { subject.partner = nil; subject.valid?.must_equal false }
+  end
 
   describe :client do
     context :when_partner_exists do
-      let(:params) {
-        {
-          partner: partner.name
-        }
-      }
 
       specify { subject.client.host.must_equal 'test.host' }
       specify { subject.client.tag.must_equal 'alpha' }

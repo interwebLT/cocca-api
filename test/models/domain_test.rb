@@ -6,6 +6,7 @@ describe Domain do
   let(:params) {
     {
       name: 'domain.ph',
+      partner:  'alpha',
       registrant_handle: 'contact'
     }
   }
