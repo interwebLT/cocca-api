@@ -4,9 +4,9 @@ development:
   password:
 
 test:
-  host:
-  username:
-  password:
+  host: test.host
+  username: test
+  password: test_password
 
 production:
   host:
