@@ -2,8 +2,8 @@ class DomainsController < ApplicationController
   def update
     domain = Domain.new domain_params
 
-    if domain.update_authcode domain_params[:authcode]
-      head 200
+    if domain.valid? and domain.update_authcode(domain_params[:authcode])
+      head :ok
     else
       head :unprocessable_entity
     end
