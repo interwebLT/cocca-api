@@ -1,4 +1,4 @@
-When(/^I register a domain that is still available$/) do
+When /^I register a domain that is still available$/ do
   client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
@@ -6,7 +6,7 @@ When(/^I register a domain that is still available$/) do
   end
 end
 
-When(/^I register multiple domains that are still available$/) do
+When /^I register multiple domains that are still available$/ do
   client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
   client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
 
@@ -15,7 +15,7 @@ When(/^I register multiple domains that are still available$/) do
   end
 end
 
-When(/^I place an order that fails at an external step$/) do
+When /^I place an order that fails at an external step$/ do
   client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
   client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
   client.expect :create, 'domain/create_response'.epp, [EPP::Domain::Create]
@@ -25,21 +25,21 @@ When(/^I place an order that fails at an external step$/) do
   end
 end
 
-When(/^I register multiple domains with one validation error$/) do
+When /^I register multiple domains with one validation error$/ do
   request = 'domain/create_multiple_domains_one_error'.json
   post orders_path, request
 end
 
-Then(/^domains must be registered$/) do
+Then /^domains must be registered$/ do
   client.verify
   json_response.must_equal 'domain/create_multiple_domains_response'.json
 end
 
-Then(/^domain must be registered$/) do
+Then /^domain must be registered$/ do
   json_response.must_equal 'domain/create_response'.json
 end
 
-When(/^I register a domain using (.*)$/) do |type|
+When /^I register a domain using (.*)$/ do |type|
   table = {
     "no domain name" => "no_domain",
     "no period" => "no_period",
@@ -55,7 +55,7 @@ When(/^I register a domain using (.*)$/) do |type|
   post orders_path, request
 end
 
-When(/^I register a domain with existing domain name$/) do
+When /^I register a domain with existing domain name$/ do
   client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
@@ -63,7 +63,7 @@ When(/^I register a domain with existing domain name$/) do
   end
 end
 
-When(/^I register a domain with non\-existing registrant handle$/) do
+When /^I register a domain with non\-existing registrant handle$/ do
   client.expect :create, 'domain/create_response_failed'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do

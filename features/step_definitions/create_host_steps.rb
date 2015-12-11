@@ -1,4 +1,4 @@
-When(/^I create a host entry$/) do
+When /^I create a host entry$/ do
   client.expect :create, 'host/create_response'.epp, [EPP::Host::Create]
 
   EPP::Client.stub :new, client do
@@ -6,17 +6,17 @@ When(/^I create a host entry$/) do
   end
 end
 
-When(/^I create a host entry with no host name$/) do
+When /^I create a host entry with no host name$/ do
   request = "host/create_request_no_hostname".json
   post hosts_path, request
 end
 
-When(/^I create a host entry with blank host name$/) do
+When /^I create a host entry with blank host name$/ do
   request = "host/create_request_blank_hostname".json
   post hosts_path, request
 end
 
-When(/^I create a host entry with existing host name$/) do
+When /^I create a host entry with existing host name$/ do
   client.expect :create, 'host/epp_failure'.epp, [EPP::Host::Create]
 
   EPP::Client.stub :new, client do
@@ -24,7 +24,7 @@ When(/^I create a host entry with existing host name$/) do
   end
 end
 
-Then(/^host entry must be created$/) do
+Then /^host entry must be created$/ do
   client.verify
   json_response.must_equal 'host/create_response'.json
 end

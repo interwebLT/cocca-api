@@ -1,4 +1,4 @@
-When  /^I create a new contact with required fields only$/ do
+When /^I create a new contact with required fields only$/ do
   client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
@@ -6,7 +6,7 @@ When  /^I create a new contact with required fields only$/ do
   end
 end
 
-When  /^I create a new contact with complete fields provided$/ do
+When /^I create a new contact with complete fields provided$/ do
   client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
@@ -14,11 +14,11 @@ When  /^I create a new contact with complete fields provided$/ do
   end
 end
 
-When  /^I create a new contact with missing (.*?)$/ do |field|
+When /^I create a new contact with missing (.*?)$/ do |field|
   post contacts_path, 'contact/create_request'.json.delete(field.to_sym)
 end
 
-When  /^I create a new contact with an existing handle$/ do
+When /^I create a new contact with an existing handle$/ do
   client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
@@ -26,7 +26,7 @@ When  /^I create a new contact with an existing handle$/ do
   end
 end
 
-When(/^I update a contact$/) do
+When /^I update a contact$/ do
   client.expect :update, 'contact/create_response'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
@@ -34,7 +34,7 @@ When(/^I update a contact$/) do
   end
 end
 
-When(/^I update a contact that does not exist$/) do
+When /^I update a contact that does not exist$/ do
   client.expect :update, 'contact/update_response_failed'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
@@ -42,11 +42,11 @@ When(/^I update a contact that does not exist$/) do
   end
 end
 
-Then(/^error must be not found$/) do
+Then /^error must be not found$/ do
   last_response.status.must_equal 422
 end
 
-When(/^I update a contact with a new handle$/) do
+When /^I update a contact with a new handle$/ do
   client.expect :update, 'contact/update_response_failed'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
@@ -54,11 +54,11 @@ When(/^I update a contact with a new handle$/) do
   end
 end
 
-Then(/^error must be bad request$/) do
+Then /^error must be bad request$/ do
   last_response.status.must_equal 422
 end
 
-When(/^I update a contact that I do not own$/) do
+When /^I update a contact that I do not own$/ do
   client.expect :update, 'contact/update_response_failed'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
@@ -66,7 +66,7 @@ When(/^I update a contact that I do not own$/) do
   end
 end
 
-When(/^I update a contact and change the handle$/) do
+When /^I update a contact and change the handle$/ do
   client.expect :update, 'contact/update_response_failed'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
@@ -74,14 +74,14 @@ When(/^I update a contact and change the handle$/) do
   end
 end
 
-Then(/^contact must be updated on EPP$/) do
+Then /^contact must be updated on EPP$/ do
   json_response.must_equal 'contact/update_response'.json
 end
 
-Then  /^contact must be created$/ do
+Then /^contact must be created$/ do
   json_response.must_equal 'contact/create_response'.json
 end
 
-Then  /^complete contact must be created$/ do
+Then /^complete contact must be created$/ do
   json_response.must_equal 'contact/create_response_complete'.json
 end
