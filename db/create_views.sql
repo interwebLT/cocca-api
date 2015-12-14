@@ -300,7 +300,8 @@ SELECT
   total,
   created,
   balance,
-  tld
+  tld,
+  trans_type
 FROM dblink('dbname=registry user=coccauser password=coccauser', '
   SELECT
     id,
@@ -312,7 +313,8 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     total,
     created,
     balance,
-    tld
+    tld,
+    trans_type
   FROM audit.ledger
   WHERE created > (current_timestamp - interval ''1'' day)
 ') cocca (
@@ -325,7 +327,8 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   total             NUMERIC,
   created           TIMESTAMP,
   balance           NUMERIC,
-  tld               VARCHAR(64)
+  tld               VARCHAR(64),
+  trans_type        VARCHAR(64)
 );
 
 DROP VIEW IF EXISTS audit_master;

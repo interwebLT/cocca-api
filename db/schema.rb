@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208054214) do
+ActiveRecord::Schema.define(version: 20151214084417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20151208054214) do
     t.datetime "created",                      null: false
     t.decimal  "balance",                      null: false
     t.string   "tld",               limit: 64, null: false
+    t.string   "trans_type",        limit: 64
   end
 
   create_table "audit_master", id: false, force: :cascade do |t|
