@@ -16,6 +16,15 @@ FactoryGirl.define do
       audit_operation 'U'
       st_pendingtransfer  'Requested'
     end
+
+    factory :transfer_domain, class: Audit::Domain do
+      audit_operation 'U'
+
+      after :create do |domain|
+        create  :transfer_ledger, audit_operation: domain.audit_operation,
+                                  domain_name:  domain.name
+      end
+    end
   end
 
   factory :audit_domain_event, class: Audit::DomainEvent do
