@@ -22,6 +22,10 @@ FactoryGirl.define do
     created Time.now
     balance 0.00
     tld 'ph'
+
+    factory :transfer_ledger, class: Audit::Ledger do
+      trans_type 'Transfer'
+    end
   end
 end
 
