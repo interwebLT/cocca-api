@@ -41,7 +41,9 @@ class ContactQuery
       .where(contact[:audit_operation].eq(audit_operation))
       .where(master[:audit_time].gt(since))
       .where(master[:audit_time].lteq(up_to))
+      .where(master[:audit_transaction].not_in(TrId.all.map(&:tr_id)))
 
     Audit::Master.connection.select_all query.to_sql
+
   end
 end

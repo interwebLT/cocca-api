@@ -8,7 +8,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_master, id: false, primary_key: :audit_transaction do |t|
-      t.integer   :audit_transaction, null: false
+      t.integer   :audit_transaction, null: false,  limit: 8
       t.string    :audit_user,                      limit: 16
       t.string    :audit_login,       null: false,  limit: 16
       t.timestamp :audit_time,        null: false
@@ -16,7 +16,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_ledger do |t|
-      t.integer   :audit_transaction, null: false
+      t.integer   :audit_transaction, null: false,  limit: 8
       t.string    :audit_operation,   null: false,  limit: 1
       t.string    :client_roid,       null: false,  limit: 89
       t.text      :description,       null: false,  limit: 3
@@ -46,7 +46,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_contact, id: false do |t|
-      t.integer   :audit_transaction, null: false
+      t.integer   :audit_transaction, null: false,  limit: 8
       t.string    :audit_operation,   null: false,  limit: 1
       t.string    :roid,              null: false,  limit: 89
       t.string    :id,                null: false,  limit: 16
@@ -73,7 +73,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_host do |t|
-      t.integer   :audit_transaction, null: false
+      t.integer   :audit_transaction, null: false,  limit: 8
       t.string    :audit_operation,   null: false,  limit: 1
       t.string    :roid,              null: false,  limit: 89
       t.string    :name,              null: false,  limit: 255
@@ -83,7 +83,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_domain_event do |t|
-      t.integer   :audit_transaction, null: false
+      t.integer   :audit_transaction, null: false,  limit: 8
       t.string    :audit_operation,   null: false,  limit: 1
       t.string    :domain_roid,                     limit: 89
       t.string    :domain_name,                     limit: 255
@@ -97,7 +97,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_domain_contact do |t|
-      t.integer :audit_transaction, null: false
+      t.integer :audit_transaction, null: false,  limit: 8
       t.string  :audit_operation,   null: false,  limit: 1
       t.string  :domain_name,       null: false,  limit: 255
       t.string  :contact_id,        null: false,  limit: 255
@@ -105,14 +105,14 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_domain_host do |t|
-      t.integer :audit_transaction, null: false
+      t.integer :audit_transaction, null: false,  limit: 8
       t.string  :audit_operation,   null: false, limit: 1
       t.string  :domain_name,       null: false, limit: 255
       t.string  :host_name,         null: false, limit: 255
     end
 
     create_table :audit_host_address do |t|
-      t.integer :audit_transaction, null: false
+      t.integer :audit_transaction, null: false,  limit: 8
       t.string  :audit_operation,   null: false, limit: 1
       t.string  :host_name,         null: false, limit: 255
       t.string  :ip,                null: false, limit: 2

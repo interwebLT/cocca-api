@@ -1,0 +1,20 @@
+{
+    "currency_code": "USD",
+    "ordered_at": "2015-01-01T00:00:00Z",
+    "order_details": [
+      {
+        "type": "domain_create",
+        "domain": "domain.ph",
+        "authcode": "AUTHCODE",
+        "period": "1",
+        "registrant_handle": "registrant"
+      },
+      {
+        "type": "domain_create",
+        "domain": "domain2.ph",
+        "authcode": "AUTHCODE",
+        "period": "1",
+        "registrant_handle": "registrant"
+      }
+    ]
+  }

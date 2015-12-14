@@ -64,5 +64,17 @@ describe ContactQuery do
 
       specify { subject.must_be_empty }
     end
+
+    context :when_contact_excluded do
+      let(:audit_time) { since }
+
+      before do
+        contact = create_contact audit_time: since
+
+        create :tr_id, tr_id: contact.audit_transaction 
+      end
+
+      specify { subject.must_be_empty }
+    end
   end
 end

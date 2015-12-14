@@ -1,0 +1,14 @@
+development:
+  host:
+  username:
+  password:
+
+test:
+  host: test.host
+  username: test
+  password: test_password
+
+production:
+  host:
+  username:
+  password:

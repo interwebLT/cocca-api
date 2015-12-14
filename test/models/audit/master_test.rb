@@ -31,6 +31,16 @@ describe Audit::Master do
 
       specify { subject.must_be_empty }
     end
+
+    context :when_transaction_excluded do
+      before do
+        domain = create_domain audit_time: since
+
+        create :tr_id, tr_id: domain.audit_transaction 
+      end
+
+      specify { subject.must_be_empty }
+    end
   end
 
   describe :associations do

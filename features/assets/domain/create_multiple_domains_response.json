@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "partner": "partner",
+    "order_number": 1,
+    "total_price": 70.00,
+    "fee": 0.00,
+    "ordered_at": "2015-01-01T00:00:00Z",
+    "status": "pending",
+    "currency_code": "USD",
+    "order_details": [
+      {
+        "type": "domain_create",
+        "price": 70.00,
+        "domain": "domain.ph",
+        "object": null,
+        "authcode": "AUTHCODE",
+        "period": 1,
+        "registrant_handle": "registrant"
+      },
+      {
+        "type": "domain_create",
+        "price": 70.00,
+        "domain": "domain2.ph",
+        "object": null,
+        "authcode": "AUTHCODE",
+        "period": 1,
+        "registrant_handle": "registrant"
+      }
+    ]
+}
