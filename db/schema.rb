@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214084417) do
+ActiveRecord::Schema.define(version: 20151214084532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,16 +117,17 @@ ActiveRecord::Schema.define(version: 20151214084417) do
   end
 
   create_table "audit_ledger", force: :cascade do |t|
-    t.integer  "audit_transaction", limit: 8,  null: false
-    t.string   "audit_operation",   limit: 1,  null: false
-    t.string   "client_roid",       limit: 89, null: false
-    t.text     "description",                  null: false
-    t.string   "currency",          limit: 3,  null: false
-    t.decimal  "total",                        null: false
-    t.datetime "created",                      null: false
-    t.decimal  "balance",                      null: false
-    t.string   "tld",               limit: 64, null: false
+    t.integer  "audit_transaction", limit: 8,   null: false
+    t.string   "audit_operation",   limit: 1,   null: false
+    t.string   "client_roid",       limit: 89,  null: false
+    t.text     "description",                   null: false
+    t.string   "currency",          limit: 3,   null: false
+    t.decimal  "total",                         null: false
+    t.datetime "created",                       null: false
+    t.decimal  "balance",                       null: false
+    t.string   "tld",               limit: 64,  null: false
     t.string   "trans_type",        limit: 64
+    t.string   "domain_name",       limit: 128
   end
 
   create_table "audit_master", id: false, force: :cascade do |t|

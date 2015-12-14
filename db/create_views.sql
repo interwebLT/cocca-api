@@ -314,7 +314,8 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     created,
     balance,
     tld,
-    trans_type
+    trans_type,
+    domain_name
   FROM audit.ledger
   WHERE created > (current_timestamp - interval ''1'' day)
 ') cocca (
@@ -328,7 +329,8 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   created           TIMESTAMP,
   balance           NUMERIC,
   tld               VARCHAR(64),
-  trans_type        VARCHAR(64)
+  trans_type        VARCHAR(64),
+  domain_name       VARCHAR(128)
 );
 
 DROP VIEW IF EXISTS audit_master;
