@@ -19,7 +19,7 @@ describe UpdateDomainContactQuery do
 
       specify { subject.count.must_equal 1 }
       specify { subject.first['domain'].must_equal 'domains.ph' }
-      specify { subject.first['handle'].must_equal 'domain_admin' }
+      specify { subject.first['handle'].must_equal 'handle' }
       specify { subject.first['type'].must_equal 'admin' }
     end
 

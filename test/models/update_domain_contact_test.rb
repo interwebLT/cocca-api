@@ -12,7 +12,7 @@ describe UpdateDomainContact do
     subject { UpdateDomainContact.all since: since, up_to: up_to }
 
     specify { subject.count.must_equal 1 }
-    specify { subject.first.handle.must_equal 'domain_admin' }
+    specify { subject.first.handle.must_equal 'handle' }
     specify { subject.first.type.must_equal 'admin' }
   end
 
@@ -34,7 +34,7 @@ describe UpdateDomainContact do
 
   def sync_request
     {
-      admin_handle: 'domain_admin'
+      admin_handle: 'handle'
     }
   end
 end

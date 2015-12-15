@@ -51,11 +51,11 @@ describe Audit::Domain do
 
     context :when_different_domains do
       before do
-        create :domain_contact, audit_transaction: subject.audit_transaction,
-                                domain_name: 'domains.ph'
+        create :audit_domain_contact, audit_transaction: subject.audit_transaction,
+                                      domain_name: 'domains.ph'
 
-        create :domain_contact, audit_transaction: subject.audit_transaction,
-                                domain_name: 'domains.com.ph'
+        create :audit_domain_contact, audit_transaction: subject.audit_transaction,
+                                      domain_name: 'domains.com.ph'
       end
 
       specify { subject.domain_contacts.count.must_equal 1 }
@@ -90,9 +90,9 @@ describe Audit::Domain do
         client_renew_prohibited:    false,
         client_transfer_prohibited: false,
         client_update_prohibited:   false,
-        admin_handle:               'handle',
-        billing_handle:             'handle',
-        tech_handle:                'handle',
+        admin_handle:               'domain_admin',
+        billing_handle:             'domain_billing',
+        tech_handle:                'domain_tech',
         domain_hosts: [
           {
             audit_operation:  AuditOperation::DELETE_OPERATION,
