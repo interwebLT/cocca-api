@@ -21,7 +21,9 @@ FactoryGirl.define do
       audit_operation 'U'
 
       after :create do |domain|
-        create  :transfer_ledger, audit_operation: domain.audit_operation,
+        create  :audit_master, audit_transaction: domain.audit_transaction
+
+        create  :transfer_ledger, audit_transaction: domain.audit_transaction,
                                   domain_name:  domain.name
       end
     end
