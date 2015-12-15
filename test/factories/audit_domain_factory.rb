@@ -12,11 +12,6 @@ FactoryGirl.define do
     registrant 'registrant'
     authinfopw 'ABC123'
 
-    factory :transfer_domain_request, class: Audit::Domain do
-      audit_operation 'U'
-      st_pendingtransfer  'Requested'
-    end
-
     factory :register_domain, class: Audit::Domain do
       createdate '2015-03-07 5:00 PM'.in_time_zone
 
