@@ -106,7 +106,9 @@ When /^latest changes are synced$/ do
 end
 
 When /^syncing of latest changes results in an error$/ do
-  sync_error
+  registry_response with: 400, on: ORDERS_PATH, body: error_params
+
+  run_sync
 end
 
 Then /^domain must now be registered$/ do

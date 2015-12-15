@@ -22,12 +22,6 @@ def registry_response on:, with:, request: :post, body: nil
   stub_request(request, on).to_return(response)
 end
 
-def sync_error
-  registry_response with: 400, on: ORDERS_PATH, body: error_params
-
-  run_sync
-end
-
 private
 
 def run_sync
