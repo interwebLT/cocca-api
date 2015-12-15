@@ -140,7 +140,7 @@ Then /^I must be informed of the error$/ do
 end
 
 Then /^domain must now be renewed$/ do
-  assert_post '/orders', renew_domain_request
+  assert_post '/orders', 'order/sync_renew_domain_request'.json
 end
 
 Then /^no request must be sent$/ do

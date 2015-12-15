@@ -1,0 +1,12 @@
+{
+  "partner": "alpha",
+  "currency_code": "USD",
+  "ordered_at": "2015-03-13T07:49:00Z",
+  "order_details": [
+    {
+      "type": "domain_renew",
+      "domain": "domains.ph",
+      "period": 3
+    }
+  ]
+}
