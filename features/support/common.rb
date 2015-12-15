@@ -89,6 +89,10 @@ def assert_request method, path, request = nil
   assert_requested method, url, params
 end
 
+def assert_delete path, request = nil
+  assert_request :delete, path, request
+end
+
 def register_domain_request
   {
     partner: 'alpha',

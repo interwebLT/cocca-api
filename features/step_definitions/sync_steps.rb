@@ -114,9 +114,7 @@ Then /^host must now have the host address I associated with it$/ do
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
-  path = '/hosts/ns5.domains.ph/addresses/123.123.123.001'
-
-  assert_request :delete, path
+  assert_delete '/hosts/ns5.domains.ph/addresses/123.123.123.001'
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
@@ -126,9 +124,7 @@ Then /^domain must now have the domain host entry I associated with it$/ do
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
-  path = '/domains/domains.ph/hosts/ns5.domains.ph'
-
-  assert_request :delete, path
+  assert_delete '/domains/domains.ph/hosts/ns5.domains.ph'
 end
 
 Then /^contact must be updated$/ do
