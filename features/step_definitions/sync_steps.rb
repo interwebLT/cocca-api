@@ -116,7 +116,7 @@ Then /^host must no longer have the host address I removed associated with it$/ 
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  assert_post '/domains/domains.ph/hosts', create_domain_host_entry_request
+  assert_post '/domains/domains.ph/hosts', 'domain_host/sync_create_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do

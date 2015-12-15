@@ -97,12 +97,6 @@ def assert_post path, request = nil
   assert_request :post, path, request
 end
 
-def create_domain_host_entry_request
-  {
-    name: 'ns5.domains.ph'
-  }
-end
-
 def update_domain_contact_request
   {
     registrant_handle: 'registrant',
