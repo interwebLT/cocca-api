@@ -88,7 +88,7 @@ Given /^I renewed a domain with period in months$/ do
 end
 
 When /^latest changes are synced$/ do
-  sync_latest_changes
+  run_sync
 end
 
 When /^syncing of latest changes results in an error$/ do

@@ -40,10 +40,6 @@ def registry_response on:, with:, request: :post, body: nil
   stub_request(request, on).to_return(response)
 end
 
-def sync_latest_changes
-  run_sync
-end
-
 def sync_error
   registry_response with: 400, on: ORDERS_PATH, body: error_params
 
@@ -99,9 +95,6 @@ end
 
 def assert_post path, request = nil
   assert_request :post, path, request
-end
-
-def create_contact_request
 end
 
 def create_host_request
