@@ -104,11 +104,11 @@ Then /^contact must now exist$/ do
 end
 
 Then /^host entry must now exist$/ do
-  assert_post '/hosts', create_host_request
+  assert_post '/hosts', 'host/sync_create_request'.json
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  assert_post '/hosts/ns5.domains.ph/addresses', create_host_address_request
+  assert_post '/hosts/ns5.domains.ph/addresses', 'host_address/sync_create_request'.json
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do

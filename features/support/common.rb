@@ -97,20 +97,6 @@ def assert_post path, request = nil
   assert_request :post, path, request
 end
 
-def create_host_request
-  {
-    partner: 'alpha',
-    name: 'ns5.domains.ph'
-  }
-end
-
-def create_host_address_request
-  {
-    address: '123.123.123.001',
-    type: 'v4'
-  }
-end
-
 def create_domain_host_entry_request
   {
     name: 'ns5.domains.ph'
