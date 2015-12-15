@@ -66,7 +66,7 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def transfer_domain?
-    update_operation? and ledger.present? and ledger.transfer?
+    update_operation? and ledger.present? and ledger.transfer? and (ledger.client_roid == clid)
   end
 
   def as_json options = nil

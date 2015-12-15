@@ -3,7 +3,7 @@ FactoryGirl.define do
     audit_transaction
     audit_operation 'I'
     sequence(:id, 1) { |id| id}
-    client_roid '3-CoCCA'
+    client_roid 'beta'
     description 'this is a test'
     currency 'USD'
     total 0.00

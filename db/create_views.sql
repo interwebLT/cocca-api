@@ -305,20 +305,21 @@ SELECT
   domain_name
 FROM dblink('dbname=registry user=coccauser password=coccauser', '
   SELECT
-    id,
-    audit_transaction,
-    audit_operation,
-    client_roid,
-    description,
-    currency,
-    total,
-    created,
-    balance,
-    tld,
-    trans_type,
-    domain_name
-  FROM audit.ledger
+    l.id,
+    l.audit_transaction,
+    l.audit_operation,
+    c.clid AS client_roid,
+    l.description,
+    l.currency,
+    l.total,
+    l.created,
+    l.balance,
+    l.tld,
+    l.trans_type,
+    l.domain_name
+  FROM audit.ledger l, client c
   WHERE created > (current_timestamp - interval ''1'' day)
+  AND l.client_roid = c.roid
 ') cocca (
   id                INTEGER,
   audit_transaction BIGINT,

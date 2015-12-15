@@ -146,6 +146,14 @@ describe Audit::Domain do
     specify { register_domain.transfer_domain?.must_equal false }
     specify { update_domain.transfer_domain?.must_equal false }
     specify { renew_domain.transfer_domain?.must_equal false }
+
+    context :when_clid_differs_from_client_roid do
+      before do
+        transfer_domain.ledger.update client_roid: 'alpha'
+      end
+
+      specify { transfer_domain.transfer_domain?.must_equal false }
+    end
   end
 
   describe :domain_hosts do
