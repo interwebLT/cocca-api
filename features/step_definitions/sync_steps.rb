@@ -96,7 +96,7 @@ When /^syncing of latest changes results in an error$/ do
 end
 
 Then /^domain must now be registered$/ do
-  assert_post '/orders', register_domain_request
+  assert_post '/orders', 'order/sync_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do

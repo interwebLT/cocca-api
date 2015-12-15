@@ -101,23 +101,6 @@ def assert_post path, request = nil
   assert_request :post, path, request
 end
 
-def register_domain_request
-  {
-    partner: 'alpha',
-    currency_code: 'USD',
-    ordered_at: '2015-03-07T17:00:00Z',
-    order_details: [
-      {
-        type: 'domain_create',
-        domain: 'domains.ph',
-        authcode: 'ABC123',
-        period: 1,
-        registrant_handle: 'registrant'
-      }
-    ]
-  }
-end
-
 def renew_domain_request
   {
     partner: 'alpha',
