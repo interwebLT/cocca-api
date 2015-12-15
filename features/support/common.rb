@@ -10,24 +10,6 @@ CONTACT_PATH        = /#{Rails.configuration.x.registry_url}\/contacts\/.*/
 EXCLUDED_PARTNER = 'excluded'
 PARTNER = 'alpha'
 
-def registry_accepts_sync_requests
-  registry_response with: 201, on: AUTHORIZATIONS_PATH, body: { token: 'ABCDEF' }
-
-  registry_response with: 201, on: ORDERS_PATH
-  registry_response with: 201, on: CONTACTS_PATH
-  registry_response with: 201, on: HOSTS_PATH
-
-  registry_response with: 201, on: HOST_ADDRESS_PATH
-  registry_response with: 200, on: HOST_ADDRESS_PATH, request: :delete
-
-  registry_response with: 201, on: DOMAIN_HOST_PATH
-
-  registry_response with: 200, on: DOMAIN_PATH, request: :patch
-  registry_response with: 200, on: DOMAIN_PATH, request: :delete
-
-  registry_response with: 200, on: CONTACT_PATH, request: :patch
-end
-
 def exclude_partners
   create :excluded_partner
   create :excluded_partner, name: 'other_excluded'
