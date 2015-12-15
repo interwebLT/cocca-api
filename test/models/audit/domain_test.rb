@@ -2,14 +2,14 @@ require 'test_helper'
 
 describe Audit::Domain do
   describe :associations do
-    subject { create_domain }
+    subject { create :register_domain }
 
     specify { subject.master.wont_be_nil }
     specify { subject.domain_event.wont_be_nil }
   end
 
   describe :domain_contacts do
-    subject { create_domain }
+    subject { create :register_domain }
 
     context :when_contact_exists do
       before do
@@ -149,7 +149,7 @@ describe Audit::Domain do
   end
 
   describe :domain_hosts do
-    subject { create_domain }
+    subject { create :register_domain }
 
     context :when_host_exists do
       before do

@@ -9,7 +9,8 @@ describe Audit::Master do
 
     context :when_within_range do
       before do
-        create_domain audit_time: since
+        domain = create :register_domain
+        domain.master.update audit_time: since
       end
 
       specify { subject.count.must_equal 1 }
@@ -17,7 +18,9 @@ describe Audit::Master do
 
     context :when_with_excluded do
       before do
-        create_domain audit_time: since, partner: EXCLUDED_PARTNER
+        domain = create :register_domain
+        domain.master.update audit_time: since, audit_user: EXCLUDED_PARTNER
+
         create :excluded_partner
       end
 
@@ -26,7 +29,8 @@ describe Audit::Master do
 
     context :when_at_up_to do
       before do
-        create_domain audit_time: up_to
+        domain = create :register_domain
+        domain.master.update audit_time: up_to
       end
 
       specify { subject.must_be_empty }
@@ -34,9 +38,10 @@ describe Audit::Master do
 
     context :when_transaction_excluded do
       before do
-        domain = create_domain audit_time: since
+        domain = create :register_domain
+        domain.master.update audit_time: since
 
-        create :tr_id, tr_id: domain.audit_transaction 
+        create :tr_id, tr_id: domain.audit_transaction
       end
 
       specify { subject.must_be_empty }
@@ -47,7 +52,7 @@ describe Audit::Master do
     subject { create :audit_master }
 
     before do
-      create_domain audit_transaction: subject.audit_transaction
+      create :register_domain, audit_transaction: subject.audit_transaction
     end
 
     specify { subject.domains.count.must_equal 1 }

@@ -21,8 +21,6 @@ Given /^some partners are excluded from sync$/ do
 end
 
 Given /^I registered a domain$/ do
-  create_domain partner: EXCLUDED_PARTNER
-
   create :register_domain
 end
 
@@ -53,14 +51,14 @@ end
 Given /^I added a domain host entry to an existing domain$/ do
   create_domain_host partner: EXCLUDED_PARTNER
 
-  domain = create_domain
+  domain = create :register_domain
   create :create_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
   remove_domain_host partner: EXCLUDED_PARTNER
 
-  domain = create_domain
+  domain = create :register_domain
   create :remove_domain_host, audit_transaction: domain.audit_transaction
 end
 
@@ -84,8 +82,6 @@ Given /^I updated a contact of an existing domain$/ do
 end
 
 Given /^I renewed a domain$/ do
-  renew_domain partner: EXCLUDED_PARTNER
-
   create :renew_domain
 end
 
