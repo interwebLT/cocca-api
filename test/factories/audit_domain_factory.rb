@@ -12,13 +12,15 @@ FactoryGirl.define do
     registrant 'registrant'
     authinfopw 'ABC123'
 
+    after :create do |domain|
+      create :audit_master, audit_transaction: domain.audit_transaction,
+                            audit_time: domain.createdate
+    end
+
     factory :register_domain, class: Audit::Domain do
       createdate '2015-03-07 5:00 PM'.in_time_zone
 
       after :create do |domain|
-        create :audit_master, audit_transaction: domain.audit_transaction,
-                              audit_time: domain.createdate
-
         create  :register_ledger, audit_transaction: domain.audit_transaction,
                                   domain_name: domain.name
 
@@ -35,11 +37,6 @@ FactoryGirl.define do
 
     factory :update_domain, class: Audit::Domain do
       audit_operation 'U'
-
-      after :create do |domain|
-        create :audit_master, audit_transaction: domain.audit_transaction,
-                              audit_time: domain.createdate
-      end
 
       factory :transfer_domain, class: Audit::Domain do
         clid 'beta'
