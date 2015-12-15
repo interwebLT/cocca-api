@@ -81,3 +81,8 @@ Feature: Sync Changes
     Given I requested to transfer a domain
     When  latest changes are synced
     Then  no request must be sent
+
+  Scenario: Sync domain transfers
+    Given I transferred a domain into my partner account
+    When  latest changes are synced
+    Then  domain must now be under my partner

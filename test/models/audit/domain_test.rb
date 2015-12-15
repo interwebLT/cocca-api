@@ -132,7 +132,7 @@ describe Audit::Domain do
   end
 
   describe :transfer_domain? do
-    specify { transfer_domain_request.transfer_domain?.must_equal true }
+    specify { create(:transfer_domain).transfer_domain?.must_equal true }
     specify { register_domain.transfer_domain?.must_equal false }
     specify { update_domain.transfer_domain?.must_equal false }
     specify { renew_domain.transfer_domain?.must_equal false }

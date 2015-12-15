@@ -101,6 +101,10 @@ Given /^I renewed a domain with period in months$/ do
   renew_domain_with_period_in_months
 end
 
+Given /^I transferred a domain into my partner account$/ do
+  create :transfer_domain
+end
+
 When /^latest changes are synced$/ do
   run_sync
 end
@@ -161,4 +165,8 @@ end
 
 Then /^no request must be sent$/ do
   assert_not_requested :patch, DOMAIN_PATH
+end
+
+Then /^domain must now be under my partner$/ do
+  assert_post '/orders', 'order/sync_transfer_domain_request'.json
 end

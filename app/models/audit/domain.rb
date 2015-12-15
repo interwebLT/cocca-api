@@ -49,6 +49,10 @@ class Audit::Domain < ActiveRecord::Base
     Audit::DomainEvent.find_by audit_transaction: self.audit_transaction, domain_name: self.name
   end
 
+  def ledger
+    Audit::Ledger.find_by audit_transaction: self.audit_transaction, domain_name: self.name
+  end
+
   def register_domain?
     self.insert_operation?
   end
@@ -65,7 +69,7 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def transfer_domain?
-    self.update_operation? and self.st_pendingtransfer.present?
+    self.update_operation? and ledger.present? and ledger.transfer?
   end
 
   def as_json options = nil
