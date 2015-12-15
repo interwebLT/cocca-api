@@ -128,7 +128,7 @@ Then /^contact must be updated$/ do
 end
 
 Then /^domain must be updated$/ do
-  assert_patch '/domains/domains.ph', update_domain_request
+  assert_patch '/domains/domains.ph', 'domain/sync_update_request'.json
 end
 
 Then /^domain contact must be updated$/ do
