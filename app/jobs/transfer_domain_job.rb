@@ -3,7 +3,7 @@ class TransferDomainJob < ActiveJob::Base
 
   URL = Rails.configuration.x.registry_url
 
-  queue_as :sync_cocca_jobs
+  queue_as :sync_cocca_records
 
   def perform record
     json_request = {
