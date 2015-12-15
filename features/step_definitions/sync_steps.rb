@@ -96,53 +96,67 @@ When /^syncing of latest changes results in an error$/ do
 end
 
 Then /^domain must now be registered$/ do
-  assert_register_domain_synced
+  assert_request :post, '/orders', register_domain_request
 end
 
 Then /^contact must now exist$/ do
-  assert_create_contact_synced
+  assert_request :post, '/contacts', create_contact_request
 end
 
 Then /^host entry must now exist$/ do
-  assert_create_host_entry_synced
+  assert_request :post, '/hosts', create_host_request
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  assert_create_host_address_synced
+  path = '/hosts/ns5.domains.ph/addresses'
+
+  assert_request :post, path, create_host_address_request
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
-  assert_remove_host_address_synced
+  path = '/hosts/ns5.domains.ph/addresses/123.123.123.001'
+
+  assert_request :delete, path
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  assert_create_domain_host_entry_synced
+  path = '/domains/domains.ph/hosts'
+
+  assert_request :post, path, create_domain_host_entry_request
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
-  assert_remove_domain_host_entry_synced
+  path = '/domains/domains.ph/hosts/ns5.domains.ph'
+
+  assert_request :delete, path
 end
 
 Then /^contact must be updated$/ do
-  assert_update_contact_synced
+  path = '/contacts/handle'
+
+  assert_request :patch, path, update_contact_request
 end
 
 Then /^domain must be updated$/ do
-  assert_update_domain_synced
+  path = '/domains/domains.ph'
+
+  assert_request :patch, path, update_domain_request
 end
 
 Then /^domain contact must be updated$/ do
-  assert_update_domain_contact_synced
+  path = '/domains/domains.ph'
+
+  assert_request :patch, path, update_domain_contact_request
 end
 
 Then /^I must be informed of the error$/ do
-  assert_exception_thrown
+  @exception_thrown.must_equal true
 end
 
 Then /^domain must now be renewed$/ do
-  assert_renew_domain_synced
+  assert_request :post, '/orders', renew_domain_request
 end
 
 Then /^no request must be sent$/ do
-  assert_no_request_sent
+  assert_not_requested :patch, DOMAIN_PATH
 end
