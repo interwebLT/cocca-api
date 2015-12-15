@@ -74,7 +74,7 @@ class Audit::Domain < ActiveRecord::Base
 
   def as_json options = nil
     result = {
-      partner:                    self.master.audit_user,
+      partner:                    self.clid,
       domain:                     self.name,
       authcode:                   self.authinfopw,
       period:                     (self.domain_event.period if self.domain_event),

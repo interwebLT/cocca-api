@@ -108,6 +108,12 @@ describe Audit::Domain do
     }
 
     specify { subject.as_json.must_equal expected_json }
+
+    context :when_transfer_domain do
+      subject { create :transfer_domain }
+
+      specify { subject.as_json[:partner].must_equal 'beta' }
+    end
   end
 
   describe :register_domain? do

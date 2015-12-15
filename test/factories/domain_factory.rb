@@ -6,7 +6,7 @@ FactoryGirl.define do
     name 'domains.ph'
     exdate '2016-02-17 3:00 PM'.to_time
     clid 'alpha'
-    crid 'alph'
+    crid 'alpha'
     createdate '2015-02-17 3:00 PM'.to_time
     zone 'ph'
     registrant 'registrant'
@@ -19,6 +19,7 @@ FactoryGirl.define do
 
     factory :transfer_domain, class: Audit::Domain do
       audit_operation 'U'
+      clid 'beta'
       createdate '2015-12-15 3:30 PM'.in_time_zone
 
       after :create do |domain|
