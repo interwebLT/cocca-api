@@ -25,16 +25,6 @@ def update_contact audit_time: Time.now, partner: PARTNER
                           audit_operation: 'U'
 end
 
-def create_domain_contact audit_transaction:
-  create :audit_domain_contact, audit_transaction: audit_transaction
-end
-
-def remove_domain_contact audit_transaction:, type: Audit::DomainContact::ADMIN_TYPE
-  create :audit_domain_contact, audit_transaction:  audit_transaction,
-                                audit_operation:    'D',
-                                type: type
-end
-
 def create_domain_host audit_time: Time.now, partner: PARTNER
   create :audit_domain_host, audit_transaction: audit_master(audit_time, partner: partner)
 end

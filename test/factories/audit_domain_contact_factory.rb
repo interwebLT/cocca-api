@@ -20,5 +20,12 @@ FactoryGirl.define do
       type Audit::DomainContact::TECH_TYPE
       contact_id 'domain_tech'
     end
+
+    factory :create_domain_contact do
+    end
+
+    factory :remove_domain_contact do
+      audit_operation AuditOperation::DELETE_OPERATION
+    end
   end
 end
