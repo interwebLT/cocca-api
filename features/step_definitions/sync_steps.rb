@@ -89,10 +89,6 @@ Given /^I renewed a domain$/ do
   renew_domain
 end
 
-Given /^I requested to transfer a domain$/ do
-  transfer_domain_request
-end
-
 Given /^I registered a domain with period in months$/ do
   register_domain_with_period_in_months
 end
@@ -161,10 +157,6 @@ end
 
 Then /^domain must now be renewed$/ do
   assert_post '/orders', 'order/sync_renew_domain_request'.json
-end
-
-Then /^no request must be sent$/ do
-  assert_not_requested :patch, DOMAIN_PATH
 end
 
 Then /^domain must now be under my partner$/ do
