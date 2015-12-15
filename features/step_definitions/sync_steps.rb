@@ -96,21 +96,19 @@ When /^syncing of latest changes results in an error$/ do
 end
 
 Then /^domain must now be registered$/ do
-  assert_request :post, '/orders', register_domain_request
+  assert_post '/orders', register_domain_request
 end
 
 Then /^contact must now exist$/ do
-  assert_request :post, '/contacts', create_contact_request
+  assert_post '/contacts', create_contact_request
 end
 
 Then /^host entry must now exist$/ do
-  assert_request :post, '/hosts', create_host_request
+  assert_post '/hosts', create_host_request
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  path = '/hosts/ns5.domains.ph/addresses'
-
-  assert_request :post, path, create_host_address_request
+  assert_post '/hosts/ns5.domains.ph/addresses', create_host_address_request
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
@@ -118,9 +116,7 @@ Then /^host must no longer have the host address I removed associated with it$/ 
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  path = '/domains/domains.ph/hosts'
-
-  assert_request :post, path, create_domain_host_entry_request
+  assert_post '/domains/domains.ph/hosts', create_domain_host_entry_request
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
@@ -128,21 +124,15 @@ Then /^domain must no longer have the domain host entry I removed associated wit
 end
 
 Then /^contact must be updated$/ do
-  path = '/contacts/handle'
-
-  assert_request :patch, path, update_contact_request
+  assert_patch '/contacts/handle', update_contact_request
 end
 
 Then /^domain must be updated$/ do
-  path = '/domains/domains.ph'
-
-  assert_request :patch, path, update_domain_request
+  assert_patch '/domains/domains.ph', update_domain_request
 end
 
 Then /^domain contact must be updated$/ do
-  path = '/domains/domains.ph'
-
-  assert_request :patch, path, update_domain_contact_request
+  assert_patch '/domains/domains.ph', update_domain_contact_request
 end
 
 Then /^I must be informed of the error$/ do
@@ -150,7 +140,7 @@ Then /^I must be informed of the error$/ do
 end
 
 Then /^domain must now be renewed$/ do
-  assert_request :post, '/orders', renew_domain_request
+  assert_post '/orders', renew_domain_request
 end
 
 Then /^no request must be sent$/ do
