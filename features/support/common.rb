@@ -22,8 +22,6 @@ def registry_response on:, with:, request: :post, body: nil
   stub_request(request, on).to_return(response)
 end
 
-private
-
 def run_sync
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
