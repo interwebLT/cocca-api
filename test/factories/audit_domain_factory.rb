@@ -70,13 +70,3 @@ FactoryGirl.define do
     end
   end
 end
-
-def update_domain audit_time: Time.now, partner: PARTNER
-  audit_transaction = audit_master audit_time, partner: partner
-
-  create :audit_domain, audit_transaction: audit_transaction, audit_operation: 'U'
-end
-
-def update_domain_contact audit_time: Time.now, partner: PARTNER
-  create :audit_domain_contact, audit_transaction: audit_master(audit_time, partner: partner)
-end

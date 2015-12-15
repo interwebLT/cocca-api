@@ -7,12 +7,3 @@ FactoryGirl.define do
     address '123.123.123.001'
   end
 end
-
-def create_host_address audit_time: Time.now, partner: PARTNER
-  create :audit_host_address, audit_transaction: audit_master(audit_time, partner: partner)
-end
-
-def remove_host_address name: 'ns5.domains.ph', audit_time: Time.now, partner: PARTNER
-  create :audit_host_address, audit_transaction: audit_master(audit_time, partner: partner),
-                              audit_operation: 'D'
-end

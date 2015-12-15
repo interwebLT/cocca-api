@@ -32,12 +32,3 @@ FactoryGirl.define do
     email 'test@contact.ph'
   end
 end
-
-def create_contact audit_time: Time.now, partner: PARTNER
-  create :audit_contact, audit_transaction: audit_master(audit_time, partner: partner)
-end
-
-def update_contact audit_time: Time.now, partner: PARTNER
-  create :audit_contact,  audit_transaction: audit_master(audit_time, partner: partner),
-                          audit_operation: 'U'
-end
