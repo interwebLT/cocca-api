@@ -301,7 +301,8 @@ SELECT
   created,
   balance,
   tld,
-  trans_type
+  trans_type,
+  domain_name
 FROM dblink('dbname=registry user=coccauser password=coccauser', '
   SELECT
     id,
