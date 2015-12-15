@@ -96,16 +96,3 @@ end
 def assert_post path, request = nil
   assert_request :post, path, request
 end
-
-def update_domain_contact_request
-  {
-    registrant_handle: 'registrant',
-    authcode: 'ABC123',
-    client_hold: false,
-    client_delete_prohibited: false,
-    client_renew_prohibited: false,
-    client_transfer_prohibited: false,
-    client_update_prohibited: false,
-    admin_handle: 'handle'
-  }
-end
