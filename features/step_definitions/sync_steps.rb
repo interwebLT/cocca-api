@@ -100,7 +100,7 @@ Then /^domain must now be registered$/ do
 end
 
 Then /^contact must now exist$/ do
-  assert_post '/contacts', create_contact_request
+  assert_post '/contacts', 'contact/sync_create_request'.json
 end
 
 Then /^host entry must now exist$/ do
@@ -124,7 +124,7 @@ Then /^domain must no longer have the domain host entry I removed associated wit
 end
 
 Then /^contact must be updated$/ do
-  assert_patch '/contacts/handle', update_contact_request
+  assert_patch '/contacts/handle', 'contact/sync_update_request'.json
 end
 
 Then /^domain must be updated$/ do
