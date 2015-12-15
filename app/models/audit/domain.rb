@@ -58,18 +58,15 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def update_domain?
-    self.update_operation? and self.domain_event.nil? and self.st_pendingtransfer.nil?
+    update_operation? and ledger.nil?
   end
 
   def renew_domain?
-    self.update_operation? \
-    and !self.domain_event.nil? \
-    and (self.domain_event.event == 'RENEWAL') \
-    and self.st_pendingtransfer.nil?
+    update_operation? and ledger.present? and ledger.renew?
   end
 
   def transfer_domain?
-    self.update_operation? and ledger.present? and ledger.transfer?
+    update_operation? and ledger.present? and ledger.transfer?
   end
 
   def as_json options = nil
@@ -79,8 +76,7 @@ class Audit::Domain < ActiveRecord::Base
       authcode:                   self.authinfopw,
       period:                     (self.domain_event.period if self.domain_event),
       registrant_handle:          self.registrant,
-      registered_at:              self.createdate.utc.iso8601,
-      renewed_at:                 (self.master.audit_time.utc.iso8601 if self.renew_domain?),
+      ordered_at:                 self.master.audit_time.utc.iso8601,
       client_hold:                !self.st_cl_hold.blank?,
       client_delete_prohibited:   !self.st_cl_deleteprohibited.blank?,
       client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,

@@ -17,16 +17,63 @@ FactoryGirl.define do
       st_pendingtransfer  'Requested'
     end
 
-    factory :transfer_domain, class: Audit::Domain do
-      audit_operation 'U'
-      clid 'beta'
-      createdate '2015-12-15 3:30 PM'.in_time_zone
+    factory :register_domain, class: Audit::Domain do
+      createdate '2015-03-07 5:00 PM'.in_time_zone
 
       after :create do |domain|
-        create  :audit_master, audit_transaction: domain.audit_transaction
+        create :audit_master, audit_transaction: domain.audit_transaction,
+                              audit_time: domain.createdate
 
-        create  :transfer_ledger, audit_transaction: domain.audit_transaction,
+        create  :register_ledger, audit_transaction: domain.audit_transaction,
+                                  domain_name: domain.name
+
+        create  :audit_domain_event,  audit_transaction: domain.audit_transaction,
+                                      domain_name: domain.name
+      end
+
+      factory :register_domain_in_months, class: Audit::Domain do
+        after :create do |domain|
+          domain.domain_event.update! term_length: 12, term_units: 'MONTHS'
+        end
+      end
+    end
+
+    factory :update_domain, class: Audit::Domain do
+      audit_operation 'U'
+
+      after :create do |domain|
+        create :audit_master, audit_transaction: domain.audit_transaction,
+                              audit_time: domain.createdate
+      end
+
+      factory :transfer_domain, class: Audit::Domain do
+        clid 'beta'
+        createdate '2015-12-15 3:30 PM'.in_time_zone
+
+        after :create do |domain|
+          create  :transfer_ledger, audit_transaction: domain.audit_transaction,
+                                    domain_name: domain.name
+        end
+      end
+
+      factory :renew_domain, class: Audit::Domain do
+        createdate '2015-03-13 07:35 AM'.in_time_zone
+
+        after :create do |domain|
+          create  :renew_ledger,  audit_transaction: domain.audit_transaction,
                                   domain_name:  domain.name
+
+          create  :renew_domain_event,  audit_transaction: domain.audit_transaction,
+                                        term_length: 3,
+                                        expiry_date: domain.createdate + 3.years,
+                                        domain_name: domain.name
+        end
+
+        factory :renew_domain_in_months, class: Audit::Domain do
+          after :create do |domain|
+            domain.domain_event.update! term_length: 36, term_units: 'MONTHS'
+          end
+        end
       end
     end
   end
@@ -44,6 +91,10 @@ FactoryGirl.define do
     expiry_date 1.to_i.year.from_now
     ledger_id 1
     login_username 'admin'
+
+    factory :renew_domain_event, class: Audit::DomainEvent do
+      event 'RENEWAL'
+    end
   end
 
   factory :audit_domain_contact, class: Audit::DomainContact do

@@ -63,7 +63,7 @@ describe Audit::Domain do
   end
 
   describe :as_json do
-    subject { create_domain }
+    subject { register_domain }
 
     before do
       create :create_domain_host, audit_transaction:  subject.audit_transaction,
@@ -84,8 +84,7 @@ describe Audit::Domain do
         authcode:                   'ABC123',
         period:                     1,
         registrant_handle:          'registrant',
-        registered_at:              '2015-03-07T17:00:00Z',
-        renewed_at:                 nil,
+        ordered_at:                 '2015-03-07T17:00:00Z',
         client_hold:                false,
         client_delete_prohibited:   false,
         client_renew_prohibited:    false,
@@ -116,29 +115,34 @@ describe Audit::Domain do
     end
   end
 
+  let(:register_domain) { create :register_domain }
+  let(:renew_domain)    { create :renew_domain }
+  let(:update_domain)   { create :update_domain }
+  let(:transfer_domain) { create :transfer_domain }
+
   describe :register_domain? do
     specify { register_domain.register_domain?.must_equal true }
     specify { update_domain.register_domain?.must_equal false }
     specify { renew_domain.register_domain?.must_equal false }
-    specify { transfer_domain_request.register_domain?.must_equal false }
+    specify { transfer_domain.register_domain?.must_equal false }
   end
 
   describe :update_domain? do
     specify { update_domain.update_domain?.must_equal true }
     specify { register_domain.update_domain?.must_equal false }
     specify { renew_domain.update_domain?.must_equal false }
-    specify { transfer_domain_request.update_domain?.must_equal false }
+    specify { transfer_domain.update_domain?.must_equal false }
   end
 
   describe :renew_domain? do
     specify { renew_domain.renew_domain?.must_equal true }
     specify { register_domain.renew_domain?.must_equal false }
     specify { update_domain.renew_domain?.must_equal false }
-    specify { transfer_domain_request.renew_domain?.must_equal false }
+    specify { transfer_domain.renew_domain?.must_equal false }
   end
 
   describe :transfer_domain? do
-    specify { create(:transfer_domain).transfer_domain?.must_equal true }
+    specify { transfer_domain.transfer_domain?.must_equal true }
     specify { register_domain.transfer_domain?.must_equal false }
     specify { update_domain.transfer_domain?.must_equal false }
     specify { renew_domain.transfer_domain?.must_equal false }

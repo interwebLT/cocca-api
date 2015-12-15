@@ -23,7 +23,7 @@ end
 Given /^I registered a domain$/ do
   create_domain partner: EXCLUDED_PARTNER
 
-  create_domain
+  create :register_domain
 end
 
 Given /^I created a contact$/ do
@@ -86,15 +86,15 @@ end
 Given /^I renewed a domain$/ do
   renew_domain partner: EXCLUDED_PARTNER
 
-  renew_domain
+  create :renew_domain
 end
 
 Given /^I registered a domain with period in months$/ do
-  register_domain_with_period_in_months
+  create :register_domain_in_months
 end
 
 Given /^I renewed a domain with period in months$/ do
-  renew_domain_with_period_in_months
+  create :renew_domain_in_months
 end
 
 Given /^I transferred a domain into my partner account$/ do

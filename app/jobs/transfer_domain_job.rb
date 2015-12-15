@@ -9,7 +9,7 @@ class TransferDomainJob < ActiveJob::Base
     json_request = {
       partner:        record[:partner],
       currency_code:  'USD',
-      ordered_at:      record[:registered_at],
+      ordered_at:      record[:ordered_at],
       order_details:  [
         {
           type:               'transfer_domain',

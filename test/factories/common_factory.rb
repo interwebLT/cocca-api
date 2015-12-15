@@ -24,7 +24,15 @@ FactoryGirl.define do
     tld 'ph'
 
     factory :transfer_ledger, class: Audit::Ledger do
-      trans_type 'Transfer'
+      trans_type Audit::Ledger::TRANSFER
+    end
+
+    factory :renew_ledger, class: Audit::Ledger do
+      trans_type Audit::Ledger::RENEW
+    end
+
+    factory :register_ledger, class: Audit::Ledger do
+      trans_type Audit::Ledger::REGISTER
     end
   end
 end
