@@ -19,6 +19,7 @@ FactoryGirl.define do
 
     factory :transfer_domain, class: Audit::Domain do
       audit_operation 'U'
+      createdate '2015-12-15 3:30 PM'.in_time_zone
 
       after :create do |domain|
         create  :audit_master, audit_transaction: domain.audit_transaction
