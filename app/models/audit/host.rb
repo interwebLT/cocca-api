@@ -9,6 +9,24 @@ class Audit::Host < ActiveRecord::Base
   validates :audit_operation, presence: true
   validates :audit_transaction, presence: true
 
+  def host_addresses
+    params = { audit_transaction: self.audit_transaction, host_name: self.name }
+
+    result = {}
+
+    Audit::HostAddress.where(params).order(:audit_operation).each do |record|
+      key = record.address
+
+      if result.has_key? key
+        result.delete key
+      else
+        result[key] = record
+      end
+    end
+
+    result.values
+  end
+
   def as_json options = nil
     {
       partner:  self.master.audit_user,

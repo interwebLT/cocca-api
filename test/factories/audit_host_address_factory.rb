@@ -7,7 +7,9 @@ FactoryGirl.define do
     address '123.123.123.001'
 
     after :create do |o|
-      create :audit_master, audit_transaction: o.audit_transaction
+      host = create :audit_host, audit_transaction: o.audit_transaction
+
+      o.update host_name: host.name
     end
 
     factory :create_host_address do
