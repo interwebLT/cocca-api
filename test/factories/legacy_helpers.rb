@@ -15,7 +15,3 @@ end
 def update_domain_contact audit_time: Time.now, partner: PARTNER
   create :audit_domain_contact, audit_transaction: audit_master(audit_time, partner: partner)
 end
-
-def create_host audit_time: Time.now, partner: PARTNER
-  create :audit_host, audit_transaction: audit_master(audit_time, partner: partner)
-end

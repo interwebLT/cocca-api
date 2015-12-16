@@ -29,9 +29,7 @@ Given /^I created a contact$/ do
 end
 
 Given /^I created a host entry$/ do
-  create_host partner: EXCLUDED_PARTNER
-
-  create_host
+  create :audit_host
 end
 
 Given /^I added a host address to an existing host$/ do

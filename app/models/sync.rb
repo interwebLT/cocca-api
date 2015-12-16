@@ -18,9 +18,12 @@ module Sync
         RenewDomainJob.perform_later    domain.as_json if domain.renew_domain?
         TransferDomainJob.perform_later domain.as_json if domain.transfer_domain?
       end
+
+      master.hosts.each do |host|
+        CreateHostJob.perform_later host.as_json  if host.insert_operation?
+      end
     end
 
-    CreateHost.sync           since: since, up_to: up_to
     DeleteHostAddress.sync    since: since, up_to: up_to
     CreateHostAddress.sync    since: since, up_to: up_to
 
