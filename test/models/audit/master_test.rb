@@ -54,10 +54,12 @@ describe Audit::Master do
     before do
       create :audit_domain,   audit_transaction: subject.audit_transaction
       create :audit_contact,  audit_transaction: subject.audit_transaction
+      create :audit_host,     audit_transaction: subject.audit_transaction
     end
 
     specify { subject.domains.count.must_equal 1 }
     specify { subject.contacts.count.must_equal 1 }
+    specify { subject.hosts.count.must_equal 1 }
   end
 
   describe :latest_time do
