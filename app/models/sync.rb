@@ -7,10 +7,12 @@ module Sync
 
     records = Audit::Master.transactions since: since, up_to: up_to
 
-    CreateContact.sync        since: since, up_to: up_to
-    UpdateContact.sync        since: since, up_to: up_to
-
     records.each do |master|
+      master.contacts.each do |contact|
+        CreateContactJob.perform_later contact.as_json if contact.insert_operation?
+        UpdateContactJob.perform_later contact.as_json if contact.update_operation?
+      end
+
       master.domains.each do |domain|
         RegisterDomainJob.perform_later(domain.as_json) if domain.register_domain?
         RenewDomainJob.perform_later(domain.as_json)    if domain.renew_domain?
