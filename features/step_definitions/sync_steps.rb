@@ -49,15 +49,11 @@ Given /^I removed a host address from an existing host$/ do
 end
 
 Given /^I added a domain host entry to an existing domain$/ do
-  create_domain_host partner: EXCLUDED_PARTNER
-
   domain = create :register_domain
   create :create_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
-  remove_domain_host partner: EXCLUDED_PARTNER
-
   domain = create :register_domain
   create :remove_domain_host, audit_transaction: domain.audit_transaction
 end
