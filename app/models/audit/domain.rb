@@ -5,6 +5,8 @@ class Audit::Domain < ActiveRecord::Base
 
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
+  alias_attribute :txn, :audit_transaction
+
   def domain_contacts
     params = { audit_transaction: self.audit_transaction, domain_name: self.name }
 
