@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :audit_contact, class: Audit::Contact do
     audit_transaction
-    audit_operation 'I'
+    audit_operation AuditOperation::INSERT_OPERATION
     roid '5-CoCCA'
     id 'handle'
     clid 'alpha'
@@ -30,5 +30,13 @@ FactoryGirl.define do
     fax '+63.21234567'
     faxx '1235'
     email 'test@contact.ph'
+
+    after :create do |o|
+      create :audit_master, audit_transaction: o.audit_transaction
+    end
+
+    factory :update_contact do
+      audit_operation AuditOperation::UPDATE_OPERATION
+    end
   end
 end

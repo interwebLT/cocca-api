@@ -2,7 +2,8 @@ require 'test_helper'
 
 describe UpdateContact do
   before do
-    update_contact audit_time: up_to
+    contact = create :update_contact
+    contact.master.update audit_time: up_to
   end
 
   let(:since) { '2015-03-06 13:30'.in_time_zone }

@@ -25,9 +25,7 @@ Given /^I registered a domain$/ do
 end
 
 Given /^I created a contact$/ do
-  create_contact partner: EXCLUDED_PARTNER
-
-  create_contact
+  create :audit_contact
 end
 
 Given /^I created a host entry$/ do
@@ -55,9 +53,7 @@ Given /^I removed a domain host entry from an existing domain$/ do
 end
 
 Given /^I updated an existing contact$/ do
-  update_contact partner: EXCLUDED_PARTNER
-
-  update_contact
+  create :update_contact
 end
 
 Given /^I updated an existing domain$/ do

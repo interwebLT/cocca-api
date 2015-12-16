@@ -2,10 +2,13 @@ require 'test_helper'
 
 describe ContactQuery do
   before do
-    create_contact audit_time: audit_time
-
-    create_contact audit_time: audit_time, partner: EXCLUDED_PARTNER
     create :excluded_partner
+
+    contact = create :audit_contact
+    contact.master.update audit_time: audit_time
+
+    excluded_contact = create :audit_contact
+    excluded_contact.master.update audit_time: audit_time, audit_user: EXCLUDED_PARTNER
   end
 
   let(:since) { '2015-03-06 14:00'.in_time_zone }
@@ -69,9 +72,10 @@ describe ContactQuery do
       let(:audit_time) { since }
 
       before do
-        contact = create_contact audit_time: since
+        contact = create :audit_contact
+        contact.master.update audit_time: since
 
-        create :tr_id, tr_id: contact.audit_transaction 
+        create :tr_id, tr_id: contact.audit_transaction
       end
 
       specify { subject.must_be_empty }
