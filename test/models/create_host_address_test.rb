@@ -2,7 +2,8 @@ require 'test_helper'
 
 describe CreateHostAddress do
   before do
-    create_host_address audit_time: up_to
+    host_address = create :create_host_address
+    host_address.master.update audit_time: up_to
   end
 
   let(:since) { '2015-03-04 14:00'.in_time_zone }

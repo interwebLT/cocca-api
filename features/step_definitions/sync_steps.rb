@@ -37,15 +37,11 @@ Given /^I created a host entry$/ do
 end
 
 Given /^I added a host address to an existing host$/ do
-  create_host_address partner: EXCLUDED_PARTNER
-
-  create_host_address
+  create :create_host_address
 end
 
 Given /^I removed a host address from an existing host$/ do
-  remove_host_address partner: EXCLUDED_PARTNER
-
-  remove_host_address
+  create :remove_host_address
 end
 
 Given /^I added a domain host entry to an existing domain$/ do

@@ -2,7 +2,8 @@ require 'test_helper'
 
 describe DeleteHostAddress do
   before do
-    remove_host_address audit_time: up_to
+    host_address = create :remove_host_address
+    host_address.master.update audit_time: up_to
   end
 
   let(:since) { '2015-03-04 14:00'.in_time_zone }

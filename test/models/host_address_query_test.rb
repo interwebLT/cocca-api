@@ -2,10 +2,13 @@ require 'test_helper'
 
 describe HostAddressQuery do
   before do
-    create_host_address audit_time: audit_time
-
-    create_host_address audit_time: audit_time, partner: EXCLUDED_PARTNER
     create :excluded_partner
+
+    host_address = create :create_host_address
+    host_address.master.update audit_time: audit_time
+
+    excluded_host_address = create :create_host_address
+    excluded_host_address.master.update audit_time: audit_time, audit_user: EXCLUDED_PARTNER
   end
 
   let(:since) { '2015-03-04 14:00'.in_time_zone }

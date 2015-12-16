@@ -25,15 +25,6 @@ def update_contact audit_time: Time.now, partner: PARTNER
                           audit_operation: 'U'
 end
 
-def create_host_address audit_time: Time.now, partner: PARTNER
-  create :audit_host_address, audit_transaction: audit_master(audit_time, partner: partner)
-end
-
-def remove_host_address name: 'ns5.domains.ph', audit_time: Time.now, partner: PARTNER
-  create :audit_host_address, audit_transaction: audit_master(audit_time, partner: partner),
-                              audit_operation: 'D'
-end
-
 def create_host audit_time: Time.now, partner: PARTNER
   create :audit_host, audit_transaction: audit_master(audit_time, partner: partner)
 end
