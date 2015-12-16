@@ -22,7 +22,7 @@ describe Audit::Domain do
     context :when_contact_created_then_removed do
       before do
         create :create_domain_contact, audit_transaction: subject.audit_transaction
-        create :remove_domain_contact, audit_transaction: subject.audit_transaction
+        create :delete_domain_contact, audit_transaction: subject.audit_transaction
       end
 
       specify { subject.domain_contacts.empty?.must_equal true }
@@ -31,7 +31,7 @@ describe Audit::Domain do
     context :when_contact_created_then_removed_then_created_again do
       before do
         create :create_domain_contact, audit_transaction: subject.audit_transaction
-        create :remove_domain_contact, audit_transaction: subject.audit_transaction
+        create :delete_domain_contact, audit_transaction: subject.audit_transaction
         create :create_domain_contact, audit_transaction: subject.audit_transaction
       end
 
@@ -42,7 +42,7 @@ describe Audit::Domain do
       before do
         create :create_domain_contact, audit_transaction: subject.audit_transaction
 
-        create :remove_domain_contact, audit_transaction: subject.audit_transaction,
+        create :delete_domain_contact, audit_transaction: subject.audit_transaction,
                                        type: Audit::DomainContact::BILLING_TYPE
       end
 
@@ -69,7 +69,7 @@ describe Audit::Domain do
       create :create_domain_host, audit_transaction:  subject.audit_transaction,
                                   host_name:          'ns5.domains.ph'
 
-      create :remove_domain_host, audit_transaction:  subject.audit_transaction,
+      create :delete_domain_host, audit_transaction:  subject.audit_transaction,
                                   host_name:          'ns6.domains.ph'
 
       create :admin_domain_contact,   audit_transaction: subject.audit_transaction
@@ -170,7 +170,7 @@ describe Audit::Domain do
     context :when_host_created_then_removed do
       before do
         create :create_domain_host, audit_transaction: subject.audit_transaction
-        create :remove_domain_host, audit_transaction: subject.audit_transaction
+        create :delete_domain_host, audit_transaction: subject.audit_transaction
       end
 
       specify { subject.domain_hosts.empty?.must_equal true }
@@ -179,7 +179,7 @@ describe Audit::Domain do
     context :when_contact_created_then_removed_then_created_again do
       before do
         create :create_domain_host, audit_transaction: subject.audit_transaction
-        create :remove_domain_host, audit_transaction: subject.audit_transaction
+        create :delete_domain_host, audit_transaction: subject.audit_transaction
         create :create_domain_host, audit_transaction: subject.audit_transaction
       end
 
@@ -191,7 +191,7 @@ describe Audit::Domain do
         create :create_domain_host, audit_transaction:  subject.audit_transaction,
                                     domain_name:        'domains.ph'
 
-        create :remove_domain_host, audit_transaction:  subject.audit_transaction,
+        create :delete_domain_host, audit_transaction:  subject.audit_transaction,
                                     domain_name:        'domains.com.ph'
       end
 

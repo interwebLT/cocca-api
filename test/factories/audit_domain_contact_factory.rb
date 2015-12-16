@@ -24,7 +24,7 @@ FactoryGirl.define do
     factory :create_domain_contact do
     end
 
-    factory :remove_domain_contact do
+    factory :delete_domain_contact do
       audit_operation AuditOperation::DELETE_OPERATION
     end
   end

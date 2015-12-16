@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe DeleteHostAddress do
   before do
-    host_address = create :remove_host_address
+    host_address = create :delete_host_address
     host_address.master.update audit_time: up_to
   end
 

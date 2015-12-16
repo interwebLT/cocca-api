@@ -41,7 +41,7 @@ Given /^I added a host address to an existing host$/ do
 end
 
 Given /^I removed a host address from an existing host$/ do
-  create :remove_host_address
+  create :delete_host_address
 end
 
 Given /^I added a domain host entry to an existing domain$/ do
@@ -51,7 +51,7 @@ end
 
 Given /^I removed a domain host entry from an existing domain$/ do
   domain = create :register_domain
-  create :remove_domain_host, audit_transaction: domain.audit_transaction
+  create :delete_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I updated an existing contact$/ do

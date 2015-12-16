@@ -14,7 +14,7 @@ FactoryGirl.define do
       audit_operation AuditOperation::INSERT_OPERATION
     end
 
-    factory :remove_host_address do
+    factory :delete_host_address do
       audit_operation AuditOperation::DELETE_OPERATION
     end
   end

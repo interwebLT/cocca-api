@@ -5,7 +5,7 @@ FactoryGirl.define do
     domain_name     'domains.ph'
     host_name       'ns5.domains.ph'
 
-    factory :remove_domain_host do
+    factory :delete_domain_host do
       audit_operation 'D'
     end
   end
