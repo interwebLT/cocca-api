@@ -5,6 +5,8 @@ class Audit::Domain < ActiveRecord::Base
 
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
+  alias_attribute :txn, :audit_transaction
+
   def domain_contacts
     params = { audit_transaction: self.audit_transaction, domain_name: self.name }
 
@@ -49,34 +51,34 @@ class Audit::Domain < ActiveRecord::Base
     Audit::DomainEvent.find_by audit_transaction: self.audit_transaction, domain_name: self.name
   end
 
+  def ledger
+    Audit::Ledger.find_by audit_transaction: self.audit_transaction, domain_name: self.name
+  end
+
   def register_domain?
     self.insert_operation?
   end
 
   def update_domain?
-    self.update_operation? and self.domain_event.nil? and self.st_pendingtransfer.nil?
+    update_operation? and ledger.nil?
   end
 
   def renew_domain?
-    self.update_operation? \
-    and !self.domain_event.nil? \
-    and (self.domain_event.event == 'RENEWAL') \
-    and self.st_pendingtransfer.nil?
+    update_operation? and ledger.present? and ledger.renew?
   end
 
   def transfer_domain?
-    self.update_operation? and self.st_pendingtransfer.present?
+    update_operation? and ledger.present? and ledger.transfer? and (ledger.client_roid == clid)
   end
 
   def as_json options = nil
     result = {
-      partner:                    self.master.audit_user,
+      partner:                    self.clid,
       domain:                     self.name,
       authcode:                   self.authinfopw,
       period:                     (self.domain_event.period if self.domain_event),
       registrant_handle:          self.registrant,
-      registered_at:              self.createdate.utc.iso8601,
-      renewed_at:                 (self.master.audit_time.utc.iso8601 if self.renew_domain?),
+      ordered_at:                 self.master.audit_time.utc.iso8601,
       client_hold:                !self.st_cl_hold.blank?,
       client_delete_prohibited:   !self.st_cl_deleteprohibited.blank?,
       client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,

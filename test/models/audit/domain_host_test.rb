@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe Audit::DomainHost do
   describe :as_json do
-    subject { create_domain_host }
+    subject { create :create_domain_host }
 
     let(:expected_json) {
       {

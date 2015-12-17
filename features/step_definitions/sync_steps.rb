@@ -1,5 +1,19 @@
 Given /^registry accepts sync requests$/ do
-  registry_accepts_sync_requests
+  registry_response with: 201, on: AUTHORIZATIONS_PATH, body: { token: 'ABCDEF' }
+
+  registry_response with: 201, on: ORDERS_PATH
+  registry_response with: 201, on: CONTACTS_PATH
+  registry_response with: 201, on: HOSTS_PATH
+
+  registry_response with: 201, on: HOST_ADDRESS_PATH
+  registry_response with: 200, on: HOST_ADDRESS_PATH, request: :delete
+
+  registry_response with: 201, on: DOMAIN_HOST_PATH
+
+  registry_response with: 200, on: DOMAIN_PATH, request: :patch
+  registry_response with: 200, on: DOMAIN_PATH, request: :delete
+
+  registry_response with: 200, on: CONTACT_PATH, request: :patch
 end
 
 Given /^some partners are excluded from sync$/ do
@@ -7,142 +21,122 @@ Given /^some partners are excluded from sync$/ do
 end
 
 Given /^I registered a domain$/ do
-  create_domain partner: EXCLUDED_PARTNER
-
-  create_domain
+  create :register_domain
 end
 
 Given /^I created a contact$/ do
-  create_contact partner: EXCLUDED_PARTNER
-
-  create_contact
+  create :audit_contact
 end
 
 Given /^I created a host entry$/ do
-  create_host partner: EXCLUDED_PARTNER
-
-  create_host
+  create :audit_host
 end
 
 Given /^I added a host address to an existing host$/ do
-  create_host_address partner: EXCLUDED_PARTNER
-
-  create_host_address
+  create :create_host_address
 end
 
 Given /^I removed a host address from an existing host$/ do
-  remove_host_address partner: EXCLUDED_PARTNER
-
-  remove_host_address
+  create :delete_host_address
 end
 
 Given /^I added a domain host entry to an existing domain$/ do
-  create_domain_host partner: EXCLUDED_PARTNER
-
-  domain = create_domain
+  domain = create :register_domain
   create :create_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
-  remove_domain_host partner: EXCLUDED_PARTNER
-
-  domain = create_domain
-  create :remove_domain_host, audit_transaction: domain.audit_transaction
+  domain = create :register_domain
+  create :delete_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I updated an existing contact$/ do
-  update_contact partner: EXCLUDED_PARTNER
-
-  update_contact
+  create :update_contact
 end
 
 Given /^I updated an existing domain$/ do
-  update_domain partner: EXCLUDED_PARTNER
-
-  update_domain
+  create :update_domain
 end
 
 Given /^I updated a contact of an existing domain$/ do
-  update_domain_contact partner: EXCLUDED_PARTNER
-
-  domain = update_domain
+  domain = create :update_domain
   create :admin_domain_contact, audit_transaction: domain.audit_transaction
 end
 
 Given /^I renewed a domain$/ do
-  renew_domain partner: EXCLUDED_PARTNER
-
-  renew_domain
-end
-
-Given /^I requested to transfer a domain$/ do
-  transfer_domain_request
+  create :renew_domain
 end
 
 Given /^I registered a domain with period in months$/ do
-  register_domain_with_period_in_months
+  create :register_domain_in_months
 end
 
 Given /^I renewed a domain with period in months$/ do
-  renew_domain_with_period_in_months
+  create :renew_domain_in_months
+end
+
+Given /^I transferred a domain into my partner account$/ do
+  create :transfer_domain
 end
 
 When /^latest changes are synced$/ do
-  sync_latest_changes
+  run_sync
 end
 
 When /^syncing of latest changes results in an error$/ do
-  sync_error
+  registry_response with: 400, on: ORDERS_PATH, body: error_params
+
+  run_sync
 end
 
 Then /^domain must now be registered$/ do
-  assert_register_domain_synced
+  assert_post '/orders', 'order/sync_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do
-  assert_create_contact_synced
+  assert_post '/contacts', 'contact/sync_create_request'.json
 end
 
 Then /^host entry must now exist$/ do
-  assert_create_host_entry_synced
+  assert_post '/hosts', 'host/sync_create_request'.json
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  assert_create_host_address_synced
+  assert_post '/hosts/ns5.domains.ph/addresses', 'host_address/sync_create_request'.json
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
-  assert_remove_host_address_synced
+  assert_delete '/hosts/ns5.domains.ph/addresses/123.123.123.001'
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  assert_create_domain_host_entry_synced
+  assert_post '/domains/domains.ph/hosts', 'domain_host/sync_create_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
-  assert_remove_domain_host_entry_synced
+  assert_delete '/domains/domains.ph/hosts/ns5.domains.ph'
 end
 
 Then /^contact must be updated$/ do
-  assert_update_contact_synced
+  assert_patch '/contacts/handle', 'contact/sync_update_request'.json
 end
 
 Then /^domain must be updated$/ do
-  assert_update_domain_synced
+  assert_patch '/domains/domains.ph', 'domain/sync_update_request'.json
 end
 
 Then /^domain contact must be updated$/ do
-  assert_update_domain_contact_synced
+  assert_patch '/domains/domains.ph', 'domain/sync_update_contact_request'.json
 end
 
 Then /^I must be informed of the error$/ do
-  assert_exception_thrown
+  @exception_thrown.must_equal true
 end
 
 Then /^domain must now be renewed$/ do
-  assert_renew_domain_synced
+  assert_post '/orders', 'order/sync_renew_domain_request'.json
 end
 
-Then /^no request must be sent$/ do
-  assert_no_request_sent
+Then /^domain must now be under my partner$/ do
+  assert_post '/orders', 'order/sync_transfer_domain_request'.json
 end
