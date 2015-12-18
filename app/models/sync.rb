@@ -5,8 +5,18 @@ module Sync
 
     SyncLog.create since: since, until: up_to
 
-    records = Audit::Master.transactions since: since, up_to: up_to
+    self.sync Audit::Master.transactions(since: since, up_to: up_to)
+  end
 
+  def self.execute audit_transaction
+    master = Audit::Master.find_by audit_transaction: audit_transaction
+
+    self.sync [master]
+  end
+
+  private
+
+  def self.sync records
     records.each do |master|
       master.contacts.each do |contact|
         CreateContactJob.perform_later contact.as_json if contact.insert_operation?
