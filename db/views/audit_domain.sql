@@ -40,7 +40,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     authinfopw,
     st_pendingtransfer
   FROM audit.domain
-  WHERE createdate > (current_timestamp - interval ''1'' day)
+  WHERE updatedate > (current_timestamp - interval ''1'' day)
 ') cocca (
   audit_transaction         INTEGER,
   audit_operation           VARCHAR(1),
