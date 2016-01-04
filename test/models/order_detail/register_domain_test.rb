@@ -5,6 +5,7 @@ describe OrderDetail::RegisterDomain do
 
   let(:params) {
     {
+      partner:  'alpha',
       type:     'domain_renew',
       domain:   'domain.ph',
       period:   1,

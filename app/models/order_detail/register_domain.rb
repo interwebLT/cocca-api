@@ -6,6 +6,15 @@ class OrderDetail::RegisterDomain < OrderDetail
   validates :authcode,  presence: true
   validates :registrant_handle, presence: true
 
+  def save
+    return false unless valid?
+
+    response = client.create command
+    save_trid response
+
+    response.success?
+  end
+
   def command
     EPP::Domain::Create.new self.domain, command_params
   end

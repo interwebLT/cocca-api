@@ -1,5 +1,5 @@
 When /^I renew a domain that exists$/ do
-  client.expect :create, 'order/create_renew_domain_response'.epp, [EPP::Domain::Renew]
+  client.expect :renew, 'order/create_renew_domain_response'.epp, [EPP::Domain::Renew]
 
   EPP::Client.stub :new, client do
     post orders_path, 'order/create_renew_domain_request'.json
@@ -7,7 +7,7 @@ When /^I renew a domain that exists$/ do
 end
 
 When /^I renew a domain that is still available$/ do
-  client.expect :create, 'order/create_renew_domain_failed_response'.epp, [EPP::Domain::Renew]
+  client.expect :renew, 'order/create_renew_domain_failed_response'.epp, [EPP::Domain::Renew]
 
   EPP::Client.stub :new, client do
     post orders_path, 'order/create_renew_domain_request'.json

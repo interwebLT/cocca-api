@@ -1,7 +1,4 @@
-class OrderDetail
-  include ActiveModel::Model
-  include ActiveModel::Validations
-
+class OrderDetail < EPP::Model
   attr_accessor :type, :domain, :period
 
   validates :type,    presence: true

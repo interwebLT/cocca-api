@@ -5,6 +5,15 @@ class OrderDetail::RenewDomain < OrderDetail
 
   validates :current_expires_at, presence: true
 
+  def save
+    return false unless valid?
+
+    response = client.renew command
+    save_trid response
+
+    response.success?
+  end
+
   def command
     EPP::Domain::Renew.new self.domain, self.current_expires_at.in_time_zone, "#{self.period}y"
   end

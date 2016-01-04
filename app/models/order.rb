@@ -9,10 +9,15 @@ class Order < EPP::Model
     super
 
     self.order_details = (params[:order_details] || []).collect do |detail|
-      case detail[:type]
-      when OrderDetail::RegisterDomain::TYPE  then OrderDetail::RegisterDomain.new detail
-      when OrderDetail::RenewDomain::TYPE     then OrderDetail::RenewDomain.new detail
-      end
+      order_detail = case detail[:type]
+                     when OrderDetail::RegisterDomain::TYPE
+                       OrderDetail::RegisterDomain.new detail
+                     when OrderDetail::RenewDomain::TYPE
+                       OrderDetail::RenewDomain.new detail
+                     end
+      order_detail.partner = self.partner
+
+      order_detail
     end
   end
 
@@ -22,10 +27,7 @@ class Order < EPP::Model
     result = true
 
     self.order_details.each do |detail|
-      response = client.create detail.command
-      result = result && response.success?
-
-      save_trid response
+      result = detail.save && result
     end
 
     result
