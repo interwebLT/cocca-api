@@ -1,8 +1,10 @@
 class OrderDetail::RenewDomain < OrderDetail
   TYPE = 'domain_renew'
 
+  attr_accessor :current_expires_at
+
   def command
-    EPP::Domain::Renew.new self.domain, '2015-01-01', "#{self.period}y"
+    EPP::Domain::Renew.new self.domain, self.current_expires_at, "#{self.period}y"
   end
 
   def as_json options = nil
@@ -11,7 +13,8 @@ class OrderDetail::RenewDomain < OrderDetail
       price:  0.00,
       domain: self.domain,
       object: nil,
-      period: self.period
+      period: self.period,
+      current_expires_at: self.current_expires_at
     }
   end
 end

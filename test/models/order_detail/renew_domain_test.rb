@@ -7,7 +7,8 @@ describe OrderDetail::RenewDomain do
     {
       type:   'domain_renew',
       domain: 'domain.ph',
-      period: 1
+      period: 1,
+      current_expires_at: '2016-01-04T17:30:00Z'
     }
   }
 
@@ -29,7 +30,8 @@ describe OrderDetail::RenewDomain do
         price:  0.00,
         domain: 'domain.ph',
         object: nil,
-        period: 1
+        period: 1,
+        current_expires_at: '2016-01-04T17:30:00Z'
       }
     }
 

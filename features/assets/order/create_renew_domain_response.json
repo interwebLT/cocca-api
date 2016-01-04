@@ -13,7 +13,8 @@
       "price": 0.00,
       "domain": "domain.ph",
       "object": null,
-      "period": "1"
+      "period": "1",
+      "current_expires_at": "2016-01-04T17:30:00Z"
     }
   ]
 }
