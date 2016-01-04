@@ -28,7 +28,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :audit_domain do |t|
-      t.integer   :audit_transaction,         null: false
+      t.integer   :audit_transaction,         null: false,  limit: 8
       t.string    :audit_operation,           null: false,  limit: 1
       t.string    :roid,                      null: false,  limit: 89
       t.string    :name,                      null: false,  limit: 255
