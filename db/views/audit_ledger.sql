@@ -33,7 +33,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   WHERE created > (current_timestamp - interval ''1'' day)
   AND l.client_roid = c.roid
 ') cocca (
-  id                INTEGER,
+  id                BIGINT,
   audit_transaction BIGINT,
   audit_operation   VARCHAR(1),
   client_roid       VARCHAR(89),

@@ -31,7 +31,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     login_username
   FROM audit.domain_event
 ') cocca (
-  id                INTEGER,
+  id                BIGINT,
   audit_transaction BIGINT,
   audit_operation   VARCHAR(1),
   domain_roid       VARCHAR(89),
@@ -41,6 +41,6 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   term_length       INTEGER,
   term_units        VARCHAR(20),
   expiry_date       TIMESTAMP,
-  ledger_id         INTEGER,
+  ledger_id         BIGINT,
   login_username    VARCHAR(16)
 );
