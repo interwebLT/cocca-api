@@ -1,13 +1,15 @@
 require 'test_helper'
 
-describe OrderDetail::RenewDomain do
-  subject { OrderDetail::RenewDomain.new params }
+describe OrderDetail::RegisterDomain do
+  subject { OrderDetail::RegisterDomain.new params }
 
   let(:params) {
     {
-      type:   'domain_renew',
-      domain: 'domain.ph',
-      period: 1
+      type:     'domain_renew',
+      domain:   'domain.ph',
+      period:   1,
+      authcode: 'ABC123',
+      registrant_handle:  'registrant'
     }
   }
 
@@ -16,20 +18,24 @@ describe OrderDetail::RenewDomain do
     specify { subject.type  = nil; subject.valid?.must_equal false }
     specify { subject.domain  = nil; subject.valid?.must_equal false }
     specify { subject.period  = nil; subject.valid?.must_equal false }
+    specify { subject.authcode  = nil; subject.valid?.must_equal false }
+    specify { subject.registrant_handle = nil; subject.valid?.must_equal false }
   end
 
   describe :command do
-    specify { subject.command.must_be_instance_of EPP::Domain::Renew }
+    specify { subject.command.must_be_instance_of EPP::Domain::Create }
   end
 
   describe :as_json do
     let(:expected_json) {
       {
-        type:   'domain_renew',
+        type:   'domain_create',
         price:  0.00,
         domain: 'domain.ph',
         object: nil,
-        period: 1
+        period: 1,
+        authcode: 'ABC123',
+        registrant_handle:  'registrant'
       }
     }
 

@@ -5,9 +5,7 @@
     {
       "type": "domain_renew",
       "domain": "",
-      "authcode": "AUTHCODE",
-      "period": "1",
-      "registrant_handle": "registrant"
+      "period": "1"
     }
   ]
 }
