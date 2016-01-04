@@ -1,13 +1,13 @@
 {
-    "currency_code": "USD",
-    "ordered_at": "2015-01-01T00:00:00Z",
-    "order_details": [
-      {
-        "type": "domain_renew",
-        "domain": "domain.ph",
-        "authcode": "AUTHCODE",
-        "period": "1",
-        "registrant_handle": "registrant"
-      }
-    ]
-  }
+  "currency_code": "USD",
+  "ordered_at": "2015-01-01T00:00:00Z",
+  "order_details": [
+    {
+      "type": "domain_renew",
+      "domain": "domain.ph",
+      "authcode": "AUTHCODE",
+      "period": "1",
+      "registrant_handle": "registrant"
+    }
+  ]
+}

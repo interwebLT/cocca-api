@@ -6,7 +6,7 @@
     </result>
     <resData>
       <domain:renData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>domain.ph</domain:name>
         <domain:exDate>2005-04-03T22:00:00.0Z</domain:exDate>
       </domain:renData>
