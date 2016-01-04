@@ -3,6 +3,8 @@ class OrderDetail::RenewDomain < OrderDetail
 
   attr_accessor :current_expires_at
 
+  validates :current_expires_at, presence: true
+
   def command
     EPP::Domain::Renew.new self.domain, self.current_expires_at, "#{self.period}y"
   end

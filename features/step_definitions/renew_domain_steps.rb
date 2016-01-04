@@ -29,3 +29,7 @@ end
 When /^I renew a domain with period more than 10 years$/ do
   post orders_path, 'order/create_renew_domain_with_period_more_than_ten_years_request'.json
 end
+
+When /^I renew a domain with no current expires at$/ do
+  post orders_path, 'order/create_renew_domain_with_no_current_expires_at_request'.json
+end

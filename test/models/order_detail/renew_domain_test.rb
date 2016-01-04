@@ -17,6 +17,7 @@ describe OrderDetail::RenewDomain do
     specify { subject.type  = nil; subject.valid?.must_equal false }
     specify { subject.domain  = nil; subject.valid?.must_equal false }
     specify { subject.period  = nil; subject.valid?.must_equal false }
+    specify { subject.current_expires_at  = nil; subject.valid?.must_equal false }
   end
 
   describe :command do
