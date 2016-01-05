@@ -15,9 +15,10 @@ Feature: Renew Domain
     Then  error must be validation failed
 
     Examples: Missing required fields
-      | invalid parameter |
-      | no domain name    |
-      | no period         |
+      | invalid parameter     |
+      | no domain name        |
+      | no period             |
+      | no current expires at |
 
     Examples: Invalid data
       | invalid parameter         |

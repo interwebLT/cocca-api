@@ -23,7 +23,7 @@ class OrdersController < SecureController
 
   def order_params
     allowed_params = params.permit :currency_code, :ordered_at, order_details: [
-      :type, :domain, :authcode, :period, :registrant_handle
+      :type, :domain, :authcode, :period, :registrant_handle, :current_expires_at
     ]
     allowed_params[:partner] = current_partner
 

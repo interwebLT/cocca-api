@@ -1,0 +1,11 @@
+{
+  "currency_code": "USD",
+  "ordered_at": "2015-01-01T00:00:00Z",
+  "order_details": [
+    {
+      "type": "domain_renew",
+      "domain": "domain.ph",
+      "period": "1"
+    }
+  ]
+}

@@ -42,7 +42,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   FROM audit.domain
   WHERE COALESCE(updatedate, createdate) > (current_timestamp - interval ''1'' day)
 ') cocca (
-  audit_transaction         INTEGER,
+  audit_transaction         BIGINT,
   audit_operation           VARCHAR(1),
   roid                      VARCHAR(89),
   name                      VARCHAR(255),

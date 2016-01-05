@@ -1,40 +1,36 @@
-class Order < EPP::Model 
+class Order < EPP::Model
   attr_accessor :currency_code, :ordered_at, :order_details
 
-  validate do 
+  validate do
     validate_details
   end
 
   def initialize params
     super
 
-    self.order_details = []
-    unless params[:order_details]
-      return
-    end
-    params[:order_details].each do |detail|
-      order_detail = OrderDetail.new(detail)
-      order_detail.authcode = 'AUTHCODE'
-      self.order_details << order_detail
+    self.order_details = (params[:order_details] || []).collect do |detail|
+      order_detail = case detail[:type]
+                     when OrderDetail::RegisterDomain::TYPE
+                       OrderDetail::RegisterDomain.new detail
+                     when OrderDetail::RenewDomain::TYPE
+                       OrderDetail::RenewDomain.new detail
+                     end
+      order_detail.partner = self.partner
+
+      order_detail
     end
   end
 
   def save
-    unless valid?
-      return false
-    end
+    return false unless valid?
 
     result = true
-    commands = create_commands
 
-    commands.each do |command|
-      response = client.create(command)
-      result = result && response.success?
-
-      save_trid response
+    self.order_details.each do |detail|
+      result = detail.save && result
     end
 
-    return result
+    result
   end
 
   def validate_details
@@ -54,53 +50,17 @@ class Order < EPP::Model
     self.order_details << (od)
   end
 
-  def create_commands
-    commands = []
-    type = self.order_details.first.type
-    if type == 'domain_create'
-      self.order_details.each do |detail|
-        commands << ( EPP::Domain::Create.new detail.domain, create_params )
-      end
-    elsif type == 'domain_renew'
-      exp_date = '2017-01-01T00:00:00Z'
-      period = self.order_details.first.period
-      commands << (EPP::Domain::Renew.new self.order_details.first.domain, exp_date, "#{period}y")
-    end
-
-    commands
-  end
-
-  def as_json options=nil
-    details = []
-    self.order_details.each do |detail|
-      details << detail.as_json
-    end
-
+  def as_json options = nil
     {
-        id: 1,
-        partner: "partner",
-        order_number: 1,
-        total_price: 70.00,
-        fee: 0.00,
-        ordered_at: self.ordered_at,
-        status: "pending",
-        currency_code: self.currency_code,
-        order_details: details
-    }
-  end
-
-  def create_params
-    detail = order_details.first
-    {
-      period: "#{detail.period}y", registrant: detail.registrant_handle,
-      auth_info: { pw: detail.authcode },
-      contacts: { 
-        admin: "",
-        tech: "",
-        billing: ""
-        },
-      nameservers: [
-      ]
+      id: 1,
+      partner:  'partner',
+      order_number: 1,
+      total_price:  0.00,
+      fee:  0.00,
+      ordered_at: self.ordered_at,
+      status: 'pending',
+      currency_code:  self.currency_code,
+      order_details:  self.order_details.collect { |detail| detail.as_json }
     }
   end
 end

@@ -5,11 +5,12 @@
       <msg>Command completed successfully</msg>
     </result>
     <resData>
-      <domain:renData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:creData
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>domain.ph</domain:name>
-        <domain:exDate>2005-04-03T22:00:00.0Z</domain:exDate>
-      </domain:renData>
+        <domain:crDate>1999-04-03T22:00:00.0Z</domain:crDate>
+        <domain:exDate>2001-04-03T22:00:00.0Z</domain:exDate>
+      </domain:creData>
     </resData>
     <trID>
       <clTRID>ABC-12345</clTRID>

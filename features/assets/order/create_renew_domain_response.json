@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "partner": "partner",
+  "order_number": 1,
+  "total_price": 0.00,
+  "fee": 0.00,
+  "ordered_at": "2015-01-01T00:00:00Z",
+  "status": "pending",
+  "currency_code": "USD",
+  "order_details": [
+    {
+      "type": "domain_renew",
+      "price": 0.00,
+      "domain": "domain.ph",
+      "object": null,
+      "period": "1",
+      "current_expires_at": "2016-01-04T17:30:00Z"
+    }
+  ]
+}
