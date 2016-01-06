@@ -11,5 +11,6 @@ Feature: Create Partner
 
     Examples:
       | invalid parameter |
+      | empty parameters  |
       | no name           |
       | no password       |
