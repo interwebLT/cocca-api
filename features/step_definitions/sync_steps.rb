@@ -79,6 +79,13 @@ Given /^I transferred a domain into my partner account$/ do
   create :transfer_domain
 end
 
+Given /^I registered a domain from an excluded IP$/ do
+  create :excluded_ip
+
+  domain = create :register_domain
+  domain.master.update! audit_ip: EXCLUDED_IP
+end
+
 When /^latest changes are synced$/ do
   run_sync
 end
@@ -139,4 +146,8 @@ end
 
 Then /^domain must now be under my partner$/ do
   assert_post '/orders', 'order/sync_transfer_domain_request'.json
+end
+
+Then /^no changes must be synced$/ do
+  assert_not_requested :post, Rails.configuration.x.registry_url + '/orders'
 end

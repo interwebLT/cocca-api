@@ -8,6 +8,7 @@ DOMAIN_HOST_PATH    = /#{Rails.configuration.x.registry_url}\/domains\/.*\/hosts
 CONTACT_PATH        = /#{Rails.configuration.x.registry_url}\/contacts\/.*/
 
 EXCLUDED_PARTNER = 'excluded'
+EXCLUDED_IP = '999.999.999.999'
 PARTNER = 'alpha'
 
 def exclude_partners
