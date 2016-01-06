@@ -49,11 +49,10 @@ def error_params
 end
 
 def assert_request method, path, request = nil
-  params = {
-    headers: default_headers,
-  }
-
-  params[:body] = request if request
+  params = {}.tap do |params|
+    params[:headers]  = default_headers
+    params[:body]     = request if request
+  end
 
   url = Rails.configuration.x.registry_url + path
 
