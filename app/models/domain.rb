@@ -5,11 +5,9 @@ class Domain < EPP::Model
   validates :registrant_handle, presence: true
 
   def update_authcode authcode
-    result = client.update(update_authcode_command(self.registrant_handle, authcode))
+    return false unless valid?
 
-    save_trid result
-
-    valid? && result.success?
+    client.update(update_authcode_command(self.registrant_handle, authcode)).success?
   end
 
   def update_authcode_command registrant, authcode

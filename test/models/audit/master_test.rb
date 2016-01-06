@@ -36,12 +36,12 @@ describe Audit::Master do
       specify { subject.must_be_empty }
     end
 
-    context :when_transaction_excluded do
+    context :when_ip_excluded do
       before do
-        domain = create :register_domain
-        domain.master.update audit_time: since
+        excluded_ip = create :excluded_ip
 
-        create :tr_id, tr_id: domain.audit_transaction
+        domain = create :register_domain
+        domain.master.update audit_ip: excluded_ip.ip
       end
 
       specify { subject.must_be_empty }

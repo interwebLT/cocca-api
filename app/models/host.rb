@@ -4,18 +4,13 @@ class Host < EPP::Model
   validates_presence_of :name
 
   def save
-    unless valid? 
-      return false
-    end
-    result = client.create(create_command)
-    save_trid result
+    return false unless valid?
 
-    unless result.success?
-      return false
-    end
-    self.crDate = result.data.find('//host:crDate').first.content   
+    response = client.create(create_command)
 
-    return true
+    self.crDate = response.data.find('//host:crDate').first.content if response.success?
+
+    response.success?
   end
 
   def add_address params
@@ -26,7 +21,7 @@ class Host < EPP::Model
       return host_address_json params
     elsif params[:type] == 'v6' && add_ipv6( params[:address] )
       return host_address_json params
-    else 
+    else
       return false
     end
   end
@@ -34,46 +29,42 @@ class Host < EPP::Model
   def host_address_json params
     t = Time.now.utc
     {
-      :address => params[:address], 
-      :created_at => t, 
-      :id => 1, 
-      :type => params[:type], 
+      :address => params[:address],
+      :created_at => t,
+      :id => 1,
+      :type => params[:type],
       :updated_at => t
     }
   end
 
   def add_ipv4 ipv4
-    result = client.update(add_ipv4_command ipv4)
+    return false unless valid?
 
-    save_trid result
-
-    valid? && result.success?
+    client.update(add_ipv4_command(ipv4)).success?
   end
 
   def add_ipv4_command ipv4
-    EPP::Host::Update.new self.name, { 
-        add: { 
+    EPP::Host::Update.new self.name, {
+        add: {
           addr: {
             ipv4: ipv4
-          } 
+          }
         }
       }
   end
 
   def add_ipv6 ipv6
-    result = client.update(add_ipv6_command ipv6)
+    return false unless valid?
 
-    save_trid result
-
-    valid? && result.success?
+    client.update(add_ipv6_command(ipv6)).success?
   end
 
   def add_ipv6_command ipv6
-    EPP::Host::Update.new self.name, { 
-        add: { 
+    EPP::Host::Update.new self.name, {
+        add: {
           addr: {
             ipv6: ipv6
-          } 
+          }
         }
       }
   end

@@ -15,6 +15,6 @@ class Audit::Master < ActiveRecord::Base
   def self.transactions since:, up_to:
     self.where(audit_time: since...up_to)
       .where.not(audit_user: ExcludedPartner.all.map(&:name))
-      .where.not(audit_transaction: TrId.all.map(&:tr_id))
+      .where.not(audit_ip: ExcludedIp.all.map(&:ip))
   end
 end

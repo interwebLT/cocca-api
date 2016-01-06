@@ -12,6 +12,11 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must now be registered
 
+  Scenario: Do not sync domains registered from excluded IPs
+    Given I registered a domain from an excluded IP
+    When  latest changes are synced
+    Then  no changes must be synced
+
   Scenario: Sync domains registered with period in months
     Given I registered a domain with period in months
     When  latest changes are synced
