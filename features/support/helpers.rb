@@ -36,8 +36,9 @@ end
 
 def default_headers
   {
-    'Authorization' =>  'Token token="ABCDEF"',
-    'Content-Type'  =>  'application/json'
+    'Content-Type'  =>  'application/json',
+    'Accept'        =>  'application/json',
+    'Authorization' =>  'Token token=ABCDEF'
   }
 end
 
