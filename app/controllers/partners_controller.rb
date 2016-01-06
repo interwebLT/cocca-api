@@ -1,8 +1,12 @@
 class PartnersController < ApplicationController
   def create
-    Partner.create partner_params
+    partner = Partner.new partner_params
 
-    head :created
+    if partner.save
+      head :created
+    else
+      head :unprocessable_entity
+    end
   end
 
   private
