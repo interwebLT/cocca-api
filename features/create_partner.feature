@@ -12,3 +12,4 @@ Feature: Create Partner
     Examples:
       | invalid parameter |
       | no name           |
+      | no password       |
