@@ -9,10 +9,7 @@ class OrderDetail::RegisterDomain < OrderDetail
   def save
     return false unless valid?
 
-    response = client.create command
-    save_trid response
-
-    response.success?
+    client.create(command).success?
   end
 
   def command

@@ -16,13 +16,5 @@ module EPP
 
       EPP::Client.new username, password, host
     end
-
-    def save_trid result
-      trid = TrId.new
-      trid.transaction_date = Time.now
-      trid.tr_id = result.instance_variable_get('@xml').find('/e:epp/e:response/e:trID/e:svTRID').first.content
-
-      trid.save
-    end
   end
 end

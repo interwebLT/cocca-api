@@ -8,10 +8,7 @@ class OrderDetail::RenewDomain < OrderDetail
   def save
     return false unless valid?
 
-    response = client.renew command
-    save_trid response
-
-    response.success?
+    client.renew(command).success?
   end
 
   def command
