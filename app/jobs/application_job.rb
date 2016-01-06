@@ -1,6 +1,4 @@
-module SyncJob
-  extend ActiveSupport::Concern
-
+class ApplicationJob < ActiveJob::Base
   def execute(action, path:, body: nil)
     token = authenticate
 
