@@ -4,19 +4,19 @@ class ApplicationJob < ActiveJob::Base
     'Accept'        => 'application/json'
   }
 
-  def execute(action, path:, body: nil)
+  def execute action, path:, body: nil
     token = authenticate
 
-    if token
-      params = { headers: headers(token: token) }
-      params[:body] = body.to_json if body
+    raise 'Authentication Failed' unless token
 
-      response = HTTParty.send action, path, params
-
-      raise "Code: #{response.code}, Message: #{response.parsed_response}" if error_code response.code
-    else
-      raise 'Authentication Failed'
+    params = {}.tap do |params|
+      params[:headers]  = headers token: token
+      params[:body]     = body.to_json if body
     end
+
+    response = HTTParty.send action, path, params
+
+    raise "Code: #{response.code}, Message: #{response.parsed_response}" if error_code response.code
   end
 
   private
