@@ -1,6 +1,4 @@
-class TransferDomainJob < ActiveJob::Base
-  include SyncJob
-
+class TransferDomainJob < ApplicationJob
   URL = Rails.configuration.x.registry_url
 
   queue_as :sync_cocca_records

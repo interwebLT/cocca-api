@@ -36,8 +36,9 @@ end
 
 def default_headers
   {
-    'Authorization' =>  'Token token="ABCDEF"',
-    'Content-Type'  =>  'application/json'
+    'Content-Type'  =>  'application/json',
+    'Accept'        =>  'application/json',
+    'Authorization' =>  'Token token=ABCDEF'
   }
 end
 
@@ -48,11 +49,10 @@ def error_params
 end
 
 def assert_request method, path, request = nil
-  params = {
-    headers: default_headers,
-  }
-
-  params[:body] = request if request
+  params = {}.tap do |params|
+    params[:headers]  = default_headers
+    params[:body]     = request if request
+  end
 
   url = Rails.configuration.x.registry_url + path
 
