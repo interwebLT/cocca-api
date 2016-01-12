@@ -26,14 +26,6 @@ When /^I create a new contact with an existing handle$/ do
   end
 end
 
-Then /^error must be not found$/ do
-  last_response.status.must_equal 422
-end
-
-Then /^error must be bad request$/ do
-  last_response.status.must_equal 422
-end
-
 Then /^contact must be created$/ do
   json_response.must_equal 'contact/create_response'.json
 end
