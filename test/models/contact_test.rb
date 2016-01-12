@@ -10,8 +10,31 @@ describe Contact do
                 country_code: 'PH',
                 voice:  '+63.1234567',
                 email:  'contact@test.ph',
-                authcode: 'ABC123'
+                authcode: 'ABC123',
+                organization: nil,
+                street2:  nil,
+                street3:  nil,
+                state:  nil,
+                postal_code:  nil,
+                local_name: nil,
+                local_organization: nil,
+                local_street: nil,
+                local_street2:  nil,
+                local_street3:  nil,
+                local_city: nil,
+                local_state:  nil,
+                local_postal_code:  nil,
+                local_country_code: nil,
+                voice_ext:  nil,
+                fax:  nil,
+                fax_ext:  nil
   }
+
+  attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode,
+                :organization, :street2, :street3, :state, :postal_code,
+                :local_name, :local_organization, :local_street, :local_street2, :local_street3,
+                :local_city, :local_state, :local_postal_code, :local_country_code,
+                :voice_ext, :fax, :fax_ext
 
   let(:partner) { create :partner }
 
