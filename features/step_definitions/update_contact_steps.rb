@@ -1,5 +1,5 @@
 When /^I update a contact$/ do
-  client.expect :update, 'contact/create_response'.epp, [EPP::Contact::Update]
+  client.expect :update, 'contact/update_response'.epp, [EPP::Contact::Update]
 
   EPP::Client.stub :new, client do
     patch '/contacts/contact123', 'contact/update_request'.json
