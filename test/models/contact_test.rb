@@ -3,8 +3,6 @@ require 'test_helper'
 describe Contact do
   subject { build :contact }
 
-  let(:partner) { create :partner }
-
   describe :valid? do
     specify { subject.valid?.must_equal true }
     specify { Contact.new.valid?.must_equal false }
