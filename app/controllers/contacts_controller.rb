@@ -1,6 +1,6 @@
 class ContactsController < SecureController
   ALLOWED_PARAMS = [
-    :name, :street, :city, :country_code, :voice, :email, :authcode,
+    :name, :street, :city, :country_code, :voice, :email,
     :organization, :street2, :street3, :state, :postal_code,
     :local_name, :local_organization, :local_street, :local_street2, :local_street3,
     :local_city, :local_state, :local_postal_code, :local_country_code,
@@ -20,7 +20,6 @@ class ContactsController < SecureController
 
   def update
     contact = Contact.new update_params
-    contact.authcode = 'placeholder-authcode'
 
     if contact.update
       render json: contact

@@ -24,7 +24,6 @@ describe Contact do
     specify { subject.local_country_code = nil; subject.valid?.must_equal false }
     specify { subject.voice = nil;  subject.valid?.must_equal false }
     specify { subject.email = nil;  subject.valid?.must_equal false }
-    specify { subject.authcode= nil;  subject.valid?.must_equal false }
   end
 
   describe :save do

@@ -12,7 +12,6 @@ class Contact < EPP::Model
   validates :local_country_code,  presence: true
   validates :voice,   presence: true
   validates :email,   presence: true
-  validates :authcode,  presence: true
 
   def save
     return false unless valid?
