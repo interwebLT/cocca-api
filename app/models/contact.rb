@@ -6,10 +6,10 @@ class Contact < EPP::Model
                 :voice_ext, :fax, :fax_ext
 
   validates :handle,  presence: true
-  validates :name,    presence: true
-  validates :street,  presence: true
-  validates :city,    presence: true
-  validates :country_code,  presence: true
+  validates :local_name,    presence: true
+  validates :local_street,  presence: true
+  validates :local_city,    presence: true
+  validates :local_country_code,  presence: true
   validates :voice,   presence: true
   validates :email,   presence: true
   validates :authcode,  presence: true
