@@ -9,22 +9,25 @@ FactoryGirl.define do
     voice '+63.1234567'
     email 'contact@test.ph'
     authcode  'ABC123'
-    organization nil
-    street2  nil
-    street3  nil
-    state  nil
-    postal_code  nil
-    local_name nil
-    local_organization nil
-    local_street nil
-    local_street2  nil
-    local_street3  nil
-    local_city nil
-    local_state  nil
-    local_postal_code  nil
-    local_country_code nil
-    voice_ext  nil
-    fax  nil
-    fax_ext  nil
+
+    factory :complete_contact do
+      organization  'Organization'
+      street2 'Street 2'
+      street3 'Street 3'
+      state 'State'
+      postal_code 1234
+      local_name  'Local Contact'
+      local_organization  'Local Organization'
+      local_street  'Local Street'
+      local_street2 'Local Street 2'
+      local_street3 'Local Street 3'
+      local_city  'Local City'
+      local_state 'Local State'
+      local_postal_code 1235
+      local_country_code  'RP'
+      voice_ext 1234
+      fax '+63.1234568'
+      fax_ext 1235
+    end
   end
 end
