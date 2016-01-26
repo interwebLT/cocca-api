@@ -3,12 +3,6 @@ require 'test_helper'
 describe Contact do
   subject { build :contact }
 
-  attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode,
-                :organization, :street2, :street3, :state, :postal_code,
-                :local_name, :local_organization, :local_street, :local_street2, :local_street3,
-                :local_city, :local_state, :local_postal_code, :local_country_code,
-                :voice_ext, :fax, :fax_ext
-
   let(:partner) { create :partner }
 
   describe :valid? do
