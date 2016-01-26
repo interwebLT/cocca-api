@@ -1,34 +1,7 @@
 require 'test_helper'
 
 describe Contact do
-  subject {
-    Contact.new handle: 'contact123',
-                name: 'Contact',
-                partner: partner.name,
-                street: 'Street',
-                city: 'City',
-                country_code: 'PH',
-                voice:  '+63.1234567',
-                email:  'contact@test.ph',
-                authcode: 'ABC123',
-                organization: nil,
-                street2:  nil,
-                street3:  nil,
-                state:  nil,
-                postal_code:  nil,
-                local_name: nil,
-                local_organization: nil,
-                local_street: nil,
-                local_street2:  nil,
-                local_street3:  nil,
-                local_city: nil,
-                local_state:  nil,
-                local_postal_code:  nil,
-                local_country_code: nil,
-                voice_ext:  nil,
-                fax:  nil,
-                fax_ext:  nil
-  }
+  subject { build :contact }
 
   attr_accessor :handle, :name, :street, :city, :country_code, :voice, :email, :authcode,
                 :organization, :street2, :street3, :state, :postal_code,
