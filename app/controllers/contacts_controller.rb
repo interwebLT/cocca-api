@@ -20,6 +20,7 @@ class ContactsController < SecureController
 
   def update
     contact = Contact.new update_params
+    contact.authcode = 'placeholder-authcode'
 
     if contact.update
       render json: contact
