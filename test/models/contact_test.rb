@@ -1,5 +1,14 @@
 require 'test_helper'
 
+module EPP
+  module Contact
+    class Command; end
+    class Update < Command
+      attr_reader :chg
+    end
+  end
+end
+
 describe Contact do
   subject { build :contact }
 
@@ -99,5 +108,32 @@ describe Contact do
     }
 
     specify { subject.as_json.must_equal expected_json }
+  end
+
+  describe :update_command do
+    let(:chg_params) {
+      {
+        postal_info: {
+          name: 'Contact',
+          org:  nil,
+          addr: {
+            street: 'Street',
+            city: 'City',
+            sp: nil,
+            pc: nil,
+            cc: 'PH'
+          }
+        },
+        voice:  '+63.1234567',
+        fax:  nil,
+        email: 'contact@test.ph',
+        auth_info: {
+          pw: 'ABC123'
+        }
+      }
+    }
+
+    specify { subject.update_command.must_be_instance_of EPP::Contact::Update }
+    specify { subject.update_command.chg.must_equal chg_params }
   end
 end

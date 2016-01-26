@@ -55,8 +55,6 @@ class Contact < EPP::Model
     }
   end
 
-  private
-
   def create_command
     EPP::Contact::Create.new self.handle, create_params
   end
@@ -64,6 +62,8 @@ class Contact < EPP::Model
   def update_command
     EPP::Contact::Update.new self.handle, update_params
   end
+
+  private
 
   def create_params
     {
