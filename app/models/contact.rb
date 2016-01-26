@@ -17,13 +17,13 @@ class Contact < EPP::Model
   def save
     return false unless valid?
 
-    client.create(create_command).success?
+    process_response client.create(create_command)
   end
 
   def update
     return false unless valid?
 
-    client.update(update_command).success?
+    process_response client.update(update_command)
   end
 
   def as_json options = nil

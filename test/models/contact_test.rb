@@ -3,6 +3,8 @@ require 'test_helper'
 describe Contact do
   subject { build :contact }
 
+  let(:client) { Minitest::Mock.new }
+
   describe :valid? do
     specify { subject.valid?.must_equal true }
     specify { Contact.new.valid?.must_equal false }
@@ -17,8 +19,6 @@ describe Contact do
   end
 
   describe :save do
-    let(:client) { Minitest::Mock.new }
-
     context :when_required_fields_present do
       before do
         client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
@@ -39,12 +39,28 @@ describe Contact do
 
     context :when_create_command_fails do
       before do
-        client.expect :create, 'contact/create_response_failed'.epp, [EPP::Contact::Create]
+        client.expect :create, 'contact/create_failed_response'.epp, [EPP::Contact::Create]
       end
 
       specify do
         EPP::Client.stub :new, client do
           subject.save.must_equal false
+          subject.errors[:epp].must_equal ['Missing required fields']
+        end
+      end
+    end
+  end
+
+  describe :update do
+    context :when_update_command_fails do
+      before do
+        client.expect :update, 'contact/update_failed_response'.epp, [EPP::Contact::Update]
+      end
+
+      specify do
+        EPP::Client.stub :new, client do
+          subject.update.must_equal false
+          subject.errors[:epp].must_equal ['Missing required fields']
         end
       end
     end
