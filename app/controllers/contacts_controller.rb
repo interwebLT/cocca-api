@@ -6,7 +6,7 @@ class ContactsController < SecureController
     if contact.save
       render json: contact
     else
-      head :unprocessable_entity
+      render validation_failed contact
     end
   end
 
@@ -16,7 +16,7 @@ class ContactsController < SecureController
     if contact.update
       render json: contact
     else
-      head :unprocessable_entity
+      render validation_failed contact
     end
   end
 
