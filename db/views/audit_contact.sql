@@ -66,7 +66,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     voicex,
     faxx
   FROM audit.contact
-  WHERE createdate > (current_timestamp - interval ''1'' day)
+  WHERE COALESCE(updatedate, createdate) > (current_timestamp - interval ''1'' day)
 ') cocca (
   audit_transaction BIGINT,
   audit_operation   VARCHAR(1),
