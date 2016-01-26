@@ -10,7 +10,7 @@ module EPP
 end
 
 describe Contact do
-  subject { build :contact }
+  subject { build :complete_contact }
 
   let(:client) { Minitest::Mock.new }
 
@@ -114,18 +114,18 @@ describe Contact do
     let(:chg_params) {
       {
         postal_info: {
-          name: 'Contact',
-          org:  nil,
+          name: 'Local Contact',
+          org:  'Local Organization',
           addr: {
-            street: 'Street',
-            city: 'City',
-            sp: nil,
-            pc: nil,
-            cc: 'PH'
+            street: 'Local Street',
+            city: 'Local City',
+            sp: 'Local State',
+            pc: 1235,
+            cc: 'RP'
           }
         },
         voice:  '+63.1234567',
-        fax:  nil,
+        fax:  '+63.1234568',
         email: 'contact@test.ph',
         auth_info: {
           pw: 'ABC123'

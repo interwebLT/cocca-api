@@ -68,18 +68,18 @@ class Contact < EPP::Model
   def create_params
     {
       postal_info: {
-        name: self.name,
-        org:  nil,
+        name: self.local_name,
+        org:  self.local_organization,
         addr: {
-          street: self.street,
-          city: self.city,
-          sp: nil,
-          pc: nil,
-          cc: self.country_code
+          street: self.local_street,
+          city: self.local_city,
+          sp: self.local_state,
+          pc: self.local_postal_code,
+          cc: self.local_country_code
         }
       },
       voice:  self.voice,
-      fax:  nil,
+      fax:  self.fax,
       email:  self.email,
       auth_info:  { pw: self.authcode }
     }
