@@ -61,9 +61,9 @@ end
 Then /^domains must be registered$/ do
   client.verify
 
-  json_response.must_equal 'order/post_multiple_register_domain_response'.json
+  expect(json_response).to eql 'order/post_multiple_register_domain_response'.json
 end
 
 Then /^domain must be registered$/ do
-  json_response.must_equal 'order/post_register_domain_response'.json
+  expect(json_response).to eql 'order/post_register_domain_response'.json
 end

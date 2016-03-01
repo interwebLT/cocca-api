@@ -15,7 +15,7 @@ When /^I create a new partner with no password$/ do
 end
 
 Then /^partner must be created$/ do
-  last_response.status.must_equal 201
+  expect(last_response.status).to eql 201
 
-  Partner.exists?(name: 'alpha').must_equal true
+  expect(Partner.exists?(name: 'alpha')).to be true
 end

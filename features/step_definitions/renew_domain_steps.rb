@@ -14,10 +14,6 @@ When /^I renew a domain that is still available$/ do
   end
 end
 
-Then /^domain must be renewed$/ do
-  json_response.must_equal 'order/post_renew_domain_response'.json
-end
-
 When /^I renew a domain with no domain name$/ do
   post orders_path, 'order/post_renew_domain_with_no_domain_name_request'.json
 end
@@ -32,4 +28,8 @@ end
 
 When /^I renew a domain with no current expires at$/ do
   post orders_path, 'order/post_renew_domain_with_no_current_expires_at_request'.json
+end
+
+Then /^domain must be renewed$/ do
+  expect(json_response).to eql 'order/post_renew_domain_response'.json
 end

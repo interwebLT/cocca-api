@@ -27,9 +27,9 @@ When /^I create a new contact with an existing handle$/ do
 end
 
 Then /^contact must be created$/ do
-  json_response.must_equal 'contact/post_response'.json
+  expect(json_response).to eql 'contact/post_response'.json
 end
 
 Then /^complete contact must be created$/ do
-  json_response.must_equal 'contact/post_response_complete'.json
+  expect(json_response).to eql 'contact/post_response_complete'.json
 end

@@ -39,5 +39,5 @@ When /^I update a contact and change the handle$/ do
 end
 
 Then /^contact must be updated on EPP$/ do
-  json_response.must_equal 'contact/patch_response'.json
+  expect(json_response).to eql 'contact/patch_response'.json
 end

@@ -137,7 +137,7 @@ Then /^domain contact must be updated$/ do
 end
 
 Then /^I must be informed of the error$/ do
-  @exception_thrown.must_equal true
+  expect(@exception_thrown).to be true
 end
 
 Then /^domain must now be renewed$/ do

@@ -23,7 +23,7 @@ When /^I update the authcode of a domain that does not exist$/ do
 end
 
 Then /^authcode must be updated$/ do
-  last_response.status.must_equal 200
+  expect(last_response.status).to eql 200
 end
 
 Then /^all contact handles of my domain must be updated$/ do
