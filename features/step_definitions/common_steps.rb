@@ -6,13 +6,13 @@ Given /^I am authenticated as partner$/ do
 end
 
 Then /^error must be validation failed$/ do
-  last_response.status.must_equal 422
+  expect(last_response.status).to eql 422
 end
 
 Then /^error must be not found$/ do
-  last_response.status.must_equal 422
+  expect(last_response.status).to eql 422
 end
 
 Then /^error must be bad request$/ do
-  last_response.status.must_equal 422
+  expect(last_response.status).to eql 422
 end
