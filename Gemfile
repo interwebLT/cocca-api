@@ -23,6 +23,10 @@ gem 'unicorn'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
 group :test do
   gem 'minitest-spec-rails'
   gem 'cucumber-rails', require: false
