@@ -49,4 +49,4 @@ gem 'exception_notification'
 gem 'resque'
 gem 'httparty'
 gem 'whenever', require: false
-gem 'epp-client'
+gem 'epp-client', github: 'dotph/epp-client'
