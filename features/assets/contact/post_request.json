@@ -1,9 +1,9 @@
 {
   "handle": "contact123",
-  "name": "Name",
-  "street": "Street",
-  "city": "City",
-  "country_code": "PH",
+  "local_name": "Name",
+  "local_street": "Street",
+  "local_city": "City",
+  "local_country_code": "PH",
   "voice":  "+63.1234567",
   "email":  "contact@test.ph",
   "authcode": "ABC123"

@@ -16,5 +16,11 @@ module EPP
 
       EPP::Client.new username, password, host
     end
+
+    def process_response response
+      errors.add(:epp, response.message) unless response.success?
+
+      response.success?
+    end
   end
 end

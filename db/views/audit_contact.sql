@@ -10,6 +10,7 @@ SELECT
   clid,
   crid,
   createdate,
+  updatedate,
   intpostalname,
   intpostalorg,
   intpostalstreet1,
@@ -42,6 +43,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     clid,
     crid,
     createdate,
+    updatedate,
     intpostalname,
     intpostalorg,
     intpostalstreet1,
@@ -66,7 +68,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     voicex,
     faxx
   FROM audit.contact
-  WHERE createdate > (current_timestamp - interval ''1'' day)
+  WHERE COALESCE(updatedate, createdate) > (current_timestamp - interval ''2'' month)
 ') cocca (
   audit_transaction BIGINT,
   audit_operation   VARCHAR(1),
@@ -75,6 +77,7 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   clid              VARCHAR(16),
   crid              VARCHAR(16),
   createdate        TIMESTAMP,
+  updatedate        TIMESTAMP,
   intpostalname     VARCHAR(255),
   intpostalorg      VARCHAR(255),
   intpostalstreet1  VARCHAR(255),

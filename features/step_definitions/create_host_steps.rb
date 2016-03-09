@@ -7,13 +7,11 @@ When /^I create a host entry$/ do
 end
 
 When /^I create a host entry with no host name$/ do
-  request = "host/create_request_no_hostname".json
-  post hosts_path, request
+  post hosts_path, 'host/create_request_no_hostname'.json
 end
 
 When /^I create a host entry with blank host name$/ do
-  request = "host/create_request_blank_hostname".json
-  post hosts_path, request
+  post hosts_path, 'host/create_request_blank_hostname'.json
 end
 
 When /^I create a host entry with existing host name$/ do
@@ -26,6 +24,7 @@ end
 
 Then /^host entry must be created$/ do
   client.verify
-  json_response.must_equal 'host/create_response'.json
+
+  expect(json_response).to eql 'host/create_response'.json
 end
 

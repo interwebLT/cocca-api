@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.5.1'
 
 gem 'rails-api'
 
@@ -22,6 +22,10 @@ gem 'unicorn'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :development, :test do
+  gem 'rspec-rails'
+end
 
 group :test do
   gem 'minitest-spec-rails'
@@ -45,4 +49,4 @@ gem 'exception_notification'
 gem 'resque'
 gem 'httparty'
 gem 'whenever', require: false
-gem 'epp-client'
+gem 'epp-client', github: 'dotph/epp-client'

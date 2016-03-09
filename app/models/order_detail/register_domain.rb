@@ -35,11 +35,6 @@ class OrderDetail::RegisterDomain < OrderDetail
       period: "#{self.period}y",
       registrant: self.registrant_handle,
       auth_info:  { pw: self.authcode },
-      contacts: {
-        admin: '',
-        tech: '',
-        billing: ''
-        },
       nameservers: []
     }
   end

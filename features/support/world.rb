@@ -1,10 +1,4 @@
-require 'minitest/spec'
-
-World(MiniTest::Assertions)
-MiniTest::Spec.new(nil)
-
 require 'webmock/cucumber'
+require 'minitest/mock'
 
 World(FactoryGirl::Syntax::Methods)
-
-require 'minitest/mock'

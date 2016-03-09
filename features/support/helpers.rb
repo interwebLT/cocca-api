@@ -56,8 +56,7 @@ def assert_request method, path, request = nil
 
   url = Rails.configuration.x.registry_url + path
 
-  assert_requested method, url, times: 1
-  assert_requested method, url, params
+  expect(WebMock).to have_requested(method, url).with(params)
 end
 
 def assert_delete path, request = nil

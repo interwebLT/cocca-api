@@ -1,31 +1,31 @@
 When /^I register a domain that is still available$/ do
-  client.expect :create, 'order/create_register_domain_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
-    post orders_path, 'order/create_register_domain_request'.json
+    post orders_path, 'order/post_register_domain_request'.json
   end
 end
 
 When /^I register multiple domains that are still available$/ do
-  client.expect :create, 'order/create_register_domain_response'.epp, [EPP::Domain::Create]
-  client.expect :create, 'order/create_register_domain_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
-    post orders_path, 'order/create_multiple_register_domain_request'.json
+    post orders_path, 'order/post_multiple_register_domain_request'.json
   end
 end
 
 When /^I register multiple domains with one validation error$/ do
-  post orders_path, 'order/create_multiple_register_domain_with_one_error_request'.json
+  post orders_path, 'order/post_multiple_register_domain_with_one_error_request'.json
 end
 
 When /^I place an order that fails at an external step$/ do
-  client.expect :create, 'order/create_register_domain_response'.epp, [EPP::Domain::Create]
-  client.expect :create, 'order/create_register_domain_failed_response'.epp, [EPP::Domain::Create]
-  client.expect :create, 'order/create_register_domain_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_failed_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
-    post orders_path, 'order/create_multiple_register_domain_request'.json
+    post orders_path, 'order/post_multiple_register_domain_request'.json
   end
 end
 
@@ -39,31 +39,31 @@ When /^I register a domain using (.*)$/ do |scenario|
     "missing order details" => 'no_order_details'
   }
 
-  post orders_path, "order/create_register_domain_with_#{scenarios[scenario]}_request".json
+  post orders_path, "order/post_register_domain_with_#{scenarios[scenario]}_request".json
 end
 
 When /^I register a domain with existing domain name$/ do
-  client.expect :create, 'order/create_register_domain_failed_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_failed_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
-    post orders_path, 'order/create_register_domain_with_existing_domain_request'.json
+    post orders_path, 'order/post_register_domain_with_existing_domain_request'.json
   end
 end
 
 When /^I register a domain with non\-existing registrant handle$/ do
-  client.expect :create, 'order/create_register_domain_failed_response'.epp, [EPP::Domain::Create]
+  client.expect :create, 'order/post_register_domain_failed_response'.epp, [EPP::Domain::Create]
 
   EPP::Client.stub :new, client do
-    post orders_path, 'order/create_register_domain_with_non_existing_registrant_handle_request'.json
+    post orders_path, 'order/post_register_domain_with_non_existing_registrant_handle_request'.json
   end
 end
 
 Then /^domains must be registered$/ do
   client.verify
 
-  json_response.must_equal 'order/create_multiple_register_domain_response'.json
+  expect(json_response).to eql 'order/post_multiple_register_domain_response'.json
 end
 
 Then /^domain must be registered$/ do
-  json_response.must_equal 'order/create_register_domain_response'.json
+  expect(json_response).to eql 'order/post_register_domain_response'.json
 end

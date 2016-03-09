@@ -6,24 +6,23 @@ class Contact < EPP::Model
                 :voice_ext, :fax, :fax_ext
 
   validates :handle,  presence: true
-  validates :name,    presence: true
-  validates :street,  presence: true
-  validates :city,    presence: true
-  validates :country_code,  presence: true
+  validates :local_name,    presence: true
+  validates :local_street,  presence: true
+  validates :local_city,    presence: true
+  validates :local_country_code,  presence: true
   validates :voice,   presence: true
   validates :email,   presence: true
-  validates :authcode,  presence: true
 
   def save
     return false unless valid?
 
-    client.create(create_command).success?
+    process_response client.create(create_command)
   end
 
   def update
     return false unless valid?
 
-    client.update(update_command).success?
+    process_response client.update(update_command)
   end
 
   def as_json options = nil
@@ -55,8 +54,6 @@ class Contact < EPP::Model
     }
   end
 
-  private
-
   def create_command
     EPP::Contact::Create.new self.handle, create_params
   end
@@ -65,21 +62,23 @@ class Contact < EPP::Model
     EPP::Contact::Update.new self.handle, update_params
   end
 
+  private
+
   def create_params
     {
       postal_info: {
-        name: self.name,
-        org:  nil,
+        name: self.local_name,
+        org:  self.local_organization,
         addr: {
-          street: self.street,
-          city: self.city,
-          sp: nil,
-          pc: nil,
-          cc: self.country_code
+          street: self.local_street,
+          city: self.local_city,
+          sp: self.local_state,
+          pc: self.local_postal_code,
+          cc: self.local_country_code
         }
       },
       voice:  self.voice,
-      fax:  nil,
+      fax:  self.fax,
       email:  self.email,
       auth_info:  { pw: self.authcode }
     }
