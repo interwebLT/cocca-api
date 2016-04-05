@@ -70,3 +70,7 @@ end
 def assert_post path, request = nil
   assert_request :post, path, request
 end
+
+def url path
+  "#{Rails.configuration.x.registry_url}/#{path}"
+end

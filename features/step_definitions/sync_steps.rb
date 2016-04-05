@@ -86,6 +86,10 @@ Given /^I registered a domain from an excluded IP$/ do
   domain.master.update! audit_ip: EXCLUDED_IP
 end
 
+Given /^I deleted an existing domain$/ do
+  create :delete_domain
+end
+
 When /^latest changes are synced$/ do
   run_sync
 end
@@ -150,4 +154,9 @@ end
 
 Then /^no changes must be synced$/ do
   assert_not_requested :post, Rails.configuration.x.registry_url + '/orders'
+end
+
+Then /^domain must now be deleted$/ do
+  expect(WebMock).to have_requested(:delete, url('domains/domains.ph'))
+    .with headers: default_headers
 end
