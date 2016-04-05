@@ -48,29 +48,6 @@ def error_params
   }
 end
 
-def assert_request method, path, request = nil
-  params = {}.tap do |params|
-    params[:headers]  = default_headers
-    params[:body]     = request if request
-  end
-
-  url = Rails.configuration.x.registry_url + path
-
-  expect(WebMock).to have_requested(method, url).with(params)
-end
-
-def assert_delete path, request = nil
-  assert_request :delete, path, request
-end
-
-def assert_patch path, request = nil
-  assert_request :patch, path, request
-end
-
-def assert_post path, request = nil
-  assert_request :post, path, request
-end
-
 def url path
-  "#{Rails.configuration.x.registry_url}/#{path}"
+  "#{Rails.configuration.x.registry_url}#{path}"
 end
