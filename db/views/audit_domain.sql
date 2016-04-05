@@ -22,25 +22,27 @@ SELECT
   st_pendingtransfer
 FROM dblink('dbname=registry user=coccauser password=coccauser', '
   SELECT
-    audit_transaction,
-    audit_operation,
-    roid,
-    name,
-    exdate,
-    clid,
-    crid,
-    createdate,
-    zone,
-    registrant,
-    st_cl_deleteprohibited,
-    st_cl_hold,
-    st_cl_renewprohibited,
-    st_cl_transferprohibited,
-    st_cl_updateprohibited,
-    authinfopw,
-    st_pendingtransfer
-  FROM audit.domain
-  WHERE COALESCE(updatedate, createdate) > (current_timestamp - interval ''1'' day)
+    d.audit_transaction,
+    d.audit_operation,
+    d.roid,
+    d.name,
+    d.exdate,
+    d.clid,
+    d.crid,
+    d.createdate,
+    d.zone,
+    d.registrant,
+    d.st_cl_deleteprohibited,
+    d.st_cl_hold,
+    d.st_cl_renewprohibited,
+    d.st_cl_transferprohibited,
+    d.st_cl_updateprohibited,
+    d.authinfopw,
+    d.st_pendingtransfer
+  FROM audit.master m, audit.domain d
+  WHERE 1=1
+  AND d.audit_transaction = m.audit_transaction
+  AND m.audit_time > (current_timestamp - interval ''1'' day)
 ') cocca (
   audit_transaction         BIGINT,
   audit_operation           VARCHAR(1),
