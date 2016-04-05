@@ -206,7 +206,6 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    spring (1.6.2)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -260,7 +259,6 @@ DEPENDENCIES
   rails-api
   resque
   rspec-rails
-  spring
   timecop
   unicorn
   webmock
