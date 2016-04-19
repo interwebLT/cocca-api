@@ -9,9 +9,10 @@ module Sync
   end
 
   def self.execute audit_transaction
-    master = Audit::Master.find_by audit_transaction: audit_transaction
+    records = Audit::Master.where(audit_transaction: audit_transaction)
+      .includes(:contacts, :domains, :hosts)
 
-    self.sync [master]
+    self.sync records
   end
 
   private

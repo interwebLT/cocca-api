@@ -16,5 +16,6 @@ class Audit::Master < ActiveRecord::Base
     self.where(audit_time: since...up_to)
       .where.not(audit_user: ExcludedPartner.all.map(&:name))
       .where.not(audit_ip: ExcludedIp.all.map(&:ip))
+      .include(:contacts, :domains, :hosts)
   end
 end
