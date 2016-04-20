@@ -16,6 +16,14 @@ When /^I try to remove a domain host from a domain and fails$/ do
   delete domain_host_path('domain.ph', 'ns5.domains.ph')
 end
 
+When /^I try to remove a domain host with no domain$/ do
+  delete domain_host_path(' ', 'ns5.domains.ph')
+end
+
+When /^I try to remove a domain host with no name$/ do
+  delete domain_host_path('domain.ph', ' ')
+end
+
 Then /^domain must no longer have domain host$/ do
   expect(json_response).to eql 'domains/domain.ph/hosts/ns5.domains.ph/delete_response'.json
 end

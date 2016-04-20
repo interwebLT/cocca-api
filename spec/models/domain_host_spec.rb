@@ -10,9 +10,31 @@ end
 RSpec.describe DomainHost do
   let(:client) { double('client') }
 
+  let(:partner) { 'alpha' }
+  let(:domain)  { 'domain.ph' }
+  let(:name)    { 'ns5.domains.ph' }
+
+  describe '#valid?' do
+    subject { DomainHost.new partner: partner, domain: domain, name: name }
+
+    it { is_expected.to be_valid }
+
+    context 'when domain is nil' do
+      let(:domain) { nil }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'when name is nil' do
+      let(:name) { nil }
+
+      it { is_expected.not_to be_valid }
+    end
+  end
+
   describe '#destroy' do
     subject do
-      domain_host = DomainHost.new domain: 'domain.ph', name: 'ns5.domains.ph'
+      domain_host = DomainHost.new partner: partner, domain: domain, name: name
 
       domain_host.destroy
     end

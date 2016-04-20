@@ -1,7 +1,8 @@
 class DomainHostsController < SecureController
   def destroy
-    domain_host = DomainHost.new  domain: params[:domain_id],
-                                  name: params[:id]
+    domain_host = DomainHost.new  partner:  current_partner,
+                                  domain:   params[:domain_id],
+                                  name:     params[:id]
 
     if domain_host.destroy
       result = {
