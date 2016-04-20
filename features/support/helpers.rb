@@ -12,8 +12,8 @@ EXCLUDED_IP = '999.999.999.999'
 PARTNER = 'alpha'
 
 def exclude_partners
-  create :excluded_partner
-  create :excluded_partner, name: 'other_excluded'
+  FactoryGirl.create :excluded_partner
+  FactoryGirl.create :excluded_partner, name: 'other_excluded'
 end
 
 def registry_response on:, with:, request: :post, body: nil
