@@ -3,13 +3,15 @@ class DomainHostsController < SecureController
     domain_host = DomainHost.new  domain: params[:domain_id],
                                   name: params[:id]
 
-    domain_host.destroy
+    if domain_host.destroy
+      result = {
+        id: 1,
+        name: params[:id]
+      }
 
-    result = {
-      id: 1,
-      name: params[:id]
-    }
-
-    render json: result
+      render json: result
+    else
+      head :unprocessable_entity
+    end
   end
 end
