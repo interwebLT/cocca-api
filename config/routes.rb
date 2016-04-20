@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :hosts, only: [:create], id: /.*/ do
     resources :addresses, controller: :host_addresses, only: [:create]
   end
-  resources :domains, only: [:update], id: /.*/
+  resources :domains, only: [:update], id: /.*/ do
+    resources :hosts, controller: :domain_hosts, only: [:destroy]
+  end
   resources :partners, only: [:create]
 end

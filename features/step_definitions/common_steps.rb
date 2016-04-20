@@ -1,5 +1,5 @@
 Given /^I am authenticated as partner$/ do
-  partner = create :partner
+  partner = FactoryGirl.create :partner
 
   header  'Authorization',
           ActionController::HttpAuthentication::Token.encode_credentials(partner.name)

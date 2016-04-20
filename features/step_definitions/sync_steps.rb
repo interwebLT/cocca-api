@@ -21,73 +21,73 @@ Given /^some partners are excluded from sync$/ do
 end
 
 Given /^I registered a domain$/ do
-  create :register_domain
+  FactoryGirl.create :register_domain
 end
 
 Given /^I created a contact$/ do
-  create :audit_contact
+  FactoryGirl.create :audit_contact
 end
 
 Given /^I created a host entry$/ do
-  create :audit_host
+  FactoryGirl.create :audit_host
 end
 
 Given /^I added a host address to an existing host$/ do
-  create :create_host_address
+  FactoryGirl.create :create_host_address
 end
 
 Given /^I removed a host address from an existing host$/ do
-  create :delete_host_address
+  FactoryGirl.create :delete_host_address
 end
 
 Given /^I added a domain host entry to an existing domain$/ do
-  domain = create :register_domain
-  create :create_domain_host, audit_transaction: domain.audit_transaction
+  domain = FactoryGirl.create :register_domain
+  FactoryGirl.create :create_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I removed a domain host entry from an existing domain$/ do
-  domain = create :register_domain
-  create :delete_domain_host, audit_transaction: domain.audit_transaction
+  domain = FactoryGirl.create :register_domain
+  FactoryGirl.create :delete_domain_host, audit_transaction: domain.audit_transaction
 end
 
 Given /^I updated an existing contact$/ do
-  create :update_contact
+  FactoryGirl.create :update_contact
 end
 
 Given /^I updated an existing domain$/ do
-  create :update_domain
+  FactoryGirl.create :update_domain
 end
 
 Given /^I updated a contact of an existing domain$/ do
-  domain = create :update_domain
-  create :admin_domain_contact, audit_transaction: domain.audit_transaction
+  domain = FactoryGirl.create :update_domain
+  FactoryGirl.create :admin_domain_contact, audit_transaction: domain.audit_transaction
 end
 
 Given /^I renewed a domain$/ do
-  create :renew_domain
+  FactoryGirl.create :renew_domain
 end
 
 Given /^I registered a domain with period in months$/ do
-  create :register_domain_in_months
+  FactoryGirl.create :register_domain_in_months
 end
 
 Given /^I renewed a domain with period in months$/ do
-  create :renew_domain_in_months
+  FactoryGirl.create :renew_domain_in_months
 end
 
 Given /^I transferred a domain into my partner account$/ do
-  create :transfer_domain
+  FactoryGirl.create :transfer_domain
 end
 
 Given /^I registered a domain from an excluded IP$/ do
-  create :excluded_ip
+  FactoryGirl.create :excluded_ip
 
-  domain = create :register_domain
+  domain = FactoryGirl.create :register_domain
   domain.master.update! audit_ip: EXCLUDED_IP
 end
 
 Given /^I deleted an existing domain$/ do
-  create :delete_domain
+  FactoryGirl.create :delete_domain
 end
 
 When /^latest changes are synced$/ do
