@@ -5,16 +5,15 @@ module Sync
 
     SyncLog.create since: since, until: up_to
 
-    self.sync Audit::Master.transactions(since: since, up_to: up_to)
+    SyncJob.perform_later since.to_i, up_to.to_i
   end
 
   def self.execute audit_transaction
-    master = Audit::Master.find_by audit_transaction: audit_transaction
+    records = Audit::Master.where(audit_transaction: audit_transaction)
+      .includes(:contacts, :domains, :hosts)
 
-    self.sync [master]
+    self.sync records
   end
-
-  private
 
   def self.sync records
     records.each do |master|
@@ -47,6 +46,8 @@ module Sync
           CreateDomainHostJob.perform_later domain_host.as_json if domain_host.insert_operation?
           DeleteDomainHostJob.perform_later domain_host.as_json if domain_host.delete_operation?
         end
+
+        DeleteDomainJob.perform_later domain.as_json if domain.delete_operation?
       end
     end
   end

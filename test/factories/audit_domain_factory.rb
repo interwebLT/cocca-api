@@ -63,5 +63,9 @@ FactoryGirl.define do
         end
       end
     end
+
+    factory :delete_domain do
+      audit_operation AuditOperation::DELETE_OPERATION
+    end
   end
 end

@@ -86,3 +86,8 @@ Feature: Sync Changes
     Given I transferred a domain into my partner account
     When  latest changes are synced
     Then  domain must now be under my partner
+
+  Scenario: Sync deleted domains
+    Given I deleted an existing domain
+    When  latest changes are synced
+    Then  domain must now be deleted

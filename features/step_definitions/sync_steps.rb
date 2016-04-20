@@ -86,6 +86,10 @@ Given /^I registered a domain from an excluded IP$/ do
   domain.master.update! audit_ip: EXCLUDED_IP
 end
 
+Given /^I deleted an existing domain$/ do
+  create :delete_domain
+end
+
 When /^latest changes are synced$/ do
   run_sync
 end
@@ -97,43 +101,53 @@ When /^syncing of latest changes results in an error$/ do
 end
 
 Then /^domain must now be registered$/ do
-  assert_post '/orders', 'order/sync_register_domain_request'.json
+  expect(WebMock).to have_requested(:post, url('/orders'))
+    .with headers: default_headers, body: 'order/sync_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do
-  assert_post '/contacts', 'contact/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, url('/contacts'))
+    .with headers: default_headers, body: 'contact/sync_create_request'.json
 end
 
 Then /^host entry must now exist$/ do
-  assert_post '/hosts', 'host/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, url('/hosts'))
+    .with headers: default_headers, body: 'host/sync_create_request'.json
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  assert_post '/hosts/ns5.domains.ph/addresses', 'host_address/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, url('/hosts/ns5.domains.ph/addresses'))
+    .with headers: default_headers, body: 'host_address/sync_create_request'.json
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
-  assert_delete '/hosts/ns5.domains.ph/addresses/123.123.123.001'
+  expect(WebMock).to have_requested(:delete, url('/hosts/ns5.domains.ph/addresses/123.123.123.001'))
+    .with headers: default_headers
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  assert_post '/domains/domains.ph/hosts', 'domain_host/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, url('/domains/domains.ph/hosts'))
+    .with headers: default_headers, body: 'domain_host/sync_create_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
-  assert_delete '/domains/domains.ph/hosts/ns5.domains.ph'
+  expect(WebMock).to have_requested(:delete, url('/domains/domains.ph/hosts/ns5.domains.ph'))
+    .with headers: default_headers
 end
 
 Then /^contact must be updated$/ do
-  assert_patch '/contacts/handle', 'contact/sync_update_request'.json
+  expect(WebMock).to have_requested(:patch, url('/contacts/handle'))
+    .with headers: default_headers, body: 'contact/sync_update_request'.json
 end
 
 Then /^domain must be updated$/ do
-  assert_patch '/domains/domains.ph', 'domain/sync_update_request'.json
+  expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
+    .with headers: default_headers, body: 'domain/sync_update_request'.json
 end
 
 Then /^domain contact must be updated$/ do
-  assert_patch '/domains/domains.ph', 'domain/sync_update_contact_request'.json
+  expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
+    .with headers: default_headers, body: 'domain/sync_update_contact_request'.json
 end
 
 Then /^I must be informed of the error$/ do
@@ -141,13 +155,20 @@ Then /^I must be informed of the error$/ do
 end
 
 Then /^domain must now be renewed$/ do
-  assert_post '/orders', 'order/sync_renew_domain_request'.json
+  expect(WebMock).to have_requested(:post, url('/orders'))
+    .with headers: default_headers, body: 'order/sync_renew_domain_request'.json
 end
 
 Then /^domain must now be under my partner$/ do
-  assert_post '/orders', 'order/sync_transfer_domain_request'.json
+  expect(WebMock).to have_requested(:post, url('/orders'))
+    .with headers: default_headers, body: 'order/sync_transfer_domain_request'.json
 end
 
 Then /^no changes must be synced$/ do
   assert_not_requested :post, Rails.configuration.x.registry_url + '/orders'
+end
+
+Then /^domain must now be deleted$/ do
+  expect(WebMock).to have_requested(:delete, url('/domains/domains.ph'))
+    .with headers: default_headers
 end

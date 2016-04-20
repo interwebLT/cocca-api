@@ -29,9 +29,11 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     l.tld,
     l.trans_type,
     l.domain_name
-  FROM audit.ledger l, client c
-  WHERE created > (current_timestamp - interval ''1'' day)
+  FROM audit.master m, audit.ledger l, client c
+  WHERE 1=1
+  AND l.audit_transaction = m.audit_transaction
   AND l.client_roid = c.roid
+  AND m.audit_time > (current_timestamp - interval ''1'' day)
 ') cocca (
   id                BIGINT,
   audit_transaction BIGINT,
