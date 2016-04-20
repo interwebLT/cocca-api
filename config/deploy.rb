@@ -19,7 +19,8 @@ set :bundle_jobs, 4
 set :bundle_env_variables, { nokogiri_use_system_libraries: 1 }
 
 set :workers, {
-  sync_cocca_records: 1
+  sync_cocca_records:   1,
+  queue_cocca_records:  1
 }
 
 set :resque_log_file, 'log/resque.log'
