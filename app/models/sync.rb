@@ -5,7 +5,7 @@ module Sync
 
     SyncLog.create since: since, until: up_to
 
-    self.sync Audit::Master.transactions(since: since, up_to: up_to)
+    SyncJob.perform_later since.to_i, up_to.to_i
   end
 
   def self.execute audit_transaction
@@ -14,8 +14,6 @@ module Sync
 
     self.sync records
   end
-
-  private
 
   def self.sync records
     records.each do |master|
