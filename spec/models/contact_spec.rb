@@ -199,6 +199,40 @@ RSpec.describe Contact do
   end
 
   describe '#update' do
+    context 'when required fields present' do
+      let(:chg_params) {
+        {
+          postal_info: {
+            name: 'Local Contact',
+            org:  nil,
+            addr: {
+              street: 'Local Street',
+              city:   'Local City',
+              sp:     nil,
+              pc:     nil,
+              cc:     'RP'
+            }
+          },
+          voice:  '+63.1234567',
+          fax:    nil,
+          email:  'contact@test.ph',
+          auth_info:  {
+            pw: nil
+          }
+        }
+      }
+
+      before do
+        expect(client).to receive(:update).and_return 'contacts/update_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it 'updates contact' do
+        expect(subject.update).to eql true
+        expect(subject.update_command.chg).to eql chg_params
+      end
+    end
+
     context 'when EPP command fails' do
       before do
         expect(client).to receive(:update).and_return 'contacts/update_failed_response'.epp
