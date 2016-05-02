@@ -18,6 +18,11 @@ SELECT
   st_cl_renewprohibited,
   st_cl_transferprohibited,
   st_cl_updateprohibited,
+  st_sv_deleteprohibited,
+  st_sv_hold,
+  st_sv_renewprohibited,
+  st_sv_transferprohibited,
+  st_sv_updateprohibited,
   authinfopw,
   st_pendingtransfer
 FROM dblink('dbname=registry user=coccauser password=coccauser', '
@@ -37,6 +42,11 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
     d.st_cl_renewprohibited,
     d.st_cl_transferprohibited,
     d.st_cl_updateprohibited,
+    d.st_sv_deleteprohibited,
+    d.st_sv_hold,
+    d.st_sv_renewprohibited,
+    d.st_sv_transferprohibited,
+    d.st_sv_updateprohibited,
     d.authinfopw,
     d.st_pendingtransfer
   FROM audit.master m, audit.domain d
@@ -59,6 +69,11 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   st_cl_renewprohibited     VARCHAR(1024),
   st_cl_transferprohibited  VARCHAR(1024),
   st_cl_updateprohibited    VARCHAR(1024),
+  st_sv_deleteprohibited    VARCHAR(1024),
+  st_sv_hold                VARCHAR(1024),
+  st_sv_renewprohibited     VARCHAR(1024),
+  st_sv_transferprohibited  VARCHAR(1024),
+  st_sv_updateprohibited    VARCHAR(1024),
   authinfopw                VARCHAR(64),
   st_pendingtransfer        VARCHAR(1024)
 );
