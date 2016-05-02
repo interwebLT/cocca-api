@@ -14,39 +14,6 @@ describe Contact do
 
   let(:client) { Minitest::Mock.new }
 
-  describe :save do
-    context :when_required_fields_present do
-      before do
-        client.expect :create, 'contact/create_response'.epp, [EPP::Contact::Create]
-      end
-
-      specify do
-        EPP::Client.stub :new, client do
-          subject.save.must_equal true
-        end
-      end
-    end
-
-    context :when_required_fields_missing do
-      subject { Contact.new }
-
-      specify { subject.save.must_equal false }
-    end
-
-    context :when_create_command_fails do
-      before do
-        client.expect :create, 'contact/create_failed_response'.epp, [EPP::Contact::Create]
-      end
-
-      specify do
-        EPP::Client.stub :new, client do
-          subject.save.must_equal false
-          subject.errors[:epp].must_equal ['Missing required fields']
-        end
-      end
-    end
-  end
-
   describe :update do
     context :when_update_command_fails do
       before do
