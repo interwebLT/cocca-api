@@ -14,18 +14,6 @@ describe Contact do
 
   let(:client) { Minitest::Mock.new }
 
-  describe :valid? do
-    specify { subject.valid?.must_equal true }
-    specify { Contact.new.valid?.must_equal false }
-    specify { subject.handle = nil; subject.valid?.must_equal false }
-    specify { subject.local_name= nil;    subject.valid?.must_equal false }
-    specify { subject.local_street = nil; subject.valid?.must_equal false }
-    specify { subject.local_city = nil;   subject.valid?.must_equal false }
-    specify { subject.local_country_code = nil; subject.valid?.must_equal false }
-    specify { subject.voice = nil;  subject.valid?.must_equal false }
-    specify { subject.email = nil;  subject.valid?.must_equal false }
-  end
-
   describe :save do
     context :when_required_fields_present do
       before do
