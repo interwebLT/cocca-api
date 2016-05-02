@@ -84,6 +84,11 @@ class Audit::Domain < ActiveRecord::Base
       client_renew_prohibited:    !self.st_cl_renewprohibited.blank?,
       client_transfer_prohibited: !self.st_cl_transferprohibited.blank?,
       client_update_prohibited:   !self.st_cl_updateprohibited.blank?,
+      server_hold:                !self.st_sv_hold.blank?,
+      server_delete_prohibited:   !self.st_sv_deleteprohibited.blank?,
+      server_renew_prohibited:    !self.st_sv_renewprohibited.blank?,
+      server_transfer_prohibited: !self.st_sv_transferprohibited.blank?,
+      server_update_prohibited:   !self.st_sv_updateprohibited.blank?,
       domain_hosts:               []
     }
 
