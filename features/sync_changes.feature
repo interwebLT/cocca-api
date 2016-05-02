@@ -1,7 +1,4 @@
 Feature: Sync Changes
-  In order to reflect host address changes I made to the PH Zone
-  As a Partner
-  I want the changes I made to host addresses synced to Registry
 
   Background:
     Given registry accepts sync requests
