@@ -28,6 +28,8 @@ RSpec.describe Contact do
   let(:voice)               { '+63.1234567' }
   let(:email)               { 'contact@test.ph' }
 
+  let(:client)  { double('client') }
+
   describe '#valid?' do
     it { is_expected.to be_valid }
 
@@ -173,8 +175,6 @@ RSpec.describe Contact do
   end
 
   describe '#save' do
-    let(:client)  { double('client') }
-
     context 'when required fields present' do
       before do
         expect(client).to receive(:create).and_return 'contacts/create_response'.epp
@@ -195,6 +195,17 @@ RSpec.describe Contact do
       end
 
       it { expect(subject.save).to eql false }
+    end
+  end
+
+  describe '#update' do
+    context 'when EPP command fails' do
+      before do
+        expect(client).to receive(:update).and_return 'contacts/update_failed_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it { expect(subject.update).to eql false }
     end
   end
 end

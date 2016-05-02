@@ -14,21 +14,6 @@ describe Contact do
 
   let(:client) { Minitest::Mock.new }
 
-  describe :update do
-    context :when_update_command_fails do
-      before do
-        client.expect :update, 'contact/update_failed_response'.epp, [EPP::Contact::Update]
-      end
-
-      specify do
-        EPP::Client.stub :new, client do
-          subject.update.must_equal false
-          subject.errors[:epp].must_equal ['Missing required fields']
-        end
-      end
-    end
-  end
-
   describe :update_command do
     let(:chg_params) {
       {
