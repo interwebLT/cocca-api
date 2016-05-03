@@ -14,6 +14,13 @@ class DomainHost < EPP::Model
     client.update(delete_command).success?
   end
 
+  def as_json options = nil
+    {
+      id:   1,
+      name: self.name
+    }
+  end
+
   def create_command
     EPP::Domain::Update.new self.domain, {
       add: {

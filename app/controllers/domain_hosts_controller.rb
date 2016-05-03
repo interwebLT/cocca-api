@@ -5,12 +5,7 @@ class DomainHostsController < SecureController
                                   name:   params[:name]
 
     if domain_host.create
-      result = {
-        id: 1,
-        name: params[:name]
-      }
-
-      render json: result
+      render json: domain_host
     else
       head :unprocessable_entity
     end
@@ -22,12 +17,7 @@ class DomainHostsController < SecureController
                                   name:     params[:id]
 
     if domain_host.destroy
-      result = {
-        id: 1,
-        name: params[:id]
-      }
-
-      render json: result
+      render json: domain_host
     else
       head :unprocessable_entity
     end
