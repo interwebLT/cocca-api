@@ -1,5 +1,5 @@
 When /^I create a new contact with required fields only$/ do
-  client.expect :create, 'contacts/post_response'.epp, [EPP::Contact::Create]
+  client.expect :create, 'contacts/create_response'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
     post contacts_path, 'contacts/post_request'.json
@@ -7,7 +7,7 @@ When /^I create a new contact with required fields only$/ do
 end
 
 When /^I create a new contact with complete fields provided$/ do
-  client.expect :create, 'contacts/post_response'.epp, [EPP::Contact::Create]
+  client.expect :create, 'contacts/create_response'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
     post contacts_path, 'contacts/post_request_complete'.json
@@ -19,7 +19,7 @@ When /^I create a new contact with missing (.*?)$/ do |field|
 end
 
 When /^I create a new contact with an existing handle$/ do
-  client.expect :create, 'contacts/post_response_failed'.epp, [EPP::Contact::Create]
+  client.expect :create, 'contacts/create_failed_response'.epp, [EPP::Contact::Create]
 
   EPP::Client.stub :new, client do
     post contacts_path, 'contacts/post_request'.json
