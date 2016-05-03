@@ -107,7 +107,7 @@ end
 
 Then /^contact must now exist$/ do
   expect(WebMock).to have_requested(:post, url('/contacts'))
-    .with headers: default_headers, body: 'contact/sync_create_request'.json
+    .with headers: default_headers, body: 'contacts/sync_create_request'.json
 end
 
 Then /^host entry must now exist$/ do
@@ -137,7 +137,7 @@ end
 
 Then /^contact must be updated$/ do
   expect(WebMock).to have_requested(:patch, url('/contacts/handle'))
-    .with headers: default_headers, body: 'contact/sync_update_request'.json
+    .with headers: default_headers, body: 'contacts/sync_update_request'.json
 end
 
 Then /^domain must be updated$/ do
