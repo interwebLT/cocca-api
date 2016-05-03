@@ -7,7 +7,6 @@ Feature: Add Domain Host
     When  I try to add a domain host to a domain
     Then  domain must now have domain host
 
-  @wip
   Scenario: Add domain host failed
     When  I try to add a domain host to a domain and fails
     Then  error must be validation failed
