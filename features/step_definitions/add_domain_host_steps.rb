@@ -16,6 +16,14 @@ When /^I try to add a domain host to a domain and fails$/ do
   post domain_hosts_path('domain.ph'), 'domains/domain.ph/hosts/post_request'.json
 end
 
+When /^I try to add a domain host with no domain$/ do
+  post domain_hosts_path(' ')
+end
+
+When /^I try to add a domain host with no name$/ do
+  post domain_hosts_path('doman.ph'), {}
+end
+
 Then /^domain must now have domain host$/ do
   expect(json_response).to eql 'domains/domain.ph/hosts/post_response'.json
 end

@@ -11,7 +11,6 @@ Feature: Add Domain Host
     When  I try to add a domain host to a domain and fails
     Then  error must be validation failed
 
-  @wip
   Scenario Outline: Invalid parameters
     When  I try to add a domain host with <invalid parameter>
     Then  error must be validation failed

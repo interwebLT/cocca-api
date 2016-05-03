@@ -58,4 +58,15 @@ RSpec.describe DomainHost do
 
     it { is_expected.to eql expected_json }
   end
+
+  describe '#create' do
+    subject { domain_host.create }
+
+    context 'when object not valid' do
+      let(:domain)  { nil }
+      let(:name)    { nil }
+
+      it { is_expected.to be false }
+    end
+  end
 end

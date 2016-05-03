@@ -5,6 +5,8 @@ class DomainHost < EPP::Model
   validates :name,    presence: true
 
   def create
+    return false unless valid?
+
     client.create(create_command).success?
   end
 
