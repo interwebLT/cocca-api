@@ -5,13 +5,13 @@ class Contact < EPP::Model
                 :local_city, :local_state, :local_postal_code, :local_country_code,
                 :voice_ext, :fax, :fax_ext
 
-  validates :handle,  presence: true
-  validates :local_name,    presence: true
-  validates :local_street,  presence: true
-  validates :local_city,    presence: true
+  validates :handle,              presence: true
+  validates :local_name,          presence: true
+  validates :local_street,        presence: true
+  validates :local_city,          presence: true
   validates :local_country_code,  presence: true
-  validates :voice,   presence: true
-  validates :email,   presence: true
+  validates :voice,               presence: true
+  validates :email,               presence: true
 
   def save
     return false unless valid?
