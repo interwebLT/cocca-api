@@ -8,6 +8,8 @@ module EPP
 end
 
 RSpec.describe DomainHost do
+  subject(:domain_host) { DomainHost.new partner: partner, domain: domain, name: name }
+
   let(:client) { double('client') }
 
   let(:partner) { 'alpha' }
@@ -33,11 +35,7 @@ RSpec.describe DomainHost do
   end
 
   describe '#destroy' do
-    subject do
-      domain_host = DomainHost.new partner: partner, domain: domain, name: name
-
-      domain_host.destroy
-    end
+    subject { domain_host.destroy }
 
     before do
       expect(client).to receive(:update).and_return('domains/domain.ph/update_response'.epp)
@@ -46,5 +44,29 @@ RSpec.describe DomainHost do
     end
 
     it { is_expected.to eql true }
+  end
+
+  describe '#as_json' do
+    subject { domain_host.as_json }
+
+    let(:expected_json) {
+      {
+        id:   1,
+        name: 'ns5.domains.ph'
+      }
+    }
+
+    it { is_expected.to eql expected_json }
+  end
+
+  describe '#create' do
+    subject { domain_host.create }
+
+    context 'when object not valid' do
+      let(:domain)  { nil }
+      let(:name)    { nil }
+
+      it { is_expected.to be false }
+    end
   end
 end
