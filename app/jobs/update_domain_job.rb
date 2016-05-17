@@ -3,7 +3,7 @@ class UpdateDomainJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
+  def perform partner, record
     path = "#{URL}/domains/#{record[:domain]}"
 
     json_request = {
@@ -25,6 +25,6 @@ class UpdateDomainJob < ApplicationJob
       json_request[handle] = record[handle] if record.has_key? handle
     end
 
-    execute :patch, partner: record[:partner], path: path, body: json_request
+    execute :patch, partner: partner, path: path, body: json_request
   end
 end
