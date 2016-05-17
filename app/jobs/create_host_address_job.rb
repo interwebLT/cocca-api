@@ -3,9 +3,9 @@ class CreateHostAddressJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
-    host = record.delete(:host)
+  def perform partner, record
+    host = record.delete :host
 
-    execute :post, partner: record[:partner], path: "#{URL}/hosts/#{host}/addresses", body: record
+    execute :post, partner: partner, path: "#{URL}/hosts/#{host}/addresses", body: record
   end
 end

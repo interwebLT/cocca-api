@@ -32,8 +32,8 @@ module Sync
         CreateHostJob.perform_later host.partner, host.as_json  if host.insert_operation?
 
         host.host_addresses.each do |host_address|
-          CreateHostAddressJob.perform_later host_address.as_json  if host_address.insert_operation?
-          DeleteHostAddressJob.perform_later host_address.as_json  if host_address.delete_operation?
+          CreateHostAddressJob.perform_later host.partner, host_address.as_json if host_address.insert_operation?
+          DeleteHostAddressJob.perform_later host.partner, host_address.as_json if host_address.delete_operation?
         end
       end
     end
