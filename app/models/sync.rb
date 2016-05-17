@@ -47,7 +47,7 @@ module Sync
           DeleteDomainHostJob.perform_later domain_host.as_json if domain_host.delete_operation?
         end
 
-        DeleteDomainJob.perform_later domain.as_json if domain.delete_operation?
+        DeleteDomainJob.perform_later domain.partner, domain.as_json if domain.delete_operation?
       end
     end
   end

@@ -3,7 +3,7 @@ class DeleteDomainJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
-    execute :delete, partner: record[:partner], path: "#{URL}/domains/#{record[:domain]}"
+  def perform partner, record
+    execute :delete, partner: partner, path: "#{URL}/domains/#{record[:domain]}"
   end
 end
