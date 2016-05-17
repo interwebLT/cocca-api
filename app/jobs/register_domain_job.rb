@@ -3,9 +3,8 @@ class RegisterDomainJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
+  def perform partner, record
     json_request = {
-      partner:        record[:partner],
       currency_code:  'USD',
       ordered_at:      record[:ordered_at],
       order_details:  [
@@ -19,6 +18,6 @@ class RegisterDomainJob < ApplicationJob
       ]
     }
 
-    execute :post, partner: record[:partner], path: "#{URL}/orders", body: json_request
+    execute :post, partner: partner, path: "#{URL}/orders", body: json_request
   end
 end
