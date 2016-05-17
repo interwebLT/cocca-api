@@ -17,6 +17,6 @@ class RenewDomainJob < ApplicationJob
       ]
     }
 
-    execute :post, path: "#{URL}/orders", body: json_request
+    execute :post, partner: record[:partner], path: "#{URL}/orders", body: json_request
   end
 end

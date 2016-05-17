@@ -6,6 +6,6 @@ class CreateHostAddressJob < ApplicationJob
   def perform record
     host = record.delete(:host)
 
-    execute :post, path: "#{URL}/hosts/#{host}/addresses", body: record
+    execute :post, partner: record[:partner], path: "#{URL}/hosts/#{host}/addresses", body: record
   end
 end

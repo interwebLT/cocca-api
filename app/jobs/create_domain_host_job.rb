@@ -10,6 +10,6 @@ class CreateDomainHostJob < ApplicationJob
       name: record[:host]
     }
 
-    execute :post, path: path, body: json_request
+    execute :post, partner: record[:partner], path: path, body: json_request
   end
 end

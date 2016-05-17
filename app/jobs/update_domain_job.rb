@@ -25,6 +25,6 @@ class UpdateDomainJob < ApplicationJob
       json_request[handle] = record[handle] if record.has_key? handle
     end
 
-    execute :patch, path: path, body: json_request
+    execute :patch, partner: record[:partner], path: path, body: json_request
   end
 end

@@ -4,6 +4,7 @@ class DeleteDomainHostJob < ApplicationJob
   queue_as :sync_cocca_records
 
   def perform record
-    execute :delete, path: "#{URL}/domains/#{record[:domain]}/hosts/#{record[:host]}"
+    execute :delete,  partner:  record[:partner],
+                      path:     "#{URL}/domains/#{record[:domain]}/hosts/#{record[:host]}"
   end
 end

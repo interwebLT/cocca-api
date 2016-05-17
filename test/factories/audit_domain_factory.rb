@@ -36,7 +36,7 @@ FactoryGirl.define do
       audit_operation AuditOperation::UPDATE_OPERATION
 
       factory :transfer_domain do
-        clid 'beta'
+        clid 'alpha'
         createdate '2015-12-15 3:30 PM'.in_time_zone
 
         after :create do |domain|

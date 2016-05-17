@@ -3,6 +3,7 @@ Feature: Sync Changes
   Background:
     Given registry accepts sync requests
     And   some partners are excluded from sync
+    And   I am allowed to sync to registry
 
   Scenario: Sync domains registered
     Given I registered a domain

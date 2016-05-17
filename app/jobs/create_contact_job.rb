@@ -4,6 +4,6 @@ class CreateContactJob < ApplicationJob
   queue_as :sync_cocca_records
 
   def perform record
-    execute :post, path: "#{URL}/contacts", body: record
+    execute :post, partner: record[:partner], path: "#{URL}/contacts", body: record
   end
 end

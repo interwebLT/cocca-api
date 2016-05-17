@@ -5,10 +5,10 @@ class UpdateContactJob < ApplicationJob
 
   def perform record
     json_request = record
-    json_request.delete(:partner)
+    partner = json_request.delete(:partner)
 
     handle = json_request.delete(:handle)
 
-    execute :patch, path: "#{URL}/contacts/#{handle}", body: json_request
+    execute :patch, partner: partner, path: "#{URL}/contacts/#{handle}", body: json_request
   end
 end
