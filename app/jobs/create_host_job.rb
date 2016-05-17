@@ -3,7 +3,7 @@ class CreateHostJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
-    execute :post, partner: record[:partner], path: "#{URL}/hosts", body: record
+  def perform partner, record
+    execute :post, partner: partner, path: "#{URL}/hosts", body: record
   end
 end

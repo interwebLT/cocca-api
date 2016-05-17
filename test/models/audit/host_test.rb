@@ -39,8 +39,7 @@ describe Audit::Host do
   describe :as_json do
     let(:expected_json) {
       {
-        partner:  'alpha',
-        name:     'ns5.domains.ph'
+        name: 'ns5.domains.ph'
       }
     }
 

@@ -9,6 +9,8 @@ class Audit::Host < ActiveRecord::Base
   validates :audit_operation, presence: true
   validates :audit_transaction, presence: true
 
+  alias_attribute :partner, :clid
+
   def host_addresses
     params = { audit_transaction: self.audit_transaction, host_name: self.name }
 
@@ -29,7 +31,6 @@ class Audit::Host < ActiveRecord::Base
 
   def as_json options = nil
     {
-      partner:  self.master.audit_user,
       name:     self.name
     }
   end

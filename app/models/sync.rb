@@ -29,7 +29,7 @@ module Sync
       end
 
       master.hosts.each do |host|
-        CreateHostJob.perform_later host.as_json  if host.insert_operation?
+        CreateHostJob.perform_later host.partner, host.as_json  if host.insert_operation?
 
         host.host_addresses.each do |host_address|
           CreateHostAddressJob.perform_later host_address.as_json  if host_address.insert_operation?
