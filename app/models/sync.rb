@@ -43,8 +43,8 @@ module Sync
         UpdateDomainJob.perform_later domain.partner, domain.as_json if domain.update_domain?
 
         domain.domain_hosts.each do |domain_host|
-          CreateDomainHostJob.perform_later domain_host.as_json if domain_host.insert_operation?
-          DeleteDomainHostJob.perform_later domain_host.as_json if domain_host.delete_operation?
+          CreateDomainHostJob.perform_later domain.partner, domain_host.as_json if domain_host.insert_operation?
+          DeleteDomainHostJob.perform_later domain.partner, domain_host.as_json if domain_host.delete_operation?
         end
 
         DeleteDomainJob.perform_later domain.partner, domain.as_json if domain.delete_operation?
