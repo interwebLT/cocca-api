@@ -18,8 +18,8 @@ module Sync
   def self.sync records
     records.each do |master|
       master.contacts.each do |contact|
-        CreateContactJob.perform_later contact.as_json if contact.insert_operation?
-        UpdateContactJob.perform_later contact.as_json if contact.update_operation?
+        CreateContactJob.perform_later contact.partner, contact.as_json if contact.insert_operation?
+        UpdateContactJob.perform_later contact.partner, contact.as_json if contact.update_operation?
       end
 
       master.domains.each do |domain|

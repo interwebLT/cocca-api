@@ -5,9 +5,10 @@ class Audit::Contact < ActiveRecord::Base
 
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
+  alias_attribute :partner, :clid
+
   def as_json options = nil
     {
-      partner:            self.clid,
       handle:             self.id,
       name:               self.intpostalname,
       organization:       self.intpostalorg,

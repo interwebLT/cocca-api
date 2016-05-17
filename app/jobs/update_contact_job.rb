@@ -3,12 +3,9 @@ class UpdateContactJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
-    json_request = record
-    partner = json_request.delete(:partner)
+  def perform partner, record
+    handle = record.delete :handle
 
-    handle = json_request.delete(:handle)
-
-    execute :patch, partner: partner, path: "#{URL}/contacts/#{handle}", body: json_request
+    execute :patch, partner: partner, path: "#{URL}/contacts/#{handle}", body: record
   end
 end
