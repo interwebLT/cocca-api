@@ -3,13 +3,13 @@ class CreateDomainHostJob < ApplicationJob
 
   queue_as :sync_cocca_records
 
-  def perform record
+  def perform partner, record
     path = "#{URL}/domains/#{record[:domain]}/hosts"
 
     json_request = {
       name: record[:host]
     }
 
-    execute :post, path: path, body: json_request
+    execute :post, partner: partner, path: path, body: json_request
   end
 end

@@ -5,7 +5,8 @@ class Audit::Domain < ActiveRecord::Base
 
   belongs_to :master, foreign_key: :audit_transaction, class_name: Audit::Master
 
-  alias_attribute :txn, :audit_transaction
+  alias_attribute :txn,     :audit_transaction
+  alias_attribute :partner, :clid
 
   def domain_contacts
     params = { audit_transaction: self.audit_transaction, domain_name: self.name }
@@ -73,7 +74,6 @@ class Audit::Domain < ActiveRecord::Base
 
   def as_json options = nil
     result = {
-      partner:                    self.clid,
       domain:                     self.name,
       authcode:                   self.authinfopw,
       period:                     (self.domain_event.period if self.domain_event),

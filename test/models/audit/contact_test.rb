@@ -6,7 +6,6 @@ describe Audit::Contact do
 
     let(:expected_json) {
       {
-        partner:            'alpha',
         handle:             'handle',
         name:               'Contact Name',
         organization:       'Contact Organization',

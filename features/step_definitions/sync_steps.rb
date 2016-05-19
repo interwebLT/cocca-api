@@ -1,6 +1,4 @@
 Given /^registry accepts sync requests$/ do
-  registry_response with: 201, on: AUTHORIZATIONS_PATH, body: { token: 'ABCDEF' }
-
   registry_response with: 201, on: ORDERS_PATH
   registry_response with: 201, on: CONTACTS_PATH
   registry_response with: 201, on: HOSTS_PATH
@@ -18,6 +16,10 @@ end
 
 Given /^some partners are excluded from sync$/ do
   exclude_partners
+end
+
+Given /^I am allowed to sync to registry$/ do
+  FactoryGirl.create :partner
 end
 
 Given /^I registered a domain$/ do

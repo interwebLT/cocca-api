@@ -1,14 +1,8 @@
 development:
   url: http://localhost:9000
-  username: sync
-  password: password
 
 test:
   url: http://test.host
-  username: valid_username
-  password: valid_password
 
 production:
   url: http://localhost:9000
-  username: sync
-  password: password

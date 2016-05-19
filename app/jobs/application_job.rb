@@ -4,10 +4,9 @@ class ApplicationJob < ActiveJob::Base
     'Accept'        => 'application/json'
   }
 
-  def execute action, path:, body: nil
-    token = authenticate
-
-    raise 'Authentication Failed' unless token
+  def execute action, partner:, path:, body: nil
+    partner = Partner.find_by name: partner
+    token   = partner.nil? ? nil : partner.token
 
     params = {}.tap do |params|
       params[:headers]  = headers token: token
@@ -20,23 +19,6 @@ class ApplicationJob < ActiveJob::Base
   end
 
   private
-
-  def authenticate
-    response = HTTParty.post  Rails.configuration.x.registry_authorization_url,
-                              headers: headers,
-                              body: authentication_request.to_json
-
-    json_response = JSON.parse response.body, symbolize_names: true
-
-    json_response[:token] unless error_code response.code
-  end
-
-  def authentication_request
-    {
-      username: Rails.configuration.x.registry_username,
-      password: Rails.configuration.x.registry_password
-    }
-  end
 
   def error_code code
     (400..599).include? code

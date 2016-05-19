@@ -79,7 +79,6 @@ describe Audit::Domain do
 
     let(:expected_json) {
       {
-        partner:                    'alpha',
         domain:                     'domains.ph',
         authcode:                   'ABC123',
         period:                     1,
@@ -116,7 +115,7 @@ describe Audit::Domain do
     context :when_transfer_domain do
       subject { create :transfer_domain }
 
-      specify { subject.as_json[:partner].must_equal 'beta' }
+      specify { subject.partner.must_equal 'alpha' }
     end
   end
 
@@ -154,7 +153,7 @@ describe Audit::Domain do
 
     context :when_clid_differs_from_client_roid do
       before do
-        transfer_domain.ledger.update client_roid: 'alpha'
+        transfer_domain.ledger.update client_roid: 'beta'
       end
 
       specify { transfer_domain.transfer_domain?.must_equal false }
