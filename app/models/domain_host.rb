@@ -7,13 +7,13 @@ class DomainHost < EPP::Model
   def create
     return false unless valid?
 
-    client.create(create_command).success?
+    client.update(add_command).success?
   end
 
   def destroy
     return false unless valid?
 
-    client.update(delete_command).success?
+    client.update(remove_command).success?
   end
 
   def as_json options = nil
@@ -23,7 +23,7 @@ class DomainHost < EPP::Model
     }
   end
 
-  def create_command
+  def add_command
     EPP::Domain::Update.new self.domain, {
       add: {
         ns: [self.name]
@@ -31,7 +31,7 @@ class DomainHost < EPP::Model
     }
   end
 
-  def delete_command
+  def remove_command
     EPP::Domain::Update.new self.domain, {
       rem: {
         ns: [self.name]
