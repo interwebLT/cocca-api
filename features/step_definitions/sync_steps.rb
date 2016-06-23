@@ -15,7 +15,8 @@ Given /^registry accepts sync requests$/ do
 end
 
 Given /^some partners are excluded from sync$/ do
-  exclude_partners
+  FactoryGirl.create :excluded_partner
+  FactoryGirl.create :excluded_partner, name: 'other_excluded'
 end
 
 Given /^I am allowed to sync to registry$/ do

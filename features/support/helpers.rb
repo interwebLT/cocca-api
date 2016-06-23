@@ -11,11 +11,6 @@ EXCLUDED_PARTNER = 'excluded'
 EXCLUDED_IP = '999.999.999.999'
 PARTNER = 'alpha'
 
-def exclude_partners
-  FactoryGirl.create :excluded_partner
-  FactoryGirl.create :excluded_partner, name: 'other_excluded'
-end
-
 def registry_response on:, with:, request: :post
   response = { status: with }
   response[:body] = { id: 1 }.to_json
