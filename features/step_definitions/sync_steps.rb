@@ -93,13 +93,17 @@ Given /^I deleted an existing domain$/ do
 end
 
 When /^latest changes are synced$/ do
-  run_sync
+  SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
+                  until: '2015-01-01 00:00'.in_time_zone
+
+  Sync.run
 end
 
 When /^syncing of latest changes results in an error$/ do
   registry_response with: 400, on: ORDERS_PATH
 
-  run_sync
+  SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
+                  until: '2015-01-01 00:00'.in_time_zone
 end
 
 Then /^domain must now be registered$/ do
@@ -155,7 +159,7 @@ Then /^domain contact must be updated$/ do
 end
 
 Then /^I must be informed of the error$/ do
-  expect(@exception_thrown).to be true
+  expect { Sync.run }.to raise_error Exception
 end
 
 Then /^domain must now be renewed$/ do

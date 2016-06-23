@@ -22,20 +22,3 @@ def registry_response on:, with:, request: :post
 
   stub_request(request, on).to_return(response)
 end
-
-def run_sync
-  SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
-                  until: '2015-01-01 00:00'.in_time_zone
-
-  begin
-    Sync.run
-  rescue
-    @exception_thrown = true
-  end
-end
-
-def error_params
-  {
-    message: 'ERROR MESSAGE'
-  }
-end
