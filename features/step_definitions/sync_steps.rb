@@ -104,52 +104,52 @@ end
 
 Then /^domain must now be registered$/ do
   expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: default_headers, body: 'order/sync_register_domain_request'.json
+    .with headers: headers, body: 'order/sync_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do
   expect(WebMock).to have_requested(:post, url('/contacts'))
-    .with headers: default_headers, body: 'contacts/sync_create_request'.json
+    .with headers: headers, body: 'contacts/sync_create_request'.json
 end
 
 Then /^host entry must now exist$/ do
   expect(WebMock).to have_requested(:post, url('/hosts'))
-    .with headers: default_headers, body: 'host/sync_create_request'.json
+    .with headers: headers, body: 'host/sync_create_request'.json
 end
 
 Then /^host must now have the host address I associated with it$/ do
   expect(WebMock).to have_requested(:post, url('/hosts/ns5.domains.ph/addresses'))
-    .with headers: default_headers, body: 'host_address/sync_create_request'.json
+    .with headers: headers, body: 'host_address/sync_create_request'.json
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
   expect(WebMock).to have_requested(:delete, url('/hosts/ns5.domains.ph/addresses/123.123.123.001'))
-    .with headers: default_headers
+    .with headers: headers
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
   expect(WebMock).to have_requested(:post, url('/domains/domains.ph/hosts'))
-    .with headers: default_headers, body: 'domain_host/sync_create_request'.json
+    .with headers: headers, body: 'domain_host/sync_create_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
   expect(WebMock).to have_requested(:delete, url('/domains/domains.ph/hosts/ns5.domains.ph'))
-    .with headers: default_headers
+    .with headers: headers
 end
 
 Then /^contact must be updated$/ do
   expect(WebMock).to have_requested(:patch, url('/contacts/handle'))
-    .with headers: default_headers, body: 'contacts/sync_update_request'.json
+    .with headers: headers, body: 'contacts/sync_update_request'.json
 end
 
 Then /^domain must be updated$/ do
   expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
-    .with headers: default_headers, body: 'domain/sync_update_request'.json
+    .with headers: headers, body: 'domain/sync_update_request'.json
 end
 
 Then /^domain contact must be updated$/ do
   expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
-    .with headers: default_headers, body: 'domain/sync_update_contact_request'.json
+    .with headers: headers, body: 'domain/sync_update_contact_request'.json
 end
 
 Then /^I must be informed of the error$/ do
@@ -158,12 +158,12 @@ end
 
 Then /^domain must now be renewed$/ do
   expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: default_headers, body: 'order/sync_renew_domain_request'.json
+    .with headers: headers, body: 'order/sync_renew_domain_request'.json
 end
 
 Then /^domain must now be under my partner$/ do
   expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: default_headers, body: 'order/sync_transfer_domain_request'.json
+    .with headers: headers, body: 'order/sync_transfer_domain_request'.json
 end
 
 Then /^no changes must be synced$/ do
@@ -172,5 +172,5 @@ end
 
 Then /^domain must now be deleted$/ do
   expect(WebMock).to have_requested(:delete, url('/domains/domains.ph'))
-    .with headers: default_headers
+    .with headers: headers
 end
