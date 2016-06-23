@@ -10,11 +10,6 @@ Feature: Sync Changes
     When  syncing of latest changes results in an error
     Then  I must be informed of the error
 
-  Scenario: Sync host addresses removed from an existing host
-    Given I removed a host address from an existing host
-    When  latest changes are synced
-    Then  host must no longer have the host address I removed associated with it
-
   Scenario: Sync domain host entry added to an existing domain
     Given I added a domain host entry to an existing domain
     When  latest changes are synced
