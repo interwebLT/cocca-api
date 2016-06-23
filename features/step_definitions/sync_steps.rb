@@ -1,17 +1,33 @@
 Given /^registry accepts sync requests$/ do
-  registry_response with: 201, on: ORDERS_PATH
-  registry_response with: 201, on: CONTACTS_PATH
-  registry_response with: 201, on: HOSTS_PATH
+  stub_request(:post, 'http://test.host/orders')
+    .to_return status: 201, body: { id: 1 }.to_json
 
-  registry_response with: 201, on: HOST_ADDRESS_PATH
-  registry_response with: 200, on: HOST_ADDRESS_PATH, request: :delete
+  stub_request(:post, 'http://test.host/contacts')
+    .to_return status: 201, body: { id: 1 }.to_json
 
-  registry_response with: 201, on: DOMAIN_HOST_PATH
+  stub_request(:post, 'http://test.host/hosts')
+    .to_return status: 201, body: { id: 1 }.to_json
 
-  registry_response with: 200, on: DOMAIN_PATH, request: :patch
-  registry_response with: 200, on: DOMAIN_PATH, request: :delete
+  stub_request(:post, 'http://test.host/hosts/ns5.domains.ph/addresses')
+    .to_return status: 201, body: { id: 1 }.to_json
 
-  registry_response with: 200, on: CONTACT_PATH, request: :patch
+  stub_request(:post, 'http://test.host/domains/domains.ph/hosts')
+    .to_return status: 201, body: { id: 1 }.to_json
+
+  stub_request(:patch, 'http://test.host/contacts/handle')
+    .to_return status: 200, body: { id: 1 }.to_json
+
+  stub_request(:patch, 'http://test.host/domains/domains.ph')
+    .to_return status: 200, body: { id: 1 }.to_json
+
+  stub_request(:delete, 'http://test.host/domains/domains.ph')
+    .to_return status: 200, body: { id: 1 }.to_json
+
+  stub_request(:delete, 'http://test.host/domains/domains.ph/hosts/ns5.domains.ph')
+    .to_return status: 200, body: { id: 1 }.to_json
+
+  stub_request(:delete, 'http://test.host/hosts/ns5.domains.ph/addresses/123.123.123.001')
+    .to_return status: 200, body: { id: 1 }.to_json
 end
 
 Given /^some partners are excluded from sync$/ do
@@ -101,7 +117,8 @@ When /^latest changes are synced$/ do
 end
 
 When /^syncing of latest changes results in an error$/ do
-  registry_response with: 400, on: ORDERS_PATH
+  stub_request(:post, 'http://test.host/orders')
+    .to_return status: 400, body: { id: 1 }.to_json
 
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
