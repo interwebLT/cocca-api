@@ -10,11 +10,6 @@ Feature: Sync Changes
     When  syncing of latest changes results in an error
     Then  I must be informed of the error
 
-  Scenario: Sync domain transfers
-    Given I transferred a domain into my partner account
-    When  latest changes are synced
-    Then  domain must now be under my partner
-
   Scenario: Sync deleted domains
     Given I deleted an existing domain
     When  latest changes are synced
