@@ -123,8 +123,9 @@ Then /^host must now have the host address I associated with it$/ do
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
-  expect(WebMock).to have_requested(:delete, url('/hosts/ns5.domains.ph/addresses/123.123.123.001'))
-    .with headers: headers
+  url = 'http://test.host/hosts/ns5.domains.ph/addresses/123.123.123.001'
+
+  expect(WebMock).to have_requested(:delete, url).with headers: headers
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
@@ -133,8 +134,9 @@ Then /^domain must now have the domain host entry I associated with it$/ do
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
-  expect(WebMock).to have_requested(:delete, url('/domains/domains.ph/hosts/ns5.domains.ph'))
-    .with headers: headers
+  url = 'http://test.host/domains/domains.ph/hosts/ns5.domains.ph'
+
+  expect(WebMock).to have_requested(:delete, url).with headers: headers
 end
 
 Then /^contact must be updated$/ do
@@ -171,6 +173,6 @@ Then /^no changes must be synced$/ do
 end
 
 Then /^domain must now be deleted$/ do
-  expect(WebMock).to have_requested(:delete, url('/domains/domains.ph'))
+  expect(WebMock).to have_requested(:delete, 'http://test.host/domains/domains.ph')
     .with headers: headers
 end

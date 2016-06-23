@@ -39,7 +39,3 @@ def error_params
     message: 'ERROR MESSAGE'
   }
 end
-
-def url path
-  "#{Rails.configuration.x.registry_url}#{path}"
-end
