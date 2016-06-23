@@ -39,10 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I registered a domain$/ do
-  FactoryGirl.create :register_domain
-end
-
 Given /^I created a contact$/ do
   FactoryGirl.create :audit_contact
 end
@@ -86,23 +82,12 @@ Given /^I renewed a domain$/ do
   FactoryGirl.create :renew_domain
 end
 
-Given /^I registered a domain with period in months$/ do
-  FactoryGirl.create :register_domain_in_months
-end
-
 Given /^I renewed a domain with period in months$/ do
   FactoryGirl.create :renew_domain_in_months
 end
 
 Given /^I transferred a domain into my partner account$/ do
   FactoryGirl.create :transfer_domain
-end
-
-Given /^I registered a domain from an excluded IP$/ do
-  excluded_ip = FactoryGirl.create :excluded_ip
-
-  domain = FactoryGirl.create :register_domain
-  domain.master.update! audit_ip: excluded_ip.ip
 end
 
 Given /^I deleted an existing domain$/ do
@@ -122,11 +107,6 @@ When /^syncing of latest changes results in an error$/ do
 
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
-end
-
-Then /^domain must now be registered$/ do
-  expect(WebMock).to have_requested(:post, 'http://test.host/orders')
-    .with headers: headers, body: 'sync/orders/post_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do
