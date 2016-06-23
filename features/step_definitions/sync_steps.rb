@@ -103,23 +103,23 @@ When /^syncing of latest changes results in an error$/ do
 end
 
 Then /^domain must now be registered$/ do
-  expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: headers, body: 'order/sync_register_domain_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/orders')
+    .with headers: headers, body: 'sync/orders/post_register_domain_request'.json
 end
 
 Then /^contact must now exist$/ do
-  expect(WebMock).to have_requested(:post, url('/contacts'))
-    .with headers: headers, body: 'contacts/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/contacts')
+    .with headers: headers, body: 'sync/contacts/post_request'.json
 end
 
 Then /^host entry must now exist$/ do
-  expect(WebMock).to have_requested(:post, url('/hosts'))
-    .with headers: headers, body: 'host/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/hosts')
+    .with headers: headers, body: 'sync/hosts/post_request'.json
 end
 
 Then /^host must now have the host address I associated with it$/ do
-  expect(WebMock).to have_requested(:post, url('/hosts/ns5.domains.ph/addresses'))
-    .with headers: headers, body: 'host_address/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/hosts/ns5.domains.ph/addresses')
+    .with headers: headers, body: 'sync/hosts/ns5.domains.ph/addresses/post_request'.json
 end
 
 Then /^host must no longer have the host address I removed associated with it$/ do
@@ -128,8 +128,8 @@ Then /^host must no longer have the host address I removed associated with it$/ 
 end
 
 Then /^domain must now have the domain host entry I associated with it$/ do
-  expect(WebMock).to have_requested(:post, url('/domains/domains.ph/hosts'))
-    .with headers: headers, body: 'domain_host/sync_create_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/domains/domains.ph/hosts')
+    .with headers: headers, body: 'sync/domains/domains.ph/hosts/post_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do
@@ -138,18 +138,18 @@ Then /^domain must no longer have the domain host entry I removed associated wit
 end
 
 Then /^contact must be updated$/ do
-  expect(WebMock).to have_requested(:patch, url('/contacts/handle'))
-    .with headers: headers, body: 'contacts/sync_update_request'.json
+  expect(WebMock).to have_requested(:patch, 'http://test.host/contacts/handle')
+    .with headers: headers, body: 'sync/contacts/patch_request'.json
 end
 
 Then /^domain must be updated$/ do
-  expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
-    .with headers: headers, body: 'domain/sync_update_request'.json
+  expect(WebMock).to have_requested(:patch, 'http://test.host/domains/domains.ph')
+    .with headers: headers, body: 'sync/domains/patch_request'.json
 end
 
 Then /^domain contact must be updated$/ do
-  expect(WebMock).to have_requested(:patch, url('/domains/domains.ph'))
-    .with headers: headers, body: 'domain/sync_update_contact_request'.json
+  expect(WebMock).to have_requested(:patch, 'http://test.host/domains/domains.ph')
+    .with headers: headers, body: 'sync/domains/patch_admin_handle_request'.json
 end
 
 Then /^I must be informed of the error$/ do
@@ -157,13 +157,13 @@ Then /^I must be informed of the error$/ do
 end
 
 Then /^domain must now be renewed$/ do
-  expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: headers, body: 'order/sync_renew_domain_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/orders')
+    .with headers: headers, body: 'sync/orders/post_renew_domain_request'.json
 end
 
 Then /^domain must now be under my partner$/ do
-  expect(WebMock).to have_requested(:post, url('/orders'))
-    .with headers: headers, body: 'order/sync_transfer_domain_request'.json
+  expect(WebMock).to have_requested(:post, 'http://test.host/orders')
+    .with headers: headers, body: 'sync/orders/post_transfer_domain_request'.json
 end
 
 Then /^no changes must be synced$/ do
