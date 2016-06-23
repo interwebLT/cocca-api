@@ -169,7 +169,7 @@ Then /^domain must now be under my partner$/ do
 end
 
 Then /^no changes must be synced$/ do
-  assert_not_requested :post, Rails.configuration.x.registry_url + '/orders'
+  expect(WebMock).not_to have_requested :post, 'http://test.host/orders'
 end
 
 Then /^domain must now be deleted$/ do
