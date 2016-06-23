@@ -20,11 +20,6 @@ Feature: Sync Changes
     When  latest changes are synced
     Then  domain must no longer have the domain host entry I removed associated with it
 
-  Scenario: Sync contact updates
-    Given I updated an existing contact
-    When  latest changes are synced
-    Then  contact must be updated
-
   Scenario: Sync domain updates
     Given I updated an existing domain
     When  latest changes are synced

@@ -49,10 +49,6 @@ Given /^I removed a domain host entry from an existing domain$/ do
   FactoryGirl.create :delete_domain_host, audit_transaction: domain.audit_transaction
 end
 
-Given /^I updated an existing contact$/ do
-  FactoryGirl.create :update_contact
-end
-
 Given /^I updated an existing domain$/ do
   FactoryGirl.create :update_domain
 end
@@ -102,11 +98,6 @@ Then /^domain must no longer have the domain host entry I removed associated wit
   url = 'http://test.host/domains/domains.ph/hosts/ns5.domains.ph'
 
   expect(WebMock).to have_requested(:delete, url).with headers: headers
-end
-
-Then /^contact must be updated$/ do
-  expect(WebMock).to have_requested(:patch, 'http://test.host/contacts/handle')
-    .with headers: headers, body: 'sync/contacts/patch_request'.json
 end
 
 Then /^domain must be updated$/ do
