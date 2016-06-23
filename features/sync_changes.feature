@@ -10,11 +10,6 @@ Feature: Sync Changes
     When  syncing of latest changes results in an error
     Then  I must be informed of the error
 
-  Scenario: Sync contacts created
-    Given I created a contact
-    When  latest changes are synced
-    Then  contact must now exist
-
   Scenario: Sync hosts created
     Given I created a host entry
     When  latest changes are synced

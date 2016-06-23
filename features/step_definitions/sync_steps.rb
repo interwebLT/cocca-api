@@ -39,10 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I created a contact$/ do
-  FactoryGirl.create :audit_contact
-end
-
 Given /^I created a host entry$/ do
   FactoryGirl.create :audit_host
 end
@@ -107,11 +103,6 @@ When /^syncing of latest changes results in an error$/ do
 
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
-end
-
-Then /^contact must now exist$/ do
-  expect(WebMock).to have_requested(:post, 'http://test.host/contacts')
-    .with headers: headers, body: 'sync/contacts/post_request'.json
 end
 
 Then /^host entry must now exist$/ do
