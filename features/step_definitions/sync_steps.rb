@@ -39,14 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I renewed a domain$/ do
-  FactoryGirl.create :renew_domain
-end
-
-Given /^I renewed a domain with period in months$/ do
-  FactoryGirl.create :renew_domain_in_months
-end
-
 Given /^I transferred a domain into my partner account$/ do
   FactoryGirl.create :transfer_domain
 end
@@ -72,11 +64,6 @@ end
 
 Then /^I must be informed of the error$/ do
   expect { Sync.run }.to raise_error Exception
-end
-
-Then /^domain must now be renewed$/ do
-  expect(WebMock).to have_requested(:post, 'http://test.host/orders')
-    .with headers: headers, body: 'sync/orders/post_renew_domain_request'.json
 end
 
 Then /^domain must now be under my partner$/ do
