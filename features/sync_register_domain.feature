@@ -13,9 +13,14 @@ Feature: Sync Register Domain
   Scenario: Excluded IP
     Given I registered a domain from an excluded IP
     When  latest changes are synced
-    Then  no changes must be synced
+    Then  register domain must not be synced
 
   Scenario: Sync register domain with period in months
     Given I registered a domain with period in months
     When  latest changes are synced
     Then  register domain must be synced
+
+  Scenario: Sync error
+    Given I registered a domain
+    When  syncing of latest changes results in an error
+    Then  register domain must not be synced

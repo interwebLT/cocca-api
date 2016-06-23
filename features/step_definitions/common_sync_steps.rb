@@ -57,7 +57,3 @@ end
 Then /^I must be informed of the error$/ do
   expect { Sync.run }.to raise_error Exception
 end
-
-Then /^no changes must be synced$/ do
-  expect(WebMock).not_to have_requested :post, 'http://test.host/orders'
-end

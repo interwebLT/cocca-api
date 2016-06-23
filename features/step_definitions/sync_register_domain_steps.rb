@@ -18,3 +18,6 @@ Then /^register domain must be synced$/ do
     .with headers: headers, body: 'sync/orders/post_register_domain_request'.json
 end
 
+Then /^register domain must not be synced$/ do
+  expect(WebMock).not_to have_requested :post, 'http://test.host/orders'
+end
