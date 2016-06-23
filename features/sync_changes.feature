@@ -10,11 +10,6 @@ Feature: Sync Changes
     When  syncing of latest changes results in an error
     Then  I must be informed of the error
 
-  Scenario: Sync hosts created
-    Given I created a host entry
-    When  latest changes are synced
-    Then  host entry must now exist
-
   Scenario: Sync host addresses added to an existing host
     Given I added a host address to an existing host
     When  latest changes are synced
