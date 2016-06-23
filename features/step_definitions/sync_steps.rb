@@ -97,7 +97,7 @@ When /^latest changes are synced$/ do
 end
 
 When /^syncing of latest changes results in an error$/ do
-  registry_response with: 400, on: ORDERS_PATH, body: error_params
+  registry_response with: 400, on: ORDERS_PATH
 
   run_sync
 end

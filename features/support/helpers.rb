@@ -16,9 +16,9 @@ def exclude_partners
   FactoryGirl.create :excluded_partner, name: 'other_excluded'
 end
 
-def registry_response on:, with:, request: :post, body: nil
+def registry_response on:, with:, request: :post
   response = { status: with }
-  response[:body] = body.to_json if body
+  response[:body] = { id: 1 }.to_json
 
   stub_request(request, on).to_return(response)
 end

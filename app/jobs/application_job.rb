@@ -1,21 +1,34 @@
 class ApplicationJob < ActiveJob::Base
-  DEFAULT_HEADERS = {
-    'Content-Type'  => 'application/json',
-    'Accept'        => 'application/json'
-  }
+  def post url, body, partner:
+    owner = Partner.find_by name: partner
 
-  def execute action, partner:, path:, body: nil
-    partner = Partner.find_by name: partner
-    token   = partner.nil? ? nil : partner.token
+    request = {
+      headers:  owner.headers,
+      body:     body.to_json
+    }
 
-    params = {}.tap do |params|
-      params[:headers]  = headers token: token
-      params[:body]     = body.to_json if body
-    end
+    process_response HTTParty.post url, request
+  end
 
-    response = HTTParty.send action, path, params
+  def delete url, partner:
+    owner = Partner.find_by name: partner
 
-    raise "Code: #{response.code}, Message: #{response.parsed_response}" if error_code response.code
+    request = {
+      headers:  owner.headers
+    }
+
+    process_response HTTParty.delete url, request
+  end
+
+  def patch url, body, partner:
+    owner = Partner.find_by name: partner
+
+    request = {
+      headers:  owner.headers,
+      body:     body.to_json
+    }
+
+    process_response HTTParty.patch url, request
   end
 
   private
@@ -24,9 +37,10 @@ class ApplicationJob < ActiveJob::Base
     (400..599).include? code
   end
 
-  def headers token: nil
-    DEFAULT_HEADERS.tap do |headers|
-      headers['Authorization'] = "Token token=#{token}" if token
-    end
+  def process_response response
+    raise "Code: #{response.code}, Message: #{response.parsed_response}" \
+      if error_code response.code
+
+    JSON.parse response.body, symbolize_names: true
   end
 end
