@@ -99,10 +99,10 @@ Given /^I transferred a domain into my partner account$/ do
 end
 
 Given /^I registered a domain from an excluded IP$/ do
-  FactoryGirl.create :excluded_ip
+  excluded_ip = FactoryGirl.create :excluded_ip
 
   domain = FactoryGirl.create :register_domain
-  domain.master.update! audit_ip: EXCLUDED_IP
+  domain.master.update! audit_ip: excluded_ip.ip
 end
 
 Given /^I deleted an existing domain$/ do
