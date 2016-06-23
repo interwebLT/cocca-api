@@ -39,11 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I added a domain host entry to an existing domain$/ do
-  domain = FactoryGirl.create :register_domain
-  FactoryGirl.create :create_domain_host, audit_transaction: domain.audit_transaction
-end
-
 Given /^I removed a domain host entry from an existing domain$/ do
   domain = FactoryGirl.create :register_domain
   FactoryGirl.create :delete_domain_host, audit_transaction: domain.audit_transaction
@@ -87,11 +82,6 @@ When /^syncing of latest changes results in an error$/ do
 
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
-end
-
-Then /^domain must now have the domain host entry I associated with it$/ do
-  expect(WebMock).to have_requested(:post, 'http://test.host/domains/domains.ph/hosts')
-    .with headers: headers, body: 'sync/domains/domains.ph/hosts/post_request'.json
 end
 
 Then /^domain must no longer have the domain host entry I removed associated with it$/ do

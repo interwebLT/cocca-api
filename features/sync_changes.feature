@@ -11,11 +11,6 @@ Feature: Sync Changes
     Then  I must be informed of the error
 
   Scenario: Sync domain host entry added to an existing domain
-    Given I added a domain host entry to an existing domain
-    When  latest changes are synced
-    Then  domain must now have the domain host entry I associated with it
-
-  Scenario: Sync domain host entry added to an existing domain
     Given I removed a domain host entry from an existing domain
     When  latest changes are synced
     Then  domain must no longer have the domain host entry I removed associated with it
