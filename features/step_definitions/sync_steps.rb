@@ -39,15 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I updated an existing domain$/ do
-  FactoryGirl.create :update_domain
-end
-
-Given /^I updated a contact of an existing domain$/ do
-  domain = FactoryGirl.create :update_domain
-  FactoryGirl.create :admin_domain_contact, audit_transaction: domain.audit_transaction
-end
-
 Given /^I renewed a domain$/ do
   FactoryGirl.create :renew_domain
 end
@@ -77,16 +68,6 @@ When /^syncing of latest changes results in an error$/ do
 
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
-end
-
-Then /^domain must be updated$/ do
-  expect(WebMock).to have_requested(:patch, 'http://test.host/domains/domains.ph')
-    .with headers: headers, body: 'sync/domains/patch_request'.json
-end
-
-Then /^domain contact must be updated$/ do
-  expect(WebMock).to have_requested(:patch, 'http://test.host/domains/domains.ph')
-    .with headers: headers, body: 'sync/domains/patch_admin_handle_request'.json
 end
 
 Then /^I must be informed of the error$/ do

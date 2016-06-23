@@ -10,16 +10,6 @@ Feature: Sync Changes
     When  syncing of latest changes results in an error
     Then  I must be informed of the error
 
-  Scenario: Sync domain updates
-    Given I updated an existing domain
-    When  latest changes are synced
-    Then  domain must be updated
-
-  Scenario: Sync domain contact updates
-    Given I updated a contact of an existing domain
-    When  latest changes are synced
-    Then  domain contact must be updated
-
   Scenario: Sync domains renewed
     Given I renewed a domain
     When  latest changes are synced
