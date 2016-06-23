@@ -39,10 +39,6 @@ Given /^I am allowed to sync to registry$/ do
   FactoryGirl.create :partner
 end
 
-Given /^I deleted an existing domain$/ do
-  FactoryGirl.create :delete_domain
-end
-
 When /^latest changes are synced$/ do
   SyncLog.create  since: '2015-01-01 00:00'.in_time_zone,
                   until: '2015-01-01 00:00'.in_time_zone
@@ -64,9 +60,4 @@ end
 
 Then /^no changes must be synced$/ do
   expect(WebMock).not_to have_requested :post, 'http://test.host/orders'
-end
-
-Then /^domain must now be deleted$/ do
-  expect(WebMock).to have_requested(:delete, 'http://test.host/domains/domains.ph')
-    .with headers: headers
 end
