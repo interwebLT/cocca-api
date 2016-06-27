@@ -20,4 +20,17 @@ class Domain < EPP::Model
         }
       }
   end
+
+  def exists? name:
+    response  = client.check check_command(name)
+    check     = EPP::Domain::CheckResponse.new response
+
+    not check.available? name
+  end
+
+  private
+
+  def check_command domain
+    EPP::Domain::Check.new(domain)
+  end
 end

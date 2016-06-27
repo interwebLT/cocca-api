@@ -37,4 +37,30 @@ RSpec.describe Domain do
 
     it { is_expected.to be true }
   end
+
+  describe '#exists?' do
+    subject { Domain.new.exists? name: name }
+
+    context 'when domain exists' do
+      let(:name) { 'domain.ph' }
+
+      before do
+        expect(client).to receive(:check).and_return 'domains/domain.ph/check_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when domain available' do
+      let(:name) { 'available.ph' }
+
+      before do
+        expect(client).to receive(:check).and_return 'domains/available.ph/check_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it { is_expected.to be false }
+    end
+  end
 end

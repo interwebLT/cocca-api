@@ -7,14 +7,7 @@
     <resData>
       <domain:chkData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:cd>
-          <domain:name avail="1">example.com</domain:name>
-        </domain:cd>
-        <domain:cd>
-          <domain:name avail="0">example.net</domain:name>
-          <domain:reason>In use</domain:reason>
-        </domain:cd>
-        <domain:cd>
-          <domain:name avail="1">example.org</domain:name>
+          <domain:name avail="0">domain.ph</domain:name>
         </domain:cd>
       </domain:chkData>
     </resData>

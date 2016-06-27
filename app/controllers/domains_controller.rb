@@ -10,9 +10,15 @@ class DomainsController < SecureController
   end
 
   def show
-    result = { id: 1, name: params[:id] }
+    if Domain.new.exists? name: params[:id]
+      result = { id: 1, name: params[:id] }
 
-    render json: result
+      render json: result
+    else
+      result = { message: 'Not Found' }
+
+      render status: :not_found, json: result
+    end
   end
 
   private
