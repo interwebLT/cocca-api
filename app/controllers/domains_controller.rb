@@ -9,6 +9,12 @@ class DomainsController < SecureController
     end
   end
 
+  def show
+    result = { id: 1, name: params[:id] }
+
+    render json: result
+  end
+
   private
 
   def domain_params
