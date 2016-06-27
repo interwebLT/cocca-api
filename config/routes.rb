@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get '/site/sha', to: 'site#sha'
 
-  resources :contacts, only: [:create, :update]
+  resources :contacts, only: [:create, :update, :show]
   resources :orders, only: [:create, :update]
 
   resources :hosts, only: [:create], id: /.*/ do
