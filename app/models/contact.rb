@@ -62,6 +62,14 @@ class Contact < EPP::Model
     EPP::Contact::Update.new self.handle, update_params
   end
 
+  def exists? handle:
+    command   = EPP::Contact::Check.new handle
+    response  = client.check command
+    check     = EPP::Contact::CheckResponse.new response
+
+    not check.available? handle
+  end
+
   private
 
   def create_params

@@ -8,7 +8,9 @@ module EPP
 end
 
 RSpec.describe Contact do
-  subject do
+  let(:client) { double 'client' }
+
+  subject(:contact) do
     Contact.new partner:            partner,
                 handle:             handle,
                 local_name:         local_name,
@@ -240,6 +242,32 @@ RSpec.describe Contact do
       end
 
       it { expect(subject.update).to eql false }
+    end
+  end
+
+  describe '#exists?' do
+    subject { Contact.new.exists? handle: handle }
+
+    context 'when contact exists' do
+      let(:handle) { '123456789ABCDEF' }
+
+      before do
+        expect(client).to receive(:check).and_return 'contacts/123456789ABCDEF/check_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context 'when contact does not exist' do
+      let(:handle) { 'doesnotexist' }
+
+      before do
+        expect(client).to receive(:check).and_return 'contacts/doesnotexist/check_response'.epp
+        expect(EPP::Client).to receive(:new) { client }
+      end
+
+      it { is_expected.to be false }
     end
   end
 end
