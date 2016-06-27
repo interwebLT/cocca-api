@@ -10,7 +10,10 @@ class DomainsController < SecureController
   end
 
   def show
-    if Domain.new.exists? name: params[:id]
+    domain = Domain.new
+    domain.partner = current_partner
+
+    if domain.exists? name: params[:id]
       result = { id: 1, name: params[:id] }
 
       render json: result
