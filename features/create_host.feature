@@ -1,4 +1,5 @@
-Feature: Create Host as Administrator
+Feature: Create Host
+
   Background:
     Given I am authenticated as partner
 
