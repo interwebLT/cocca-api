@@ -1,4 +1,4 @@
-Feature: View Contact
+Feature: View Contact Info
 
   Background:
     Given I am authenticated as partner
