@@ -3,7 +3,7 @@ Feature: View Contact Info
   Background:
     Given I am authenticated as partner
 
-  Scenario: View contact
+  Scenario: View contact info
     When  I try to view the info of an existing contact
     Then  I must see the info of the contact
 

@@ -3,7 +3,7 @@ Feature: View Host Info
   Background:
     Given I am authenticated as partner
 
-  Scenario: View host
+  Scenario: View host info
     When  I try to view the info of an existing host
     Then  I must see the info of the host
 
