@@ -5,11 +5,12 @@
       <msg>Command completed successfully</msg>
     </result>
     <resData>
-      <contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
-        <contact:cd>
-          <contact:id avail="1">doesnotexist</contact:id>
-        </contact:cd>
-      </contact:chkData>
+      <host:chkData
+        xmlns:host="urn:ietf:params:xml:ns:host-1.0">
+        <host:cd>
+          <host:name avail="1">dne.domains.ph</host:name>
+        </host:cd>
+      </host:chkData>
     </resData>
     <trID>
       <clTRID>ABC-12345</clTRID>

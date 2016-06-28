@@ -8,6 +8,7 @@
       <contact:chkData xmlns:contact="urn:ietf:params:xml:ns:contact-1.0">
         <contact:cd>
           <contact:id avail="0">123456789ABCDEF</contact:id>
+          <contact:reason>In use</contact:reason>
         </contact:cd>
       </contact:chkData>
     </resData>
