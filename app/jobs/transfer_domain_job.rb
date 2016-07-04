@@ -1,10 +1,10 @@
 class TransferDomainJob < ApplicationJob
-  URL = Rails.configuration.x.registry_url
+  URL = "#{Rails.configuration.x.registry_url}/orders"
 
   queue_as :sync_cocca_records
 
   def perform partner, record
-    json_request = {
+    body = {
       currency_code:  'USD',
       ordered_at:      record[:ordered_at],
       order_details:  [
@@ -16,6 +16,6 @@ class TransferDomainJob < ApplicationJob
       ]
     }
 
-    execute :post, partner: partner, path: "#{URL}/orders", body: json_request
+    post URL, body, partner: partner
   end
 end

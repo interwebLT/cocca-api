@@ -28,6 +28,21 @@ class ContactsController < SecureController
     end
   end
 
+  def show
+    handle  = params[:id]
+    contact = Contact.new partner:  current_partner
+
+    if contact.exists? handle: handle
+      result = { id: 1, handle: handle }
+
+      render json: result
+    else
+      result = { message: 'Not Found' }
+
+      render status: :not_found, json: result
+    end
+  end
+
   private
 
   def create_params

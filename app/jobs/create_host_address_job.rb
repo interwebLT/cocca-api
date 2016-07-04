@@ -1,11 +1,12 @@
 class CreateHostAddressJob < ApplicationJob
-  URL = Rails.configuration.x.registry_url
+  URL = "#{Rails.configuration.x.registry_url}/hosts"
 
   queue_as :sync_cocca_records
 
   def perform partner, record
-    host = record.delete :host
+    host  = record.delete :host
+    url   = "#{URL}/#{host}/addresses"
 
-    execute :post, partner: partner, path: "#{URL}/hosts/#{host}/addresses", body: record
+    post url, record, partner: partner
   end
 end

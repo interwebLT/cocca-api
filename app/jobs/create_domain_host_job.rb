@@ -1,15 +1,15 @@
 class CreateDomainHostJob < ApplicationJob
-  URL = Rails.configuration.x.registry_url
+  URL = "#{Rails.configuration.x.registry_url}/domains"
 
   queue_as :sync_cocca_records
 
   def perform partner, record
-    path = "#{URL}/domains/#{record[:domain]}/hosts"
+    url = "#{URL}/#{record[:domain]}/hosts"
 
-    json_request = {
+    body = {
       name: record[:host]
     }
 
-    execute :post, partner: partner, path: path, body: json_request
+    post url, body, partner: partner
   end
 end

@@ -9,6 +9,21 @@ class DomainsController < SecureController
     end
   end
 
+  def show
+    domain = Domain.new
+    domain.partner = current_partner
+
+    if domain.exists? name: params[:id]
+      result = { id: 1, name: params[:id] }
+
+      render json: result
+    else
+      result = { message: 'Not Found' }
+
+      render status: :not_found, json: result
+    end
+  end
+
   private
 
   def domain_params

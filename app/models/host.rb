@@ -83,4 +83,12 @@ class Host < EPP::Model
       updated_at: self.crDate
     }
   end
+
+  def exists? name:
+    command   = EPP::Host::Check.new name
+    response  = client.check command
+    check     = EPP::Host::CheckResponse.new response
+
+    not check.available? name
+  end
 end

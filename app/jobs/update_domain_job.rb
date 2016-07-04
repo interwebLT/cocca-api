@@ -1,12 +1,12 @@
 class UpdateDomainJob < ApplicationJob
-  URL = Rails.configuration.x.registry_url
+  URL = "#{Rails.configuration.x.registry_url}/domains"
 
   queue_as :sync_cocca_records
 
   def perform partner, record
-    path = "#{URL}/domains/#{record[:domain]}"
+    url = "#{URL}/#{record[:domain]}"
 
-    json_request = {
+    body = {
       registrant_handle:          record[:registrant_handle],
       authcode:                   record[:authcode],
       client_hold:                record[:client_hold],
@@ -22,9 +22,9 @@ class UpdateDomainJob < ApplicationJob
     }
 
     [:admin_handle, :billing_handle, :tech_handle].each do |handle|
-      json_request[handle] = record[handle] if record.has_key? handle
+      body[handle] = record[handle] if record.has_key? handle
     end
 
-    execute :patch, partner: partner, path: path, body: json_request
+    patch url, body, partner: partner
   end
 end

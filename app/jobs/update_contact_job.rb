@@ -1,11 +1,12 @@
 class UpdateContactJob < ApplicationJob
-  URL = Rails.configuration.x.registry_url
+  URL = "#{Rails.configuration.x.registry_url}/contacts"
 
   queue_as :sync_cocca_records
 
   def perform partner, record
-    handle = record.delete :handle
+    handle  = record.delete :handle
+    url     = "#{URL}/#{handle}"
 
-    execute :patch, partner: partner, path: "#{URL}/contacts/#{handle}", body: record
+    patch url, record, partner: partner
   end
 end
