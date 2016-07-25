@@ -25,11 +25,11 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
-  gem 'capistrano-resque',  require: false
+  gem 'capistrano-sidekiq', '0.5.2'
 end
 
 gem 'exception_notification'
-gem 'resque'
 gem 'httparty'
 gem 'whenever',             require: false
 gem 'epp-client',           github: 'dotph/epp-client'
+gem 'sidekiq'
