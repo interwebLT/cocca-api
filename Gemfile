@@ -26,6 +26,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
   gem 'capistrano-resque',  require: false
+  gem 'capistrano-sidekiq'
 end
 
 gem 'exception_notification'
