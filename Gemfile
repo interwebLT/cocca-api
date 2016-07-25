@@ -25,7 +25,7 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
-  gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq', '0.5.2'
 end
 
 gem 'exception_notification'
