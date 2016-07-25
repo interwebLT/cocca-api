@@ -33,3 +33,4 @@ gem 'resque'
 gem 'httparty'
 gem 'whenever',             require: false
 gem 'epp-client',           github: 'dotph/epp-client'
+gem 'sidekiq'
