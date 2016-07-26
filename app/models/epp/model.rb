@@ -14,7 +14,10 @@ module EPP
       password = partner ? partner.password : Rails.configuration.x.epp_password
       host  = Rails.configuration.x.epp_host
 
-      EPP::Client.new username, password, host
+      @clients ||= {}
+      @clients[username] = EPP::Client.new username, password, host unless @clients.include? username
+
+      @clients[username]
     end
 
     def process_response response
