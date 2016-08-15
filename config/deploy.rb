@@ -5,7 +5,7 @@ set :rails_env, 'production'
 
 set :deploy_to, '/srv/cocca-api'
 set :log_level, :info
-set :linked_files, %w{config/secrets.yml config/database.yml config/exception_notification.yml config/registry.yml config/sidekiq.yml config/epp.yml}
+set :linked_files, %w{config/secrets.yml config/database.yml config/exception_notification.yml config/registry.yml config/sidekiq.yml config/sidekiq-0.yml config/sidekiq-1.yml config/epp.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 set :default_env, { path: "$PATH:/usr/pgsql-9.4/bin" }
