@@ -39,7 +39,6 @@ class Host < EPP::Model
 
   def add_ipv4 ipv4
     return false unless valid?
-
     client.update(add_ipv4_command(ipv4)).success?
   end
 
@@ -59,11 +58,25 @@ class Host < EPP::Model
     client.update(add_ipv6_command(ipv6)).success?
   end
 
+  def delete_address host_name, address
+    client.update(delete_address_command(host_name, address)).success?
+  end
+
   def add_ipv6_command ipv6
     EPP::Host::Update.new self.name, {
         add: {
           addr: {
             ipv6: ipv6
+          }
+        }
+      }
+  end
+
+  def delete_address_command host_name, address
+    EPP::Host::Update.new host_name, {
+      rem: {
+        addr: {
+          address: address.split()
           }
         }
       }

@@ -10,6 +10,19 @@ class HostAddressesController < SecureController
     end
   end
 
+  def destroy
+    host_name    = params[:host_id]
+    address      = params[:id]
+    host         = Host.new host_params
+    result       = host.delete_address host_name, address
+
+    if result
+      render json: {}
+    else
+      head :unprocessable_entity
+    end
+  end
+
   private
 
   def host_params

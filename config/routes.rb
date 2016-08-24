@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:create, :update]
 
   resources :hosts, only: [:create, :show], id: /.*/ do
-    resources :addresses, controller: :host_addresses, only: [:create]
+    resources :addresses, controller: :host_addresses, only: [:create, :destroy]
   end
 
   resources :domains, only: [:update, :show], id: /.*/ do
