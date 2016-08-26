@@ -9,7 +9,7 @@ class Host < EPP::Model
     response = client.create(create_command)
 
     self.crDate = response.data.find('//host:crDate').first.content if response.success?
-    raise response.message.inspect
+
     response.success?
   end
 
