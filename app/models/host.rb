@@ -39,8 +39,7 @@ class Host < EPP::Model
 
   def add_ipv4 ipv4
     return false unless valid?
-    result = client.update(add_ipv4_command(ipv4))
-    result.success?
+    client.update(add_ipv4_command(ipv4)).success?
   end
 
   def add_ipv4_command ipv4
