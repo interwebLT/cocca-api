@@ -1,7 +1,7 @@
 development:
-  host:
-  username:
-  password:
+  host: 172.16.46.55
+  username: dummy
+  password: D2tjdfyd2A
 
 test:
   host: test.host
