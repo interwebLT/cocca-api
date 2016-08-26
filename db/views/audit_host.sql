@@ -6,7 +6,7 @@ SELECT
   audit_transaction,
   audit_operation,
   roid,
-  nam,
+  name,
   clid,
   crid,
   createdate
@@ -14,9 +14,11 @@ FROM dblink('dbname=registry user=coccauser password=coccauser', '
   SELECT
     audit_transaction,
     audit_operation,
-    host_name,
-    ip,
-    address
+    roid,
+    name,
+    clid,
+    crid,
+    createdate
   FROM audit.host
 ') cocca (
   audit_transaction BIGINT,
