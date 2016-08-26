@@ -4,7 +4,6 @@ class SecureController < ApplicationController
   before_action :authenticate
 
   def current_partner
-    raise @partner.inspect
     @partner
   end
 
