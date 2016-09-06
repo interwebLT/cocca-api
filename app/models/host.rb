@@ -123,8 +123,8 @@ class Host < EPP::Model
     EPP::Host::Update.new host_name, {
         rem: {
           addr: {
-            ipv4: ipv4,
-            ipv6: ipv6
+            ipv4: address,
+            ipv6: address
           }
         }
       }
