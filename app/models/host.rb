@@ -121,9 +121,10 @@ class Host < EPP::Model
 
   def delete_address_command host_name, address
     EPP::Host::Update.new host_name, {
-      rem: {
-        addr: {
-          address: address
+        rem: {
+          addr: {
+            ipv4: ipv4,
+            ipv6: ipv6
           }
         }
       }
