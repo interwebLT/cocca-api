@@ -35,14 +35,20 @@ class Host < EPP::Model
           ipv4 << address
         end
       }
-      unless ipv6.empty?
-        if add_ipv6 ipv6
+      if !ipv4.empty? && !ipv6.empty?
+        if add_ipv4_and_ipv6 ipv4, ipv6
           return host_address_json params
         end
-      end
-      unless ipv4.empty?
-        if add_ipv4 ipv4
-          return host_address_json params
+      else
+        unless ipv6.empty?
+          if add_ipv6 ipv6
+            return host_address_json params
+          end
+        end
+        unless ipv4.empty?
+          if add_ipv4 ipv4
+            return host_address_json params
+          end
         end
       end
     end
@@ -80,14 +86,6 @@ class Host < EPP::Model
     client.update(add_ipv6_command(ipv6)).success?
   end
 
-  def delete_address host_name, address, ip_list
-    if ip_list.blank?
-      client.update(delete_address_command(host_name, address.split())).success?
-    else
-      client.update(delete_address_command(host_name, ip_list.split(","))).success?
-    end
-  end
-
   def add_ipv6_command ipv6
     EPP::Host::Update.new self.name, {
         add: {
@@ -96,6 +94,29 @@ class Host < EPP::Model
           }
         }
       }
+  end
+
+  def add_ipv4_and_ipv6 ipv4, ipv6
+    client.update(add_ipv4_ipv6_command(ipv4, ipv6)).success?
+  end
+
+  def add_ipv4_ipv6_command ipv4, ipv6
+    EPP::Host::Update.new self.name, {
+        add: {
+          addr: {
+            ipv4: ipv4,
+            ipv6: ipv6
+          }
+        }
+      }
+  end
+
+  def delete_address host_name, address, ip_list
+    if ip_list.blank?
+      client.update(delete_address_command(host_name, address.split())).success?
+    else
+      client.update(delete_address_command(host_name, ip_list.split(","))).success?
+    end
   end
 
   def delete_address_command host_name, address
