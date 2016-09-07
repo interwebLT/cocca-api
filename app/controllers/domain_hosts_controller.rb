@@ -4,10 +4,18 @@ class DomainHostsController < SecureController
                                   domain: params[:domain_id],
                                   name:   params[:name]
 
-    if domain_host.create
-      render json: domain_host
+    unless params[:old_name].nil?
+      old_domain_host = DomainHost.new  partner:  current_partner,
+                                        domain:   params[:domain_id],
+                                        name:     params[:old_name]
+
+      if old_domain_host.destroy
+        create_domain_host domain_host
+      else
+        head :unprocessable_entity
+      end
     else
-      head :unprocessable_entity
+      create_domain_host domain_host
     end
   end
 
@@ -17,6 +25,14 @@ class DomainHostsController < SecureController
                                   name:     params[:id]
 
     if domain_host.destroy
+      render json: domain_host
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  def create_domain_host domain_host
+    if domain_host.create
       render json: domain_host
     else
       head :unprocessable_entity
