@@ -26,7 +26,7 @@ class DomainHost < EPP::Model
   def add_command
     EPP::Domain::Update.new self.domain, {
       add: {
-        ns: [self.name]
+        ns: self.name.split(',')
       }
     }
   end
@@ -34,7 +34,7 @@ class DomainHost < EPP::Model
   def remove_command
     EPP::Domain::Update.new self.domain, {
       rem: {
-        ns: [self.name]
+        ns: self.name.split(',')
       }
     }
   end
