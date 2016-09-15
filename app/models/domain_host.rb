@@ -55,10 +55,18 @@ class DomainHost < EPP::Model
   end
 
   def check_existing_host
+    partner = Partner.find_by name: self.partner
+
+    username = partner ? partner.username : Rails.configuration.x.epp_username
+    password = partner ? partner.password : Rails.configuration.x.epp_password
+    host  = Rails.configuration.x.epp_host
+
+    current_client = EPP::Client.new username, password, host
+
     existing_hosts = []
     domain_hosts = self.name.split(',')
 
-    response = client.info EPP::Domain::Info.new self.domain
+    response = current_client.info EPP::Domain::Info.new self.domain
     info     = EPP::Domain::InfoResponse.new response
     current_domain_hosts_info = info.nameservers
     unless current_domain_hosts_info.nil?
