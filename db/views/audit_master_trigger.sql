@@ -1,4 +1,4 @@
-DROP TRIGGER tr_registry_sync_master_insert ON audit_master;
+DROP TRIGGER tr_registry_sync_master_insert ON audit.master;
 
 CREATE OR REPLACE FUNCTION fn_registry_sync_master_insert() RETURNS TRIGGER
 AS

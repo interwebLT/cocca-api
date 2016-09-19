@@ -2,10 +2,14 @@ class HostsController < SecureController
   def create
     host = Host.new host_params
 
-    if host.save
+    if host.exists? name: host.name
       render json: host
     else
-      head :unprocessable_entity
+      if host.save
+        render json: host
+      else
+        head :unprocessable_entity
+      end
     end
   end
 
