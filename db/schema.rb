@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919081819) do
+ActiveRecord::Schema.define(version: 20160919090045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,60 @@ ActiveRecord::Schema.define(version: 20160919081819) do
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false
     t.string   "token",      :limit=>32, :null=>false
+  end
+
+  create_table "registry_sync_contacts", force: :cascade do |t|
+    t.integer  "audit_transaction"
+    t.string   "audit_operation"
+    t.string   "roid"
+    t.string   "audit_contactid"
+    t.datetime "exdate"
+    t.text     "st_cl_deleteprohibited"
+    t.text     "st_cl_transferprohibited"
+    t.text     "st_cl_updateprohibited"
+    t.text     "st_linked"
+    t.text     "st_ok"
+    t.text     "st_pendingcreate"
+    t.text     "st_pendingdelete"
+    t.text     "st_pendingtransfer"
+    t.text     "st_pendingupdate"
+    t.text     "st_sv_deleteprohibited"
+    t.text     "st_sv_transferprohibited"
+    t.text     "st_sv_updateprohibited"
+    t.string   "intpostalname"
+    t.string   "intpostalorg"
+    t.string   "intpostalstreet1"
+    t.string   "intpostalstreet2"
+    t.string   "intpostalstreet3"
+    t.string   "intpostalcity"
+    t.string   "intpostalsp"
+    t.string   "intpostalpc"
+    t.string   "intpostalcc"
+    t.string   "locpostalname"
+    t.string   "locpostalorg"
+    t.string   "locpostalstreet1"
+    t.string   "locpostalstreet2"
+    t.string   "locpostalstreet3"
+    t.string   "locpostalcity"
+    t.string   "locpostalsp"
+    t.string   "locpostalpc"
+    t.string   "locpostalcc"
+    t.string   "voice"
+    t.string   "voicex"
+    t.string   "fax"
+    t.string   "faxx"
+    t.text     "email"
+    t.string   "authinfopw"
+    t.string   "clid"
+    t.string   "crid"
+    t.datetime "createdate"
+    t.string   "upid"
+    t.datetime "updatedate"
+    t.datetime "transferdate"
+    t.boolean  "queued"
+    t.boolean  "acknowledged"
+    t.datetime "created_at",               :null=>false
+    t.datetime "updated_at",               :null=>false
   end
 
   create_table "registry_sync_domains", force: :cascade do |t|
