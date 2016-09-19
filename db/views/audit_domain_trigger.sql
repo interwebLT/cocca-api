@@ -25,9 +25,11 @@ CASE WHEN new.st_sv_hold IS NULL THEN 'NULL' ELSE '''' || new.st_sv_hold || ''''
 CASE WHEN new.st_sv_renewprohibited IS NULL THEN 'NULL' ELSE '''' || new.st_sv_renewprohibited || '''' END || ', ' ||
 CASE WHEN new.st_sv_transferprohibited IS NULL THEN 'NULL' ELSE '''' || new.st_sv_transferprohibited || '''' END || ', ' ||
 CASE WHEN new.st_sv_updateprohibited IS NULL THEN 'NULL' ELSE '''' || new.st_sv_updateprohibited || '''' END || ', ' ||
-', '''||new.registrant||''', '''||new.authinfopw||''', '''||new.clid||''', '''||new.crid||''', '''||new.createdate||''', '''||
+CASE WHEN new.registrant IS NULL THEN 'NULL' ELSE '''' || new.registrant || '''' END || ', ' ||
+CASE WHEN new.authinfopw IS NULL THEN 'NULL' ELSE '''' || new.authinfopw || '''' END || ', ''' ||
+new.clid||''', '''||new.crid||''', '''||new.createdate||''', '||
 CASE WHEN new.upid IS NULL THEN 'NULL' ELSE '''' || new.upid || '''' END || ', ' ||
-CASE WHEN new.updatedate IS NULL THEN 'NULL' ELSE '''' || new.updatedate || '''' END ||
+CASE WHEN new.updatedate IS NULL THEN 'NULL' ELSE '''' || new.updatedate || '''' END || ', ' ||
 CASE WHEN new.transferdate IS NULL THEN 'NULL' ELSE '''' || new.transferdate || '''' END ||
 ', '''||new.zone||''', '||
 CASE WHEN new.deletedate IS NULL THEN 'NULL' ELSE '''' || new.deletedate || '''' END || ', false, false)');
