@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919090045) do
+ActiveRecord::Schema.define(version: 20160920075947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,18 @@ ActiveRecord::Schema.define(version: 20160919090045) do
     t.datetime "updated_at",               :null=>false
   end
 
+  create_table "registry_sync_domain_hosts", force: :cascade do |t|
+    t.integer  "audit_transaction"
+    t.string   "audit_operation"
+    t.string   "domain_name"
+    t.string   "host_name"
+    t.integer  "sort_order"
+    t.boolean  "queued"
+    t.boolean  "acknowledged"
+    t.datetime "created_at",        :null=>false
+    t.datetime "updated_at",        :null=>false
+  end
+
   create_table "registry_sync_domains", force: :cascade do |t|
     t.integer  "audit_transaction"
     t.string   "audit_operation"
@@ -255,6 +267,45 @@ ActiveRecord::Schema.define(version: 20160919090045) do
     t.datetime "created_at",               :null=>false
     t.datetime "updated_at",               :null=>false
     t.datetime "transferdate"
+  end
+
+  create_table "registry_sync_host_addresses", force: :cascade do |t|
+    t.integer  "audit_transaction"
+    t.string   "audit_operation"
+    t.string   "host_name"
+    t.string   "ip"
+    t.string   "address"
+    t.boolean  "queued"
+    t.boolean  "acknowledged"
+    t.datetime "created_at",        :null=>false
+    t.datetime "updated_at",        :null=>false
+  end
+
+  create_table "registry_sync_hosts", force: :cascade do |t|
+    t.integer  "audit_transaction"
+    t.string   "audit_operation"
+    t.string   "roid"
+    t.string   "name"
+    t.text     "st_cl_deleteprohibited"
+    t.text     "st_cl_updateprohibited"
+    t.text     "st_linked"
+    t.text     "st_ok"
+    t.text     "st_pendingcreate"
+    t.text     "st_pendingdelete"
+    t.text     "st_pendingtransfer"
+    t.text     "st_pendingupdate"
+    t.text     "st_sv_deleteprohibited"
+    t.text     "st_sv_updateprohibited"
+    t.string   "clid"
+    t.string   "crid"
+    t.datetime "createdate"
+    t.string   "upid"
+    t.datetime "updatedate"
+    t.datetime "transferdate"
+    t.boolean  "queued"
+    t.boolean  "acknowledged"
+    t.datetime "created_at",             :null=>false
+    t.datetime "updated_at",             :null=>false
   end
 
   create_table "registry_sync_masters", force: :cascade do |t|
