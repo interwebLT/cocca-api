@@ -25,6 +25,7 @@ module Sync
       master.domains.each do |domain|
         RegisterDomainJob.perform_later domain.partner, domain.as_json if domain.register_domain?
         RenewDomainJob.perform_later    domain.partner, domain.as_json if domain.renew_domain?
+        PendingTransferDomainJob.perform_later domain.partner, domain.as_json, if domain.pending_transfer?
         TransferDomainJob.perform_later domain.partner, domain.as_json if domain.transfer_domain?
       end
 
@@ -41,7 +42,7 @@ module Sync
 
     records.each do |master|
       master.domains.each do |domain|
-        UpdateDomainJob.perform_later domain.partner, domain.as_json if domain.update_domain?
+        UpdateDomainJob.perform_later domain.partner, domain.as_json if domain.update_domain? and !domain.pending_transfer?
 
         domain.domain_hosts.each do |domain_host|
           CreateDomainHostJob.perform_later domain.partner, domain_host.as_json if domain_host.insert_operation?
