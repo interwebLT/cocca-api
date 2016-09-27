@@ -18,7 +18,8 @@ class UpdateDomainJob < ApplicationJob
       server_delete_prohibited:   record[:server_delete_prohibited],
       server_renew_prohibited:    record[:server_renew_prohibited],
       server_transfer_prohibited: record[:server_transfer_prohibited],
-      server_update_prohibited:   record[:server_update_prohibited]
+      server_update_prohibited:   record[:server_update_prohibited],
+      status_pending_transfer:    record[:st_pending_transfer],
     }
 
     [:admin_handle, :billing_handle, :tech_handle].each do |handle|
