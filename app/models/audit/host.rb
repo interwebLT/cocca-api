@@ -31,7 +31,8 @@ class Audit::Host < ActiveRecord::Base
 
   def as_json options = nil
     {
-      name:     self.name
+      name:     self.name,
+      partner_name: self.clid,
     }
   end
 end

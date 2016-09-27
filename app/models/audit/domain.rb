@@ -71,6 +71,10 @@ class Audit::Domain < ActiveRecord::Base
   def transfer_domain?
     update_operation? and ledger.present? and ledger.transfer? and (ledger.client_roid == clid)
   end
+  
+  def pending_transfer?
+    update_operation? and ledger.nil? and !self.st_pendingtransfer.blank?
+  end
 
   def as_json options = nil
     result = {
@@ -89,6 +93,7 @@ class Audit::Domain < ActiveRecord::Base
       server_renew_prohibited:    !self.st_sv_renewprohibited.blank?,
       server_transfer_prohibited: !self.st_sv_transferprohibited.blank?,
       server_update_prohibited:   !self.st_sv_updateprohibited.blank?,
+      status_pending_transfer:    self.st_pendingtransfer,
       domain_hosts:               []
     }
 
