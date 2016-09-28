@@ -7,7 +7,7 @@ DECLARE
 -- nothing to declare
 BEGIN
 PERFORM
-DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO registry_sync_masters(audit_transaction, audit_user, audit_login, audit_time, audit_ip, queued, acknowledged) VALUES('||new.audit_transaction||' , ' ||
+public.DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO public.registry_sync_masters(audit_transaction, audit_user, audit_login, audit_time, audit_ip, queued, acknowledged) VALUES('||new.audit_transaction||' , ' ||
 CASE WHEN new.audit_user IS NULL THEN 'NULL' ELSE '''' || new.audit_user || '''' END ||
 ', ''' || new.audit_login||''', '''||new.audit_time||''', '''||new.audit_ip||''', false, false)');
 RETURN NEW;
