@@ -7,8 +7,7 @@ class Cocca::Ledger < ActiveRecord::Base
 
   def self.get_transaction_id_seq
     Cocca::Ledger.connection.select_value("select last_value from audit.transaction_id_seq")
-    Cocca::Ledger.connection.select_value("SELECT nextval('audit.transaction_id_seq'::regclass)")
-    current_sequence = Cocca::Ledger.connection.select_value("SELECT currval('audit.transaction_id_seq'::regclass)")
+    current_sequence = Cocca::Ledger.connection.select_value("SELECT nextval('audit.transaction_id_seq'::regclass)")
 
     current_sequence
   end
