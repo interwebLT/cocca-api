@@ -7,7 +7,7 @@ DECLARE
 -- nothing to declare
 BEGIN
 PERFORM
-DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO registry_sync_host_addresses(audit_transaction, audit_operation, host_name, ip, address, queued, acknowledged) VALUES('||new.audit_transaction||' , '''||new.audit_operation||''', '''||new.host_name||''', '''||new.ip||''', '''||new.address||''', false, false)');
+public.DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO public.registry_sync_host_addresses(audit_transaction, audit_operation, host_name, ip, address, queued, acknowledged) VALUES('||new.audit_transaction||' , '''||new.audit_operation||''', '''||new.host_name||''', '''||new.ip||''', '''||new.address||''', false, false)');
 RETURN NEW;
 END;
 $BODY$

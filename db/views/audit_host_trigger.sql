@@ -7,7 +7,7 @@ DECLARE
 -- nothing to declare
 BEGIN
 PERFORM
-DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO registry_sync_hosts(audit_transaction, audit_operation, roid, name, st_cl_deleteprohibited, st_cl_updateprohibited, st_linked, st_ok, st_pendingcreate, st_pendingdelete, st_pendingtransfer, st_pendingupdate, st_sv_deleteprohibited, st_sv_updateprohibited, clid, crid, createdate, upid, updatedate, transferdate, queued, acknowledged) VALUES('||new.audit_transaction||' , '''||new.audit_operation||''', '''||new.roid||''', '''||new.name||''', '||
+public.DBLINK_EXEC('dbname=cocca user=coccauser password=coccauser','INSERT INTO public.registry_sync_hosts(audit_transaction, audit_operation, roid, name, st_cl_deleteprohibited, st_cl_updateprohibited, st_linked, st_ok, st_pendingcreate, st_pendingdelete, st_pendingtransfer, st_pendingupdate, st_sv_deleteprohibited, st_sv_updateprohibited, clid, crid, createdate, upid, updatedate, transferdate, queued, acknowledged) VALUES('||new.audit_transaction||' , '''||new.audit_operation||''', '''||new.roid||''', '''||new.name||''', '||
 CASE WHEN new.st_cl_deleteprohibited IS NULL THEN 'NULL' ELSE '''' || new.st_cl_deleteprohibited || '''' END || ', ' ||
 CASE WHEN new.st_cl_updateprohibited IS NULL THEN 'NULL' ELSE '''' || new.st_cl_updateprohibited || '''' END || ', ' ||
 CASE WHEN new.st_linked IS NULL THEN 'NULL' ELSE '''' || new.st_linked || '''' END || ', ' ||
