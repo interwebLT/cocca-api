@@ -3,11 +3,15 @@ class CreditsController < SecureController
   def show
     client = Cocca::Client.find_by_name(params[:id])
 
-    unless client.nil?
-      client_blance = client.ledgers.last.balance.to_f
-      render json: client_blance
-    else
+    if client.nil?
       render json: 0
+    else
+      if client.ledgers.count > 0
+        client_blance = client.ledgers.last.balance.to_f
+        render json: client_blance
+      else
+        render json: 0
+      end
     end
   end
 
