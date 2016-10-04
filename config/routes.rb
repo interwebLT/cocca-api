@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   end
 
   resources :partners, only: [:create]
-  resources :credits, only: [:create]
+  resources :credits, only: [:create, :show]
 end
