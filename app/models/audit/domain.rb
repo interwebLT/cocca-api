@@ -47,6 +47,15 @@ class Audit::Domain < ActiveRecord::Base
 
     result.values
   end
+  
+  def transfer_request
+    results = Audit::TransferRequest.where audit_transaction: self.audit_transaction, domain_name: self.name
+    target = nil
+    results.each do |request|
+      target = request if request.approved?
+    end
+    target
+  end
 
   def domain_event
     Audit::DomainEvent.find_by audit_transaction: self.audit_transaction, domain_name: self.name
@@ -93,10 +102,17 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def as_json options = nil
+    period = if transfer_with_renew?
+      (self.transfer_request.period if self.transfer_request)
+    elsif self.domain_event
+      self.domain_event.period
+    else
+      nil
+    end
     result = {
       domain:                     self.name,
       authcode:                   self.authinfopw,
-      period:                     (self.domain_event.period if self.domain_event),
+      period:                     period,
       registrant_handle:          self.registrant,
       ordered_at:                 self.master.audit_time.utc.iso8601,
       client_hold:                !self.st_cl_hold.blank?,
