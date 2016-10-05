@@ -1,4 +1,4 @@
-class CreateHostJob < ApplicationJob
+class UpdateHostJob < ApplicationJob
   URL = "#{Rails.configuration.x.registry_url}/hosts"
 
   queue_as :sync_cocca_records

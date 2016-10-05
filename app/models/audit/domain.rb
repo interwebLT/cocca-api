@@ -55,6 +55,22 @@ class Audit::Domain < ActiveRecord::Base
   def ledger
     Audit::Ledger.find_by audit_transaction: self.audit_transaction, domain_name: self.name
   end
+  
+  def transfer_ledger?
+    transfer_ledger = Audit::Ledger.find_by audit_transaction: self.audit_transaction, domain_name: self.name, trans_type: Audit::Ledger::TRANSFER
+    transfer_ledger.try(:client_roid) == clid
+  end
+  
+  def transfer_with_renew?
+    ledgers = Audit::Ledger.where(audit_transaction: self.audit_transaction, domain_name: self.name)
+    renew = false
+    transfer = false
+    ledgers.each do |ledger|
+      renew = true if ledger.renew?
+      transfer = true if ledger.transfer?
+    end
+    renew && transfer
+  end
 
   def register_domain?
     self.insert_operation?
@@ -69,7 +85,7 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def transfer_domain?
-    update_operation? and ledger.present? and ledger.transfer? and (ledger.client_roid == clid)
+    update_operation? and ledger.present? and transfer_ledger?
   end
   
   def pending_transfer?
