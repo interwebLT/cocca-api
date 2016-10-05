@@ -5,11 +5,11 @@ class Audit::TransferRequest < ActiveRecord::Base
   CLIENT_APPROVED = 'CLIENT_APPROVED'
 
   def period
-    self.in_years? ? self.extension_unit : (self.extension_unit / 12)
+    self.in_years? ? self.extension_num_units : (self.extension_num_units / 12)
   end
 
   def in_years?
-    self.extension_units == 'y'
+    self.extension_unit == 'y'
   end
   
   def approved?
