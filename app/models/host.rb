@@ -146,10 +146,13 @@ class Host < EPP::Model
   end
 
   def exists? name:
-    command   = EPP::Host::Check.new name
-    response  = client.check command
-    check     = EPP::Host::CheckResponse.new response
+    begin
+      command   = EPP::Host::Check.new name
+      response  = client.check command
+      check     = EPP::Host::CheckResponse.new response
 
-    not check.available? name
+      not check.available? name
+    rescue
+      raise EPP::ResponseError
   end
 end
