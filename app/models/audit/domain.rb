@@ -61,8 +61,15 @@ class Audit::Domain < ActiveRecord::Base
     transfer_ledger.try(:client_roid) == clid
   end
   
-  def renew_ledger?
-    Audit::Ledger.where(audit_transaction: self.audit_transaction, domain_name: self.name, trans_type: Audit::Ledger::RENEW).count > 0
+  def transfer_with_renew?
+    ledgers = Audit::Ledger.where(audit_transaction: self.audit_transaction, domain_name: self.name)
+    renew = false
+    transfer = false
+    ledgers.each do |ledger|
+      renew = true if ledger.renew?
+      transfer = true if ledger.transfer?
+    end
+    renew && transfer
   end
 
   def register_domain?
@@ -74,7 +81,7 @@ class Audit::Domain < ActiveRecord::Base
   end
 
   def renew_domain?
-    update_operation? and ledger.present? and renew_ledger?
+    update_operation? and ledger.present? and ledger.renew?
   end
 
   def transfer_domain?
