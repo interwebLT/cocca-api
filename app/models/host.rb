@@ -152,12 +152,16 @@ class Host < EPP::Model
       check     = EPP::Host::CheckResponse.new response
 
       not check.available? name
-    rescue Exception => e
-      if e.message == "Authentication error; EPP Login prohibited (code 2200)"
+    rescue Exception => error
+      if error.message == "Authentication error; EPP Login prohibited (code 2200)"
         host_zone = name.split(".").last
         if host_zone != "ph"
           return true
+        else
+          raise error
         end
+      else
+        raise error
       end
     end
   end
