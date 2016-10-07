@@ -1,5 +1,6 @@
 class Audit::TransferRequest < ActiveRecord::Base
   self.table_name = :audit_transfer_request
+  self.primary_key = :transfer_request_id
   
   SERVER_APPROVED = 'SERVER_APPROVED'
   CLIENT_APPROVED = 'CLIENT_APPROVED'
