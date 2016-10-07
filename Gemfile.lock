@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/dotph/epp-client.git
-  revision: 5c5f29a03805bd58be8d78f9944b03d477222d49
+  revision: 0d916f28dfa47ee35cefda45fba5df0fa7c56da0
   specs:
     epp-client (2.1.0)
       libxml-ruby
