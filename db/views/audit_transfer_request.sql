@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS audit_transfer_request;
 
 CREATE VIEW audit_transfer_request AS
 SELECT
-  id,
+  id AS "transfer_request_id",
   audit_transaction,
   audit_operation,
   requestdate AS "request_date",
