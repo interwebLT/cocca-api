@@ -26,13 +26,14 @@ class Host < EPP::Model
         return false
       end
     else
+      ipv4_regEx = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
       ipv4 = []
       ipv6 = []
       ip_list.map{|address|
-        if address.length > 15
-          ipv6 << address
-        else
+        if (address.length =~ ipv4_regEx)
           ipv4 << address
+        else
+          ipv6 << address
         end
       }
       if !ipv4.empty? && !ipv6.empty?
