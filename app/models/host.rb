@@ -30,7 +30,7 @@ class Host < EPP::Model
       ipv4 = []
       ipv6 = []
       ip_list.map{|address|
-        if (address.length =~ ipv4_regEx)
+        if (address =~ ipv4_regEx)
           ipv4 << address
         else
           ipv6 << address
@@ -116,7 +116,7 @@ class Host < EPP::Model
     if ip_list.blank?
       client.update(delete_address_command(host_name, address.split())).success?
     else
-      client.update(delete_address_command(host_name, ip_list.split(","))).success?
+      success = client.update(delete_address_command(host_name, ip_list.split(","))).message
     end
   end
 
