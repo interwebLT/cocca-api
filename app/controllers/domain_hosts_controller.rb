@@ -36,8 +36,8 @@ class DomainHostsController < SecureController
   end
 
   def create_delete_bulk
-    new_list    = params[:domain_host_add].join(',')
-    delete_list = params[:domain_host_delete].join(',')
+    new_list    = params[:domain_host_add] ? params[:domain_host_add].join(',') : ""
+    delete_list = params[:domain_host_delete] ? params[:domain_host_delete].join(',') : ""
     new_domain_host = DomainHost.new  partner: current_partner,
                                       domain: params[:domain_id],
                                       name: new_list
@@ -46,10 +46,14 @@ class DomainHostsController < SecureController
                                       domain: params[:domain_id],
                                       name: delete_list
 
-    if remove_domain_host.destroy
+    if delete_list.blank?
       create_domain_host new_domain_host
     else
-      head :unprocessable_entity
+      if remove_domain_host.destroy
+        create_domain_host new_domain_host
+      else
+        head :unprocessable_entity
+      end
     end
   end
 
