@@ -13,4 +13,9 @@ class NzTester
 		client = EPP::Client.new('115', 'F3dc40b2E', 'srstestepp.srs.net.nz', {:ssl_context => context, :extensions => extension, :services => services, :address_family => 'AF_INET'})
 		client
 	end
+	
+	def self.check
+		client = NzTester.client
+		client.check EPP::Domain::Check.new 'test.nz'
+	end
 end
