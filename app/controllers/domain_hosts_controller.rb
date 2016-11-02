@@ -50,7 +50,12 @@ class DomainHostsController < SecureController
       create_domain_host new_domain_host
     else
       if remove_domain_host.destroy
-        create_domain_host new_domain_host
+        if new_list.blank?
+          render json: {status: 200, json: { message: 'Domain Host Deleted' }}
+
+        else
+          create_domain_host new_domain_host
+        end
       else
         head :unprocessable_entity
       end
