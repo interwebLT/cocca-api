@@ -14,5 +14,5 @@ Rails.application.routes.draw do
 
   resources :partners, only: [:create]
   resources :credits, only: [:create, :show]
-  resources :transfer_requests, only: [:show]
+  resources :transfer_requests, only: [:show, :create, :update, :destroy]
 end
