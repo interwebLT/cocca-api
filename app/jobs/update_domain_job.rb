@@ -27,5 +27,13 @@ class UpdateDomainJob < ApplicationJob
     end
 
     patch url, body, partner: partner
+
+  rescue Exceptions::RuntimeError => error
+    if domain.exists? name: record[:name]
+      raise error
+    else
+      result = { message: 'Domain already deleted in cocca' }
+      render status: 200, json: result
+    end
   end
 end
