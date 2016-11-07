@@ -5,7 +5,6 @@ class UpdateDomainJob < ApplicationJob
 
   def perform partner, record
     url = "#{URL}/#{record[:domain]}"
-
     body = {
       registrant_handle:          record[:registrant_handle],
       authcode:                   record[:authcode],
@@ -27,5 +26,13 @@ class UpdateDomainJob < ApplicationJob
     end
 
     patch url, body, partner: partner
+  rescue Exception => error
+    domain = Domain.new
+    domain.partner = partner
+
+    if domain.exists? name: record[:domain]
+      raise error
+    else
+    end
   end
 end
