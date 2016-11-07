@@ -120,6 +120,10 @@ GEM
     json (1.8.3)
     key_struct (0.4.2)
     kgio (2.10.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libxml-ruby (2.9.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -314,6 +318,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   httparty
+  letter_opener
   minitest-spec-rails
   pg
   rails (= 4.2.6)

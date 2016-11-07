@@ -33,6 +33,9 @@ class UpdateDomainJob < ApplicationJob
     if domain.exists? name: record[:domain]
       raise error
     else
+      ["reynan@dot.ph", "jm.mendoza@dot.ph", "ca.galamay@dot.ph"].map{|email|
+        UpdatingDeletedDomain.delay_for(1.minute, queue: "cocca_api_mailer").send_notice(record[:domain], partner, email)
+      }
     end
   end
 end
