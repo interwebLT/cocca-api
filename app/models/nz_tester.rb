@@ -1,5 +1,5 @@
 class NzTester
-	def self.client
+	def self.client id='115'
 		context = OpenSSL::SSL::SSLContext.new
 		context.ca_file = '/home/deploy/ssl/nzrs-root-2012.pem'
 		raw = File.read '/home/deploy/ssl/mysrs.pem'
@@ -23,7 +23,6 @@ class NzTester
     {
       postal_info: {
         name: 'Joe Research',
-        org:  'Some Org',
         addr: {
           street: '123 Any Street',
           city: 'Some City',
@@ -32,8 +31,8 @@ class NzTester
           cc: 'PH'
         }
       },
-      voice:  '5551000',
-      fax:  '5551001',
+      voice:  '+64.95551000',
+      fax:  '+64.95551001',
       email:  'joe@someorg.ph',
       auth_info:  { pw: 'ABCDEF1234' }
     }
