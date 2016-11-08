@@ -5,11 +5,28 @@ class Host < EPP::Model
 
   def save
     return false unless valid?
+    valid_second_level_domain = [] #pending
+    host_name_array = self.name.strip.split(".")
+
+    if host_name_array.last == "ph"
+      if valid_second_level_domain.include?  host_name_array[host_name_array.length - 2]
+        partner = Partner.find_by name: "dummy"
+      else
+        partner = Partner.find_by name: self.partner
+      end
+    else
+      partner = Partner.find_by name: self.partner
+    end
+
+    username = partner ? partner.username : Rails.configuration.x.epp_username
+    password = partner ? partner.password : Rails.configuration.x.epp_password
+    host  = Rails.configuration.x.epp_host
+
+    client = EPP::Client.new username, password, host
 
     response = client.create(create_command)
 
     self.crDate = response.data.find('//host:crDate').first.content if response.success?
-
     response.success?
   end
 
