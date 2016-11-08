@@ -18,4 +18,33 @@ class NzTester
 		client = NzTester.client
 		client.check EPP::Domain::Check.new 'test.nz'
 	end
+	
+	def self.contact_params
+    {
+      postal_info: {
+        name: 'Joe Research',
+        org:  'Some Org',
+        addr: {
+          street: '123 Any Street',
+          city: 'Some City',
+          sp: 'State',
+          pc: '1100',
+          cc: 'PH'
+        }
+      },
+      voice:  '5551000',
+      fax:  '5551001',
+      email:  'joe@someorg.ph',
+      auth_info:  { pw: 'ABCDEF1234' }
+    }
+	end
+	
+	def self.domain_params registrant_handle
+    {
+      period: "1y",
+      registrant: registrant_handle,
+      auth_info:  { pw: 'ABCDEF1234' },
+      nameservers: []
+    }
+  end
 end
