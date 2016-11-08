@@ -10,7 +10,7 @@ class NzTester
 		context.key = key
 		services = ['urn:ietf:params:xml:ns:domain-1.0', 'urn:ietf:params:xml:ns:contact-1.0']
 		extension = ['urn:ietf:params:xml:ns:secDNS-1.1']
-		client = EPP::Client.new('115', 'F3dc40b2E', 'srstestepp.srs.net.nz', {:ssl_context => context, :extensions => extension, :services => services, :address_family => 'AF_INET'})
+		client = EPP::Client.new(id, 'F3dc40b2E', 'srstestepp.srs.net.nz', {:ssl_context => context, :extensions => extension, :services => services, :address_family => 'AF_INET'})
 		client
 	end
 	
