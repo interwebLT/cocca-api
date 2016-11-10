@@ -5,7 +5,6 @@ class UpdateDomainJob < ApplicationJob
 
   def perform partner, record
     url = "#{URL}/#{record[:domain]}"
-
     body = {
       registrant_handle:          record[:registrant_handle],
       authcode:                   record[:authcode],
@@ -27,5 +26,16 @@ class UpdateDomainJob < ApplicationJob
     end
 
     patch url, body, partner: partner
+  rescue Exception => error
+    domain = Domain.new
+    domain.partner = partner
+
+    if domain.exists? name: record[:domain]
+      raise error
+    else
+      ["reynan@dot.ph", "jm.mendoza@dot.ph", "ca.galamay@dot.ph"].map{|email|
+        UpdatingDeletedDomain.delay_for(1.minute, queue: "cocca_api_mailer").send_notice(record[:domain], partner, email)
+      }
+    end
   end
 end
